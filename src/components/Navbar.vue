@@ -22,30 +22,45 @@
           <li class="nav-item">
             <router-link :to="'/about'" class="nav-link"> About </router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="'/login'">Login</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="'/signup'">Signup</router-link>
-          </li>
+          <div v-if="!user" class="d-flex">
+            <li class="nav-item">
+              <router-link class="nav-link" :to="'/login'">Login</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="'/signup'">Signup</router-link>
+            </li>
+          </div>
+          <div v-else class="d-flex">
+            <li class="nav-item">
+              <router-link class="nav-link" :to="'/profile'"
+                >Profile: {{ user.email }}</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" @click="logout">Logout</button>
+            </li>
+          </div>
         </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Nav-bar",
+  components: {},
+  setup() {
+    const store = useStore();
+    const user = computed(() => store.state.user);
+    const logout = () => {
+      store.dispatch("logout");
+    };
+    return { user, logout };
+  },
 };
 </script>
 

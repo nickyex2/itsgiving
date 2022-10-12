@@ -3,48 +3,63 @@
     <h1>This is a login page</h1>
     <form>
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <label for="loginEmail" class="form-label">Email address</label>
         <input
           type="email"
           class="form-control"
-          id="exampleInputEmail1"
+          id="loginEmail"
           aria-describedby="emailHelp"
+          v-model="email"
         />
         <div id="emailHelp" class="form-text">
           We'll never share your email with anyone else.
         </div>
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <label for="loginPassword" class="form-label">Password</label>
         <input
           type="password"
           class="form-control"
-          id="exampleInputPassword1"
+          id="loginPassword"
+          v-model="password"
         />
       </div>
       <button
         type="submit"
         class="btn btn-primary"
-        @click.prevent="handleClick"
+        @click.prevent="handleLogin"
       >
-        Submit
+        Login
       </button>
     </form>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default {
   name: "Login-view",
   components: {},
   setup() {
+    const email = ref("");
+    const password = ref("");
+    const store = useStore();
     const router = useRouter();
-    const handleClick = () => {
-      console.log("clicked");
-      router.push("/");
+    const handleLogin = async () => {
+      // console.log("clicked");
+      try {
+        await store.dispatch("login", {
+          email: email.value,
+          password: password.value,
+        });
+        router.push("/");
+      } catch (error) {
+        console.log(error);
+      }
     };
-    return { handleClick };
+    return { handleLogin, email, password };
   },
 };
 </script>
