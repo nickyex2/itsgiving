@@ -38,6 +38,11 @@
         </div>
         <div v-else class="d-flex justify-content-end">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <img
+              :src="user.photoURL"
+              alt=""
+              style="width: 50px; height: 50px"
+            />
             <li class="nav-item">
               <router-link class="nav-link" :to="'/profile'"
                 >Profile: {{ user.email }}</router-link

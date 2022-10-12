@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const store = createStore({
   state: {
@@ -52,6 +53,9 @@ const store = createStore({
         });
     },
     async signup({ commit }, payload) {
+      const storage = getStorage();
+      const storageRef = ref(storage, "defaultProfilePic.png");
+      const photoURL = await getDownloadURL(storageRef);
       const response = await createUserWithEmailAndPassword(
         auth,
         payload.email,
@@ -62,9 +66,9 @@ const store = createStore({
         const user = response.user;
         updateProfile(user, {
           displayName: payload.userName,
+          photoURL: photoURL,
         });
         commit("setUser", user);
-        // ...
       } else {
         throw new Error("Could not complete Signup");
       }
