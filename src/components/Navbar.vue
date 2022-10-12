@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg bg-light">
     <!-- can edit this is just the base line -->
     <div class="container-fluid">
-      <router-link class="navbar-brand" :to="'/'">Navbar</router-link>
+      <router-link class="navbar-brand" :to="'/'">ItsGiving</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,27 +20,34 @@
             <router-link :to="'/'" class="nav-link"> Home </router-link>
           </li>
           <li class="nav-item">
+            <router-link :to="'/about'" class="nav-link"> Search </router-link>
+          </li>
+          <li class="nav-item">
             <router-link :to="'/about'" class="nav-link"> About </router-link>
           </li>
-          <div v-if="!user" class="d-flex">
+        </ul>
+        <div v-if="!user" class="d-flex me-2">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <router-link class="nav-link" :to="'/login'">Login</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" :to="'/signup'">Signup</router-link>
             </li>
-          </div>
-          <div v-else class="d-flex">
+          </ul>
+        </div>
+        <div v-else class="d-flex justify-content-end">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <router-link class="nav-link" :to="'/profile'"
                 >Profile: {{ user.email }}</router-link
               >
             </li>
             <li class="nav-item">
-              <button class="nav-link" @click="logout">Logout</button>
+              <button class="nav-link btn" @click="logout">Logout</button>
             </li>
-          </div>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
