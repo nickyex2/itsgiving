@@ -63,8 +63,7 @@
 
     <!-- card carousel -->
     <!-- end -->
-    <div class="container-fluid">
-    </div>
+    <div class="container-fluid"></div>
 
     <!-- explore icons -->
     <div class="six_box">
