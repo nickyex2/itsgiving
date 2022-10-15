@@ -7,8 +7,7 @@
                     <div class="col mx-2 text-center border border-3 rounded border-danger">{{error}}</div>
                 </div>
                 <div class="row form-floating pt-3">
-                    <div class="col-3 pe-0"><button type="button" class="w-100 btn btn-danger"
-                            @click="locatorButtonPressed">
+                    <div class="col-3 pe-0"><button type="button" class="w-100 btn btn-danger" @click="locatorButtonPressed">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                                 class="bi bi-geo-alt" viewBox="0 0 16 16">
                                 <path
@@ -19,13 +18,12 @@
                             <span style="font-size:0.75em">Locate Me</span>
                         </button></div>
                     <div class="col-9 ps-0">
-                        <input class="form-control h-100" v-model="address"
-                            placeholder="Alternatively Enter Your Address" ref="autocomplete" required>
+                        <input class="form-control h-100" v-model="address" placeholder="Alternatively Enter Your Address"  ref="autocomplete" required>
                     </div>
                 </div>
                 <div class="row form-floating pt-3">
                     <div class="col-md-6">
-                        <select v-model="type" class="form-select" required>
+                        <select  v-model="type" class="form-select" required>
                             <option value="" disabled selected hidden>-----Select a Category-----</option>
                             <option value="All">All</option>
                             <option value="Children">Children</option>
@@ -59,17 +57,10 @@
                         <button type='button' class='btn btn-danger w-100' disabled>Find CSP Near Me</button>
                     </div>
                     <div class="col py-3" v-else>
-                        <span @click="showresults=true"><button type='button' @click="findCloseBuyButtonPressed"
-                                class='btn btn-danger w-100'>Find CSP Near Me</button></span>
+                        <span @click="showresults=true"><button type='button' @click="findCloseBuyButtonPressed" class='btn btn-danger w-100'>Find CSP Near Me</button></span>
                     </div>
                 </div>
-            </div>
-            <div class="col-6" ref="map">
-            </div>
-        </div> <!-- row -->
-        <div class="row pt-3">
-            <div class="col-6 border border-3 rounded" v-show="showresults">
-                <div style="max-height:500px;overflow:auto;" ref="cspresults">
+                <div style="max-height:500px;overflow:auto;" v-show="showresults" ref="cspresults">
                     <div class="h4 p-2 sticky-top bg-white">Displaying {{totalResults}} Results</div>
                     <div class="item" v-for="(place, index) in places" :key="place.id" @click="showInfoWindow(index)"
                         :class="{'active' : activeIndex === index}" style="padding-top:10px;padding-bottom:10px">
@@ -88,7 +79,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="col-6" ref="map">
+            </div>
+        </div> <!-- row -->
     </div> <!-- container -->
 
 </template>
@@ -111,7 +104,7 @@ export default {
             markers: [],
             activeIndex: -1,
             showresults: false,
-            totalResults: 0,
+            totalResults:0,
         };
     },
 
@@ -218,7 +211,7 @@ export default {
                     }
                 }
             }
-            this.totalResults = this.places.length
+            this.totalResults= this.places.length
             this.showPlacesOnMap();
         },
         showLocationOnTheMap(latitude, longitude) {
@@ -233,7 +226,7 @@ export default {
                 position: new google.maps.LatLng(latitude, longitude),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                label: "You"
+                label:"You"
             });
         },
         showPlacesOnMap() {
@@ -246,7 +239,7 @@ export default {
                 position: new google.maps.LatLng(this.lat, this.lng),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                label: "You",
+                label:"You",
             });
             const infoWindow = new google.maps.InfoWindow();
             console.log(this.places)
@@ -259,7 +252,7 @@ export default {
                     position: new google.maps.LatLng(lat, lng),
                     map: map,
                     animation: google.maps.Animation.DROP,
-                    label: `${this.places[i].hours} Hours`
+                    label:`${this.places[i].hours} Hours`
                 });
                 // console.log(marker)
                 this.markers.push(marker);
