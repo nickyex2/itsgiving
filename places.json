@@ -1,0 +1,263 @@
+[
+    {
+      "id": 1,
+      "name": "CSP 1",
+      "lat": 1.29027,
+      "lng": 103.851959,
+      "hours": 63,
+      "image": "http://dummyimage.com/154x100.png/cc0000/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 2,
+      "name": "CSP 2",
+      "lat": 1.287953,
+      "lng": 103.851784,
+      "hours": 21,
+      "image": "http://dummyimage.com/210x100.png/ff4444/ffffff",
+      "cat": "Children"
+    },
+    {
+      "id": 3,
+      "name": "CSP 3",
+      "lat": 1.250111,
+      "lng": 103.830933,
+      "hours": 18,
+      "image": "http://dummyimage.com/245x100.png/5fa2dd/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 4,
+      "name": "CSP 4",
+      "lat": 1.282375,
+      "lng": 103.864273,
+      "hours": 50,
+      "image": "http://dummyimage.com/139x100.png/cc0000/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 5,
+      "name": "CSP 5",
+      "lat": 1.369115,
+      "lng": 103.845436,
+      "hours": 78,
+      "image": "http://dummyimage.com/220x100.png/ff4444/ffffff",
+      "cat": "Children"
+    },
+    {
+      "id": 6,
+      "name": "CSP 6",
+      "lat": 1.34501,
+      "lng": 103.983208,
+      "hours": 60,
+      "image": "http://dummyimage.com/105x100.png/5fa2dd/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 7,
+      "name": "CSP 7",
+      "lat": 1.282302,
+      "lng": 103.858528,
+      "hours": 36,
+      "image": "http://dummyimage.com/174x100.png/ff4444/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 8,
+      "name": "CSP 8",
+      "lat": 1.359167,
+      "lng": 103.989441,
+      "hours": 16,
+      "image": "http://dummyimage.com/234x100.png/dddddd/000000",
+      "cat": "Children"
+    },
+    {
+      "id": 9,
+      "name": "CSP 9",
+      "lat": 1.371778,
+      "lng": 103.893059,
+      "hours": 48,
+      "image": "http://dummyimage.com/229x100.png/cc0000/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 10,
+      "name": "CSP 10",
+      "lat": 1.304833,
+      "lng": 103.831833,
+      "hours": 75,
+      "image": "http://dummyimage.com/148x100.png/5fa2dd/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 11,
+      "name": "CSP 11",
+      "lat": 1.296568,
+      "lng": 103.852119,
+      "hours": 27,
+      "image": "http://dummyimage.com/210x100.png/dddddd/000000",
+      "cat": "Children"
+    },
+    {
+      "id": 12,
+      "name": "CSP 12",
+      "lat": 1.293494,
+      "lng": 103.85717,
+      "hours": 49,
+      "image": "http://dummyimage.com/221x100.png/5fa2dd/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 13,
+      "name": "CSP 13",
+      "lat": 1.420181,
+      "lng": 103.864555,
+      "hours": 79,
+      "image": "http://dummyimage.com/137x100.png/dddddd/000000",
+      "cat": "Elderly"
+    },
+    {
+      "id": 14,
+      "name": "CSP 14",
+      "lat": 1.46378,
+      "lng": 103.801811,
+      "hours": 46,
+      "image": "http://dummyimage.com/245x100.png/dddddd/000000",
+      "cat": "Children"
+    },
+    {
+      "id": 15,
+      "name": "CSP 15",
+      "lat": 1.347026,
+      "lng": 103.724052,
+      "hours": 58,
+      "image": "http://dummyimage.com/233x100.png/dddddd/000000",
+      "cat": "Pets"
+    },
+    {
+      "id": 16,
+      "name": "CSP 16",
+      "lat": 1.28762,
+      "lng": 103.861,
+      "hours": 16,
+      "image": "http://dummyimage.com/216x100.png/cc0000/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 17,
+      "name": "CSP 17",
+      "lat": 1.289688,
+      "lng": 103.851562,
+      "hours": 13,
+      "image": "http://dummyimage.com/204x100.png/5fa2dd/ffffff",
+      "cat": "Children"
+    },
+    {
+      "id": 18,
+      "name": "CSP 18",
+      "lat": 1.297588,
+      "lng": 103.854309,
+      "hours": 71,
+      "image": "http://dummyimage.com/220x100.png/ff4444/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 19,
+      "name": "CSP 19",
+      "lat": 1.254975,
+      "lng": 103.817596,
+      "hours": 55,
+      "image": "http://dummyimage.com/233x100.png/5fa2dd/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 20,
+      "name": "CSP 20",
+      "lat": 1.28871,
+      "lng": 103.837372,
+      "hours": 19,
+      "image": "http://dummyimage.com/159x100.png/cc0000/ffffff",
+      "cat": "Children"
+    },
+    {
+      "id": 21,
+      "name": "CSP 21",
+      "lat": 1.3667,
+      "lng": 103.800003,
+      "hours": 62,
+      "image": "http://dummyimage.com/184x100.png/dddddd/000000",
+      "cat": "Pets"
+    },
+    {
+      "id": 22,
+      "name": "CSP 22",
+      "lat": 1.292307,
+      "lng": 103.850441,
+      "hours": 21,
+      "image": "http://dummyimage.com/133x100.png/cc0000/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 23,
+      "name": "CSP 23",
+      "lat": 1.369309,
+      "lng": 103.848351,
+      "hours": 34,
+      "image": "http://dummyimage.com/235x100.png/cc0000/ffffff",
+      "cat": "Children"
+    },
+    {
+      "id": 24,
+      "name": "CSP 24",
+      "lat": 1.273806,
+      "lng": 103.817497,
+      "hours": 55,
+      "image": "http://dummyimage.com/109x100.png/5fa2dd/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 25,
+      "name": "CSP 25",
+      "lat": 1.293354,
+      "lng": 103.853561,
+      "hours": 63,
+      "image": "http://dummyimage.com/149x100.png/cc0000/ffffff",
+      "cat": "Elderly"
+    },
+    {
+      "id": 26,
+      "name": "CSP 26",
+      "lat": 1.294444,
+      "lng": 103.846947,
+      "hours": 30,
+      "image": "http://dummyimage.com/167x100.png/dddddd/000000",
+      "cat": "Children"
+    },
+    {
+      "id": 27,
+      "name": "CSP 27",
+      "lat": 1.446392,
+      "lng": 103.780655,
+      "hours": 39,
+      "image": "http://dummyimage.com/178x100.png/5fa2dd/ffffff",
+      "cat": "Pets"
+    },
+    {
+      "id": 28,
+      "name": "CSP 28",
+      "lat": 1.307222,
+      "lng": 103.819725,
+      "hours": 80,
+      "image": "http://dummyimage.com/156x100.png/dddddd/000000",
+      "cat": "Elderly"
+    },
+    {
+      "id": 29,
+      "name": "CSP 29",
+      "lat": 43.664398,
+      "lng": 7.1489,
+      "hours": 71,
+      "image": "http://dummyimage.com/137x100.png/5fa2dd/ffffff",
+      "cat": "Children"
+    }
+   ]

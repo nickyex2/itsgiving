@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
 import EditProfile from "../views/EditProfile.vue";
+import SearchView from "../views/SearchView.vue";
 const routes = [
   {
     path: "/",
@@ -36,6 +37,11 @@ const routes = [
     name: "editprofile",
     component: EditProfile,
   },
+  {
+    path:"/search",
+    name:"search",
+    component: SearchView
+  }
 ];
 
 const router = createRouter({
