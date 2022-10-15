@@ -51,7 +51,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
-  name: "Signup-view",
+  name: "SignupView",
   components: {},
   setup() {
     const store = useStore();

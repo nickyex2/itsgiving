@@ -63,7 +63,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
-  name: "Nav-bar",
+  name: "NavBar",
   components: {},
   setup() {
     const store = useStore();
