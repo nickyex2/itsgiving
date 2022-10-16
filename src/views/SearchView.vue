@@ -161,12 +161,6 @@ export default {
   },
 
   mounted() {
-    let test = document.createElement("script");
-    test.setAttribute(
-      "src",
-      "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBuOFt-d_m9wfX3sjpebEx3IEhuLbSTmfE"
-    );
-    document.head.appendChild(test);
     const autocomplete = new window.google.maps.places.Autocomplete(
       this.$refs["autocomplete"],
       {
@@ -295,7 +289,6 @@ export default {
       for (let i = 0; i < this.places.length; i++) {
         const lat = this.places[i].lat;
         const lng = this.places[i].lng;
-        // const placeID = this.places[i].id;
 
         const marker = new window.google.maps.Marker({
           position: new window.google.maps.LatLng(lat, lng),
