@@ -38,10 +38,10 @@ const routes = [
     component: EditProfile,
   },
   {
-    path:"/search",
-    name:"search",
-    component: SearchView
-  }
+    path: "/search",
+    name: "search",
+    component: SearchView,
+  },
 ];
 
 const router = createRouter({
