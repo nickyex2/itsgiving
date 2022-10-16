@@ -328,4 +328,41 @@ export default {
 .active {
   background: lightgrey !important;
 }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="range"] {
+    overflow: hidden;
+    width: 80px;
+    -webkit-appearance: none;
+    background-color: #fff;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: #13bba4;
+    margin-top: -1px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: #434343;
+  }
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #43e5f7;
+}
+input[type="range"]::-moz-range-track {
+  background-color: #9a905d;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #43e5f7;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: #9a905d;
+}
 </style>
