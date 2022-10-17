@@ -20,13 +20,13 @@
             <router-link :to="'/'" class="nav-link"> Home </router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="'/about'" class="nav-link"> Search </router-link>
+            <router-link :to="'/search'" class="nav-link"> Search </router-link>
           </li>
           <li class="nav-item">
             <router-link :to="'/about'" class="nav-link"> About </router-link>
           </li>
         </ul>
-        <div v-if="!user" class="d-flex me-2">
+        <div v-if="!user" class="d-flex me-2 mt-1">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <router-link class="nav-link" :to="'/login'">Login</router-link>
@@ -36,12 +36,12 @@
             </li>
           </ul>
         </div>
-        <div v-else class="d-flex justify-content-end">
+        <div v-else class="d-flex justify-content-end mt-1">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <img
               :src="user.photoURL"
               alt=""
-              style="width: 50px; height: 50px"
+              style="width: 45px; height: 45px"
             />
             <li class="nav-item">
               <router-link class="nav-link" :to="'/profile'"
@@ -61,6 +61,7 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   name: "NavBar",
@@ -68,8 +69,10 @@ export default {
   setup() {
     const store = useStore();
     const user = computed(() => store.state.user);
+    const router = useRouter();
     const logout = () => {
       store.dispatch("logout");
+      router.push("/");
     };
     return { user, logout };
   },

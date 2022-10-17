@@ -1,46 +1,64 @@
 <template>
-  <div class="signup">
-    <h1>This is a signup page</h1>
-    <form>
-      <div class="mb-3">
-        <label for="signupUsername" class="form-label">Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="signupUsername"
-          v-model="userName"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="signupEmail" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="signupEmail"
-          aria-describedby="emailHelp"
-          v-model="email"
-        />
-        <p>{{ email }}</p>
-        <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="signupPassword" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="signupPassword"
-          v-model="password"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        @click.prevent="handleSignup"
-      >
-        Signup
-      </button>
+  <div class="container-fluid signup d-flex justify-content-center">
+    <form class="my-5">
+      <table class="signup-table">
+        <tr>
+          <td colspan="2">
+            <h3>Signup</h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="signupUsername" class="form-label">Username:</label>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="signupUsername"
+              v-model="userName"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="signupEmail" class="form-label">Email address:</label>
+          </td>
+          <td>
+            <input
+              type="email"
+              class="form-control"
+              id="signupEmail"
+              aria-describedby="emailHelp"
+              v-model="email"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="signupPassword" class="form-label">Password:</label>
+          </td>
+          <td>
+            <input
+              type="password"
+              class="form-control"
+              id="signupPassword"
+              v-model="password"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              @click.prevent="handleRegister"
+            >
+              Register
+            </button>
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 </template>
@@ -51,7 +69,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
-  name: "Signup-view",
+  name: "SignupView",
   components: {},
   setup() {
     const store = useStore();
@@ -59,7 +77,7 @@ export default {
     const userName = ref("");
     const email = ref("");
     const password = ref("");
-    const handleSignup = async () => {
+    const handleRegister = async () => {
       console.log("clicked signup");
       try {
         await store.dispatch("signup", {
@@ -72,9 +90,19 @@ export default {
         console.log(error);
       }
     };
-    return { handleSignup, userName, email, password };
+    return { handleRegister, userName, email, password };
   },
 };
 </script>
 
-<style></style>
+<style>
+.signup-table > tr > td {
+  padding: 10px;
+}
+.signup-table {
+  border-collapse: separate;
+  border: 1px solid black;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+}
+</style>

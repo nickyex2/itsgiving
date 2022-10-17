@@ -13,10 +13,14 @@ const store = createStore({
   state: {
     user: null,
     authState: false,
+    editUser: false,
   },
   getters: {
     user(state) {
       return state.user;
+    },
+    editUser(state) {
+      return state.editUser;
     },
   },
   mutations: {
@@ -25,6 +29,9 @@ const store = createStore({
     },
     setAuthState(state, payload) {
       state.authState = payload;
+    },
+    setEditUser(state, payload) {
+      state.editUser = payload;
     },
   },
   actions: {
@@ -72,6 +79,9 @@ const store = createStore({
       } else {
         throw new Error("Could not complete Signup");
       }
+    },
+    editProfile({ commit }, payload) {
+      commit("setEditUser", payload);
     },
   },
   modules: {},

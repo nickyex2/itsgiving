@@ -1,22 +1,27 @@
 <template>
   <h1>This is the profile page</h1>
+  <button class="btn btn-success" @click="editProfile">Edit</button>
   <p>{{ user.displayName }}</p>
   <p>{{ user.email }}</p>
   <img :src="user.photoURL" alt="" />
 </template>
 
 <script>
-import { ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
-  name: "Profile-view",
+  name: "ProfileView",
   components: {},
   setup() {
-    const file = ref(null);
+    const router = useRouter();
     const store = useStore();
     const user = store.getters.user;
-    return { user, file };
+    const editProfile = () => {
+      store.dispatch("editProfile", true);
+      router.push("/profile/edit");
+    };
+    return { user, editProfile };
   },
 };
 </script>
