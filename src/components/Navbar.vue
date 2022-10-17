@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-light">
+  <nav class="navbar navbar-expand-lg">
     <!-- can edit this is just the base line -->
-    <div class="container-fluid">
+    <div class="navhead container-fluid">
       <router-link class="navbar-brand" :to="'/'">ItsGiving</router-link>
       <button
         class="navbar-toggler"
