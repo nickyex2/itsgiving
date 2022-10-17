@@ -132,3 +132,10 @@
     <!-- end -->
   </div>
 </template>
+
+<script>
+export default {
+  name: "AboutView",
+  setup() {},
+};
+</script>

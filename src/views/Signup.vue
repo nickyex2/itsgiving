@@ -17,6 +17,7 @@
               class="form-control"
               id="signupUsername"
               v-model="userName"
+              required
             />
           </td>
         </tr>
@@ -31,6 +32,7 @@
               id="signupEmail"
               aria-describedby="emailHelp"
               v-model="email"
+              required
             />
           </td>
         </tr>
@@ -44,6 +46,7 @@
               class="form-control"
               id="signupPassword"
               v-model="password"
+              required
             />
           </td>
         </tr>
@@ -78,7 +81,6 @@ export default {
     const email = ref("");
     const password = ref("");
     const handleRegister = async () => {
-      console.log("clicked signup");
       try {
         await store.dispatch("signup", {
           email: email.value,

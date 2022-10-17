@@ -454,3 +454,9 @@ color: white;
 .list-inline-item{
     font-size: medium;
 }
+
+/* Login and Register and Edit Profile */
+.errcode {
+    color: red;
+    font-weight: bold;
+}

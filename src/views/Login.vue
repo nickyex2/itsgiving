@@ -34,6 +34,11 @@
             />
           </td>
         </tr>
+        <tr v-if="err != ''" class="errcode">
+          <td colspan="2">
+            {{ err }}
+          </td>
+        </tr>
         <tr>
           <td colspan="2">
             <button
@@ -60,6 +65,7 @@ export default {
   setup() {
     const email = ref("");
     const password = ref("");
+    const err = ref("");
     const store = useStore();
     const router = useRouter();
     const handleLogin = async () => {
@@ -71,10 +77,10 @@ export default {
         });
         router.push("/");
       } catch (error) {
-        console.log(error);
+        err.value = "Invalid email or password";
       }
     };
-    return { handleLogin, email, password };
+    return { handleLogin, email, password, err };
   },
 };
 </script>
