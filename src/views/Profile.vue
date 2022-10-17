@@ -18,7 +18,7 @@ export default {
     const store = useStore();
     const user = store.getters.user;
     const editProfile = () => {
-      store.dispatch("editProfile", true);
+      store.dispatch("editProfileBool", true);
       router.push("/profile/edit");
     };
     return { user, editProfile };

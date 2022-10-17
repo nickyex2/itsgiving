@@ -9,18 +9,25 @@ import {
 } from "firebase/auth";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
+// user store when user is logged in
+// user info (name, email, password, photoURL, uid)
+// user additional info (phone, teleHandle, interests, address(not implemented yet), )
 const store = createStore({
   state: {
     user: null,
+    userAddInfo: null,
     authState: false,
-    editUser: false,
+    editUserBool: false,
   },
   getters: {
     user(state) {
       return state.user;
     },
-    editUser(state) {
-      return state.editUser;
+    editUserBool(state) {
+      return state.editUserBool;
+    },
+    userAddInfo(state) {
+      return state.userAddInfo;
     },
   },
   mutations: {
@@ -30,8 +37,11 @@ const store = createStore({
     setAuthState(state, payload) {
       state.authState = payload;
     },
-    setEditUser(state, payload) {
-      state.editUser = payload;
+    setEditUserBool(state, payload) {
+      state.editUserBool = payload;
+    },
+    setUserAddInfo(state, payload) {
+      state.userAddInfo = payload;
     },
   },
   actions: {
@@ -80,8 +90,8 @@ const store = createStore({
         throw new Error("Could not complete Signup");
       }
     },
-    editProfile({ commit }, payload) {
-      commit("setEditUser", payload);
+    editProfileBool({ commit }, payload) {
+      commit("setEditUserBool", payload);
     },
   },
   modules: {},
