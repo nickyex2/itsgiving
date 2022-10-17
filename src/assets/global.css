@@ -193,12 +193,12 @@ font-weight: bold;
 color: white;
 }
 
-.navbar{
+.navbar {
     /* overlay navbar over video */
     position: absolute;
     z-index: 1;
     width: 100%;
-    background:none;
+    background: none;
     border-radius: 0px 0px 20px 20px;
     margin-top: 1vw;
 }
