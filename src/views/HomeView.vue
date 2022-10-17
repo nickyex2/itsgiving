@@ -68,96 +68,91 @@
     <div class="container-fluid"></div>
 
     <!-- explore icons -->
-    <div class="six_box container">
-      <h1>Explore</h1>
-      <div class="container">
-        <div class="row row-cols-7 justify-content-center">
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/animal.png" alt="#" /></i>
-              <span>Animal Welfare</span>
-            </div>
-          </div>
-          <div class="col pa_left">
-            <div class="six_probpx bluedark_bg">
-              <i><img src="../assets/protect.png" alt="#" /></i>
-              <span>Arts & Heritage</span>
-            </div>
-          </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/children.png" alt="#" /></i>
-              <span>Children & Youth</span>
-            </div>
-          </div>
-          <div class="col pa_left">
-            <div class="six_probpx bluedark_bg">
-              <i><img src="../assets/community.png" alt="#" /></i>
-              <span>Community</span>
-            </div>
-          </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/love.png" alt="#" /></i>
-              <span>Disability</span>
-            </div>
-          </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/graduate-cap.png" alt="#" /></i>
-              <span>Education</span>
-            </div>
-          </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/couple.png" alt="#" /></i>
-              <span>Elderly</span>
-            </div>
+    <div class="explore container">
+      <h1 class="explore-title">Explore</h1>
+      <div class="explore-row row">
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/animal.png" alt="#" /></i>
+            <p>Animal Welfare</p>
           </div>
         </div>
-
-        <div class="row row-cols-7 justify-content-center" id="secondrow">
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/save-the-planet.png" alt="#" /></i>
-              <span>Envrironment</span>
-            </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/protect.png" alt="#" /></i>
+            <p>Arts & Heritage</p>
           </div>
-          <div class="col pa_left">
-            <div class="six_probpx bluedark_bg">
-              <i><img src="../assets/family.png" alt="#" /></i>
-              <span>Families</span>
-            </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/children.png" alt="#" /></i>
+            <p>Children & Youth</p>
           </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/healthcare.png" alt="#" /></i>
-              <span>Health</span>
-            </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/community.png" alt="#" /></i>
+            <p>Community</p>
           </div>
-          <div class="col pa_left">
-            <div class="six_probpx bluedark_bg">
-              <i><img src="../assets/aid.png" alt="#" /></i>
-              <span>Humanitarian</span>
-            </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/love.png" alt="#" /></i>
+            <p>Disability</p>
           </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/public-service.png" alt="#" /></i>
-              <span>Social Services</span>
-            </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/graduate-cap.png" alt="#" /></i>
+            <p>Education</p>
           </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/sports.png" alt="#" /></i>
-              <span>Sports</span>
-            </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/couple.png" alt="#" /></i>
+            <p>Elderly</p>
           </div>
-          <div class="col pa_left">
-            <div class="six_probpx yellow_bg">
-              <i><img src="../assets/female.png" alt="#" /></i>
-              <span>Women & Girls</span>
-            </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/save-the-planet.png" alt="#" /></i>
+            <p>Envrironment</p>
+          </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/family.png" alt="#" /></i>
+            <p>Families</p>
+          </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/healthcare.png" alt="#" /></i>
+            <p>Health</p>
+          </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/aid.png" alt="#" /></i>
+            <p>Humanitarian</p>
+          </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/public-service.png" alt="#" /></i>
+            <p>Social Services</p>
+          </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/sports.png" alt="#" /></i>
+            <p>Sports</p>
+          </div>
+        </div>
+        <div class="explore-item col-lg-2 col-md-4">
+          <div class="words">
+            <i><img src="../assets/female.png" alt="#" /></i>
+            <p>Women & Girls</p>
           </div>
         </div>
       </div>

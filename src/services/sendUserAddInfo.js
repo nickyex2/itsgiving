@@ -1,12 +1,12 @@
-import { getDatabase, ref, onValue, set, update } from "firebase/database";
+import { getDatabase, ref, set, update } from "firebase/database";
 
 // set user additional info
 async function setUserAddInfo(uid, userAddInfo) {
   const db = getDatabase();
   const dbRef = ref(db, `users/${uid}`);
-  try{
+  try {
     await set(dbRef, userAddInfo);
-  }catch(error){
+  } catch (error) {
     console.log(error);
   }
 }
@@ -15,9 +15,9 @@ async function setUserAddInfo(uid, userAddInfo) {
 async function updateUserAddInfo(uid, userAddInfo) {
   const db = getDatabase();
   const dbRef = ref(db, `users/${uid}`);
-  try{
+  try {
     await update(dbRef, userAddInfo);
-  }catch(error){
+  } catch (error) {
     console.log(error);
   }
 }
