@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <router-view />
-  <div v-if="this.$route.name != '/Login' || this.$route.name != '/Signup'">
+  <div v-if="$route.name !== 'login' && $route.name !== 'signup'">
     <Footer />
   </div>
 </template>

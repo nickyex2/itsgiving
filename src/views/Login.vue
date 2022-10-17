@@ -1,36 +1,51 @@
 <template>
-  <div class="login">
-    <h1>This is a login page</h1>
-    <form>
-      <div class="mb-3">
-        <label for="loginEmail" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="loginEmail"
-          aria-describedby="emailHelp"
-          v-model="email"
-        />
-        <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="loginPassword" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="loginPassword"
-          v-model="password"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        @click.prevent="handleLogin"
-      >
-        Login
-      </button>
+  <div class="container-fluid login d-flex justify-content-center">
+    <form class="my-5">
+      <table class="login-table">
+        <tr>
+          <td colspan="2">
+            <h3>Login</h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="loginEmail" class="form-label">Email address:</label>
+          </td>
+          <td>
+            <input
+              type="email"
+              class="form-control"
+              id="loginEmail"
+              aria-describedby="emailHelp"
+              v-model="email"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="loginPassword" class="form-label">Password:</label>
+          </td>
+          <td>
+            <input
+              type="password"
+              class="form-control"
+              id="loginPassword"
+              v-model="password"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              @click.prevent="handleLogin"
+            >
+              Login
+            </button>
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 </template>
@@ -64,4 +79,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.login-table > tr > td {
+  padding: 10px;
+}
+.login-table {
+  border-collapse: separate;
+  border: 1px solid black;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+}
+</style>
