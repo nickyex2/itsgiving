@@ -1,0 +1,9 @@
+# all redirects are placed here 
+
+/           /       200
+/about      /about      200
+/search     /search     200
+/login      /login      200
+/signup     /signup     200
+/profile    /profile        200
+/profile/edit   /profile/edit       200
