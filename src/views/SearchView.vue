@@ -1,7 +1,7 @@
 <template>
   <!-- None  <576px, sm  ≥576px, md  ≥768px, lg  ≥992px, xl  ≥1200px, xxl  ≥1400px -->
   <div class="container-fluid p-3">
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-6 border border-3 rounded">
         <div class="row pt-3" v-if="err != ''">
           <div
