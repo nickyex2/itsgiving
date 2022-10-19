@@ -10,6 +10,7 @@ import {
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import VuexPersist from "vuex-persist";
 // import getUserAddInfo from "../services/getUserAddInfo";
+import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
 
 // user store when user is logged in
 // user info (name, email, password, photoURL, uid)
@@ -27,7 +28,7 @@ if (cookieEnabled) {
     plugins: [vuexLocalStorage.plugin],
     state: {
       user: null,
-      // userAddInfo: null,
+      userAddInfo: null,
       authState: false,
       editUserBool: false,
     },
@@ -38,9 +39,9 @@ if (cookieEnabled) {
       editUserBool(state) {
         return state.editUserBool;
       },
-      // userAddInfo(state) {
-      //   return state.userAddInfo;
-      // },
+      userAddInfo(state) {
+        return state.userAddInfo;
+      },
     },
     mutations: {
       setUser(state, payload) {
@@ -77,6 +78,7 @@ if (cookieEnabled) {
           .then(() => {
             // Sign-out successful.
             commit("setUser", null);
+            commit("setUserAddInfo", null);
           })
           .catch((error) => {
             // An error happened.
@@ -106,6 +108,16 @@ if (cookieEnabled) {
       },
       editProfileBool({ commit }, payload) {
         commit("setEditUserBool", payload);
+      },
+      setUserAddInfo({ commit }, payload) {
+        const db = getDatabase();
+        const dbRef = dbRefe(db, `users/${payload}`);
+        // var snapshotValue = null;
+        onValue(dbRef, (snapshot) => {
+          commit("setUserAddInfo", snapshot.val());
+          // snapshotValue = snapshot.val();
+          // console.log(snapshotValue);
+        });
       },
     },
     modules: {},

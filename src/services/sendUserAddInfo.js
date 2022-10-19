@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, update } from "firebase/database";
 
 // set user additional info
-async function setUserAddInfo(uid, userAddInfo) {
+async function makeUserAddInfo(uid, userAddInfo) {
   const db = getDatabase();
   const dbRef = ref(db, `users/${uid}`);
   try {
@@ -22,4 +22,4 @@ async function updateUserAddInfo(uid, userAddInfo) {
   }
 }
 
-export { setUserAddInfo, updateUserAddInfo };
+export { makeUserAddInfo, updateUserAddInfo };

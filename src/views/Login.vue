@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default {
@@ -68,6 +68,7 @@ export default {
     const err = ref("");
     const store = useStore();
     const router = useRouter();
+    const user = computed(() => store.state.user);
     const handleLogin = async () => {
       // console.log("clicked");
       try {
@@ -75,6 +76,8 @@ export default {
           email: email.value,
           password: password.value,
         });
+        console.log(user.value.uid);
+        await store.dispatch("setUserAddInfo", user.value.uid);
         router.push("/");
       } catch (error) {
         err.value = "Invalid email or password";

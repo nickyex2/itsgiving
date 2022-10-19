@@ -154,7 +154,7 @@ export default {
     // set the boolean value back to false so that the user can't access this page again without clicking the edit button
     store.dispatch("editProfileBool", false);
     const user = computed(() => store.getters.user);
-    // const userAddInfo = ref(null);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
     const err = ref("");
     const editedUser = {
       name: "",
@@ -182,8 +182,8 @@ export default {
       editedUser.name = user.value.displayName;
       editedUser.email = user.value.email;
       editedUser.profilePicture = user.value.photoURL;
-      // editedUser.phoneNumber = userAddInfo.value.phoneNumber;
-      // editedUser.telegramHandle = userAddInfo.value.telegramHandle;
+      editedUser.phoneNumber = userAddInfo.value.phoneNo;
+      editedUser.telegramHandle = userAddInfo.value.teleHandle;
     });
     return { editedUser, changeProfilePic, handleEdit, err };
   },
