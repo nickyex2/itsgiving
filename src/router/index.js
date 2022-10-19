@@ -6,6 +6,8 @@ import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
 import EditProfile from "../views/EditProfile.vue";
 import SearchView from "../views/SearchView.vue";
+import SearchTest from "../views/SearchTest.vue";
+import SearchResults from "../views/SearchResults.vue";
 const routes = [
   {
     path: "/",
@@ -41,6 +43,16 @@ const routes = [
     path: "/search",
     name: "search",
     component: SearchView,
+  },
+  {
+    path: "/testsearch",
+    name: "testsearch",
+    component: SearchTest,
+  },
+  {
+    path: "/searchresults",
+    name: "searchresults",
+    component: SearchResults,
   },
 ];
 
