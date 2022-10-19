@@ -9,6 +9,7 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { computed } from "vue";
 
 export default {
   name: "ProfileView",
@@ -16,7 +17,7 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
-    const user = store.getters.user;
+    const user = computed(() => store.getters.user);
     const editProfile = () => {
       store.dispatch("editProfileBool", true);
       router.push("/profile/edit");

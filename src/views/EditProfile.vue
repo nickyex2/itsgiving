@@ -136,9 +136,9 @@
 <script>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { ref } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
+// import getUserAddInfo from "../services/getUserAddInfo";
 // import { getStorage } from "firebase/storage";
-import getUserAddInfo from "../services/getUserAddInfo.js";
 
 export default {
   name: "EditProfile",
@@ -153,13 +153,12 @@ export default {
     }
     // set the boolean value back to false so that the user can't access this page again without clicking the edit button
     store.dispatch("editProfileBool", false);
-    const user = store.getters.user;
-    const userAddInfo = getUserAddInfo(user.uid);
-    console.log(userAddInfo);
+    const user = computed(() => store.getters.user);
+    // const userAddInfo = ref(null);
     const err = ref("");
     const editedUser = {
-      name: user.displayName,
-      email: user.email,
+      name: "",
+      email: "",
       password: "",
       confirmPassword: "",
       profilePicture: "",
@@ -179,6 +178,13 @@ export default {
         // send the edited user object to both user auth (displayName, email, profilePicURL) and realtime db (phoneNo and teleHandle, interest tags)
       }
     };
+    onBeforeMount(() => {
+      editedUser.name = user.value.displayName;
+      editedUser.email = user.value.email;
+      editedUser.profilePicture = user.value.photoURL;
+      // editedUser.phoneNumber = userAddInfo.value.phoneNumber;
+      // editedUser.telegramHandle = userAddInfo.value.telegramHandle;
+    });
     return { editedUser, changeProfilePic, handleEdit, err };
   },
 };

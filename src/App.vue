@@ -10,8 +10,23 @@
 // @ is an alias to /src
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import { useStore } from "vuex";
+import getUserAddInfo from "./services/getUserAddInfo";
+import { computed } from "@vue/runtime-core";
+
 export default {
   components: { Navbar, Footer },
+  setup() {
+    computed(() => {
+      const store = useStore();
+      const user = store.state.user;
+      if (user) {
+        getUserAddInfo(user.uid).then((res) => {
+          store.commit("setUserAddInfo", res);
+        });
+      }
+    });
+  },
 };
 </script>
 
