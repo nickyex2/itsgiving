@@ -15,7 +15,7 @@
                 class="rounded-circle img-fluid"
                 style="width: 150px"
               />
-              <h5 class="my-3">John Smith</h5>
+              <h5 class="my-3">{{ user.displayName }}</h5>
               <p class="text-muted mb-1">Full Stack Developer</p>
               <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
               <button class="btn btn-success" @click="editProfile">Edit</button>
@@ -156,19 +156,20 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
+import { computed } from "vue";
 export default {
   name: "ProfileView",
   components: {},
   setup() {
     const router = useRouter();
     const store = useStore();
-    const user = store.getters.user;
+    const user = computed(() => store.getters.user);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
     const editProfile = () => {
       store.dispatch("editProfileBool", true);
       router.push("/profile/edit");
     };
-    return { user, editProfile };
+    return { user, editProfile, userAddInfo };
   },
 };
 </script>
