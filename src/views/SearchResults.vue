@@ -169,7 +169,7 @@ export default {
       }
     },
   },
-  beforeMount() {
+  mounted: function () {
     this.shortenAddress();
   },
 };
