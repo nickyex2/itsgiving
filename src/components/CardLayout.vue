@@ -3,6 +3,9 @@
     <slot></slot>
   </div>
 </template>
+<script>
+// this component kiv for now, if not needed then can delete
+</script>
 
 <style scoped>
 .card {

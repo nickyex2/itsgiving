@@ -8,6 +8,8 @@ import EditProfile from "../views/EditProfile.vue";
 import SearchView from "../views/SearchView.vue";
 import SearchTest from "../views/SearchTest.vue";
 import SearchResults from "../views/SearchResults.vue";
+import PageNotFound from "../views/PageNotFound.vue";
+
 const routes = [
   {
     path: "/",
@@ -53,6 +55,11 @@ const routes = [
     path: "/searchresults",
     name: "searchresults",
     component: SearchResults,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "pagenotfound",
+    component: PageNotFound,
   },
 ];
 

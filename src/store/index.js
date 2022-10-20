@@ -126,6 +126,7 @@ if (cookieEnabled) {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       store.commit("setUser", user);
+      // need to remove this line
       console.log("user state changed", user);
       store.commit("setAuthState", true);
     } else {

@@ -3,9 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/global.css";
-import CardLayout from "./components/CardLayout.vue";
-const app = createApp(App);
-app.use(store);
-app.use(router);
-app.component("card-layout", CardLayout);
-app.mount("#app");
+
+//THIS PAGE IS FOR MOUNTING ONLY - DO NOT ADD ANYTHING HERE
+createApp(App).use(store).use(router).mount("#app");

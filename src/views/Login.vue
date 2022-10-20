@@ -76,7 +76,6 @@ export default {
           email: email.value,
           password: password.value,
         });
-        console.log(user.value.uid);
         await store.dispatch("setUserAddInfo", user.value.uid);
         router.push("/");
       } catch (error) {

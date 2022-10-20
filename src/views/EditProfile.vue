@@ -172,7 +172,7 @@ export default {
       if (editedUser.password !== editedUser.confirmPassword) {
         err.value = "Passwords do not match";
       } else {
-        console.log(editedUser);
+        // console.log(editedUser);
         // retrieve the users uid
         // const uid = user.uid;
         // send the edited user object to both user auth (displayName, email, profilePicURL) and realtime db (phoneNo and teleHandle, interest tags)
