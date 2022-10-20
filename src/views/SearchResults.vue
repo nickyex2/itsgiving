@@ -40,7 +40,15 @@
         </div>
       </div>
       <div class="row" v-else>
-        <div class="col-11"></div>
+        <div class="col-6 searchbar">
+          <input
+            type="text"
+            v-model="search"
+            placeholder="Got a Specific Project In Mind?"
+            ref=""
+          />
+        </div>
+        <div class="col-5"></div>
         <div class="col-1">
           <button
             class="btn rounded-circle float-right"
@@ -83,10 +91,107 @@
 
               <div class="card-body px-3">
                 <h3 style="text-align: left">{{ csp.name }}</h3>
-                <span class="d-flex justify-content-left pb-3"
-                  ><span class="badge text-uppercase">{{ csp.cat }}</span></span
-                >
+                <div class="parent">
+                  <span clas="child" v-for="tag in csp.cat" :key="tag">
+                    <span
+                      class="badge rounded-pill bg-secondary me-2"
+                      style="font-size: 0.7rem"
+                      >{{ tag }}</span
+                    >
+                  </span>
+                </div>
+                <p style="text-align: left" class="mt-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-clock-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
+                    /></svg
+                  >&nbsp;&nbsp;Estimated: {{ csp.hours }} Hours
+                </p>
                 <p style="text-align: left">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-pin-map-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
+                    /></svg
+                  >&nbsp; {{ shortenAddress(csp.address) }}
+                </p>
+                <p style="text-align: left" class="card-text">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-file-earmark-text-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
+                    />
+                  </svg>
+                  &nbsp;{{ csp.description }}
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                    >
+                      More Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
+        <div
+          class="list-group rounded"
+          v-for="csp in filteredList"
+          :key="csp.id"
+        >
+          <a
+            href="#"
+            class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 w-75"
+            style="height: 250px"
+          >
+            <span class="d-flex align-left h-100 position-relative">
+              <img :src="csp.image" class="p-0" style="width: 30%" />
+              <div
+                class="d-block ps-3"
+                style="margin-top: auto; margin-bottom: auto"
+              >
+                <h2 style="text-align: left">{{ csp.name }}</h2>
+                <div class="parent">
+                  <span clas="child" v-for="tag in csp.cat" :key="tag">
+                    <span
+                      class="badge rounded-pill bg-secondary me-2"
+                      style="font-size: 1rem"
+                      >{{ tag }}</span
+                    >
+                  </span>
+                </div>
+                <p style="text-align: left" class="mt-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -134,24 +239,34 @@
                   </svg>
                   &nbsp;{{ csp.description }}
                 </p>
-                <div class="d-flex justify-content-center">
-                  <div class="btn-group">
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-outline-secondary"
-                    >
-                      More Details
-                    </button>
-                  </div>
-                </div>
               </div>
-            </div>
-          </div>
+
+              <div
+                class="btn-group"
+                style="position: absolute; top: 0; right: 0; min-height: 100%"
+              >
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="3rem"
+                      height="3rem"
+                      fill="currentColor"
+                      class="bi bi-chevron-compact-right"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"
+                      />
+                    </svg>
+                  </div>
+                  More Details
+                </button>
+              </div>
+            </span>
+          </a>
         </div>
-      </div>
-      <div v-else>
-        <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
-        <p>this is a list layout</p>
       </div>
     </div>
   </div>
@@ -164,18 +279,13 @@ export default {
   data() {
     return {
       csps: MOCK_DATA,
-      gridLayout: true,
+      gridLayout: false,
       search: "",
     };
   },
   methods: {
-    // if addresss is too long, then truncate it
-    shortenAddress() {
-      for (let i = 0; i < this.csps.length; i++) {
-        if (this.csps[i].address.length > 20) {
-          this.csps[i].address = this.csps[i].address.substring(0, 20) + "...";
-        }
-      }
+    shortenAddress(address) {
+      return address.substring(0, 30) + "...";
     },
   },
   computed: {
@@ -185,23 +295,12 @@ export default {
       });
     },
   },
-  mounted: function () {
-    this.shortenAddress();
-  },
 };
 </script>
 <style scoped>
-.badge {
-  background-color: #ccc;
-  color: #252525;
-  border-radius: 30px;
-  padding: 0.5rem 0.8rem;
-}
-
 .img_align {
   position: relative;
 }
-
 .text_align {
   position: absolute;
   bottom: 0;
@@ -220,5 +319,15 @@ export default {
   -ms-transform: scale(1.05);
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
+}
+
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.child {
+  margin: 0 0.5rem 0.5rem 0;
 }
 </style>
