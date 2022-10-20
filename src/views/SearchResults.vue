@@ -60,9 +60,9 @@
         <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
         <div v-for="csp in csps" :key="csp.id">
           <div class="col">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm zoom">
               <div class="img_align">
-                <img class="w-100 p-0" height="225" :src="csp.image" alt="" />
+                <img class="w-100 p-0 rounded" height="225" :src="csp.image" alt="" />
                 <div class="text_align">
                   <small>{{ csp.openings }} Openings</small>
                 </div>
@@ -186,5 +186,15 @@ export default {
   padding-left: 1rem;
   padding-bottom: 1rem;
   color: white;
+}
+.zoom {
+  transition: transform 0.5s;
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05); 
 }
 </style>
