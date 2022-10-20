@@ -279,7 +279,7 @@ export default {
   data() {
     return {
       csps: MOCK_DATA,
-      gridLayout: false,
+      gridLayout: true,
       search: "",
     };
   },
