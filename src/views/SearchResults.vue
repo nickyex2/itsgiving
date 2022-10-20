@@ -76,16 +76,20 @@
         <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
         <div v-for="csp in filteredList" :key="csp.id">
           <div class="col">
-            <div class="card shadow-sm zoom">
+            <div class="card shadow-sm zoom" style="border-radius: 12px">
               <div class="img_align">
                 <img
-                  class="w-100 p-0 rounded"
+                  class="w-100 p-0"
                   height="225"
                   :src="csp.image"
-                  alt=""
+                  style="
+                    border-top-left-radius: 12px;
+                    border-top-right-radius: 12px;
+                  "
                 />
-                <div class="text_align">
-                  <small>{{ csp.openings }} Openings</small>
+                <div class="text_align d-flex">
+                  <h4>{{ csp.openings }}&nbsp;</h4>
+                  <small style="line-height: 32px">Openings</small>
                 </div>
               </div>
 
@@ -166,9 +170,10 @@
       <div v-else>
         <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
         <div
-          class="list-group rounded"
+          class="list-group"
           v-for="csp in filteredList"
           :key="csp.id"
+          style="border-radius: 12px"
         >
           <a
             href="#"
@@ -176,7 +181,11 @@
             style="height: 250px; width: 80%"
           >
             <span class="d-flex align-left h-100 position-relative">
-              <img :src="csp.image" class="w-25 p-0 img-fluid" />
+              <img
+                :src="csp.image"
+                class="w-25 p-0 img-fluid"
+                style="border-radius: 12px"
+              />
               <div
                 class="d-block ps-3"
                 style="
@@ -253,7 +262,11 @@
                 class="btn-group"
                 style="position: absolute; top: 0; right: 0; min-height: 100%"
               >
-                <button type="button" class="btn btn-sm btn-outline-secondary">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  style="border-radius: 12px"
+                >
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -313,8 +326,8 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
+  padding-left: 0.7rem;
+  padding-bottom: 0.4rem;
   color: white;
 }
 
@@ -337,5 +350,13 @@ export default {
 
 .child {
   margin: 0 0.5rem 0.5rem 0;
+}
+.card,
+.list-group-item {
+  background-color: #f8f9fa;
+}
+.card:hover,
+.list-group-item:hover {
+  background-color: #ffe48c;
 }
 </style>
