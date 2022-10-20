@@ -1,5 +1,8 @@
 <template>
-  <div class="container-fluid login d-flex justify-content-center">
+  <video autoplay muted loop id="loginvid">
+    <source src="../assets/vid4.mp4" type="video/mp4" />
+  </video>
+  <div class="login container-fluid login d-flex justify-content-center">
     <form class="my-5">
       <table class="login-table">
         <tr>
@@ -56,7 +59,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default {
@@ -68,7 +71,6 @@ export default {
     const err = ref("");
     const store = useStore();
     const router = useRouter();
-    const user = computed(() => store.state.user);
     const handleLogin = async () => {
       // console.log("clicked");
       try {
@@ -76,7 +78,6 @@ export default {
           email: email.value,
           password: password.value,
         });
-        await store.dispatch("setUserAddInfo", user.value.uid);
         router.push("/");
       } catch (error) {
         err.value = "Invalid email or password";

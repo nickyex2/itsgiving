@@ -1,5 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
+  <nav
+    class="navbar navbar-expand-lg"
+    :class="{ change_color: scrollPosition > 50 }"
+  >
     <!-- can edit this is just the base line -->
     <div class="navhead container-fluid">
       <router-link class="navbar-brand" :to="'/'">ItsGiving</router-link>
@@ -12,7 +15,7 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <img src="../assets/column-view.png" class="navbar-toggler-icon" />
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -26,7 +29,8 @@
             <router-link :to="'/about'" class="nav-link"> About </router-link>
           </li>
         </ul>
-        <div v-if="!user" class="d-flex me-2 mt-1">
+
+        <div v-if="!user" class="">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <router-link class="nav-link" :to="'/login'">Login</router-link>
@@ -36,6 +40,7 @@
             </li>
           </ul>
         </div>
+
         <div v-else class="d-flex justify-content-end mt-1">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <img
@@ -75,6 +80,19 @@ export default {
       router.push("/");
     };
     return { user, logout };
+  },
+  data: function () {
+    return {
+      scrollPosition: null,
+    };
+  },
+  methods: {
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.updateScroll);
   },
 };
 </script>
