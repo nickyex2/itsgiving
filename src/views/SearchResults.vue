@@ -172,20 +172,20 @@
         >
           <a
             href="#"
-            class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 w-75"
-            style="height: 250px"
+            class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2"
+            style="height: 250px; width:80%"
           >
             <span class="d-flex align-left h-100 position-relative">
-              <img :src="csp.image" class="p-0" style="width: 30%" />
+              <img :src="csp.image" class="w-25 p-0 img-fluid"/>
               <div
                 class="d-block ps-3"
-                style="margin-top: auto; margin-bottom: auto"
+                style="margin-top: auto; margin-bottom: auto;max-width:60%;min-width:60%"
               >
                 <h2 style="text-align: left">{{ csp.name }}</h2>
                 <div class="parent">
                   <span clas="child" v-for="tag in csp.cat" :key="tag">
                     <span
-                      class="badge rounded-pill bg-secondary me-2"
+                      class="badge rounded-pill bg-secondary me-2 mb-2"
                       style="font-size: 1rem"
                       >{{ tag }}</span
                     >
@@ -205,7 +205,7 @@
                     /></svg
                   >&nbsp;&nbsp;Estimated: {{ csp.hours }} Hours
                 </p>
-                <p style="text-align: left">
+                <p style="text-align: left" class="text-truncate d-none d-sm-block">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -224,7 +224,7 @@
                     /></svg
                   >&nbsp; {{ csp.address }}
                 </p>
-                <p style="text-align: left" class="card-text">
+                <p style="text-align: left" class="card-text d-none d-lg-block">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -249,8 +249,8 @@
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="3rem"
-                      height="3rem"
+                      width="2rem"
+                      height="2rem"
                       fill="currentColor"
                       class="bi bi-chevron-compact-right"
                       viewBox="0 0 16 16"
@@ -261,7 +261,7 @@
                       />
                     </svg>
                   </div>
-                  More Details
+                  <span class="d-none d-sm-block">More Details</span>
                 </button>
               </div>
             </span>
