@@ -173,13 +173,18 @@
           <a
             href="#"
             class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2"
-            style="height: 250px; width:80%"
+            style="height: 250px; width: 80%"
           >
             <span class="d-flex align-left h-100 position-relative">
-              <img :src="csp.image" class="w-25 p-0 img-fluid"/>
+              <img :src="csp.image" class="w-25 p-0 img-fluid" />
               <div
                 class="d-block ps-3"
-                style="margin-top: auto; margin-bottom: auto;max-width:60%;min-width:60%"
+                style="
+                  margin-top: auto;
+                  margin-bottom: auto;
+                  max-width: 60%;
+                  min-width: 60%;
+                "
               >
                 <h2 style="text-align: left">{{ csp.name }}</h2>
                 <div class="parent">
@@ -205,7 +210,10 @@
                     /></svg
                   >&nbsp;&nbsp;Estimated: {{ csp.hours }} Hours
                 </p>
-                <p style="text-align: left" class="text-truncate d-none d-sm-block">
+                <p
+                  style="text-align: left"
+                  class="text-truncate d-none d-sm-block"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
