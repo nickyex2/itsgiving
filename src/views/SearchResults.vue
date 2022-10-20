@@ -5,29 +5,34 @@
   <br />
   <br />
   <div class="album py-5">
-  <!--div class="album py-5 bg-light"-->
+    <!--div class="album py-5 bg-light"-->
     <div class="container">
       <!-- change here -->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
-      <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
-        <div v-for="csp in csps">
-            <div class="col">
-              <div class="card shadow-sm">
-                <img :src="csp.image" height="225" alt="">
-                <div class="card-body">
-                    <p>{{csp.name}}</p>
-                    <p>{{csp.category}}</p>
-                    <p>{{csp.location}}</p>
-                  <p class="card-text">{{csp.description}}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">{{csp.hours}}</small>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">More Details align to center</button>
-                    </div>
+        <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
+        <div v-for="csp in csps" :key="csp.id">
+          <div class="col">
+            <div class="card shadow-sm">
+              <img :src="csp.image" height="225" alt="" />
+              <div class="card-body">
+                <p>{{ csp.name }}</p>
+                <p>{{ csp.category }}</p>
+                <p>{{ csp.location }}</p>
+                <p class="card-text">{{ csp.description }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">{{ csp.hours }}</small>
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                    >
+                      More Details align to center
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -35,14 +40,14 @@
 </template>
 <script>
 // receive searched result from searchtest page
-import MOCK_DATA from "../../places.json"
+import MOCK_DATA from "../../places.json";
 export default {
   // props: ["search"]
-  data(){
+  data() {
     return {
-        csps: MOCK_DATA
-    }
-  }
+      csps: MOCK_DATA,
+    };
+  },
 };
 </script>
 <style scoped>
