@@ -62,7 +62,12 @@
           <div class="col">
             <div class="card shadow-sm zoom">
               <div class="img_align">
-                <img class="w-100 p-0 rounded" height="225" :src="csp.image" alt="" />
+                <img
+                  class="w-100 p-0 rounded"
+                  height="225"
+                  :src="csp.image"
+                  alt=""
+                />
                 <div class="text_align">
                   <small>{{ csp.openings }} Openings</small>
                 </div>
@@ -195,6 +200,6 @@ export default {
 .zoom:hover {
   -ms-transform: scale(1.05);
   -webkit-transform: scale(1.05);
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 </style>
