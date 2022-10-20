@@ -1,5 +1,8 @@
 <template>
-  <div class="container-fluid login d-flex justify-content-center">
+  <video autoplay muted loop id="loginvid">
+    <source src="../assets/vid4.mp4" type="video/mp4" />
+  </video>
+  <div class="login container-fluid login d-flex justify-content-center">
     <form class="my-5">
       <table class="login-table">
         <tr>
@@ -34,6 +37,11 @@
             />
           </td>
         </tr>
+        <tr v-if="err != ''" class="errcode">
+          <td colspan="2">
+            {{ err }}
+          </td>
+        </tr>
         <tr>
           <td colspan="2">
             <button
@@ -60,6 +68,7 @@ export default {
   setup() {
     const email = ref("");
     const password = ref("");
+    const err = ref("");
     const store = useStore();
     const router = useRouter();
     const handleLogin = async () => {
@@ -71,10 +80,10 @@ export default {
         });
         router.push("/");
       } catch (error) {
-        console.log(error);
+        err.value = "Invalid email or password";
       }
     };
-    return { handleLogin, email, password };
+    return { handleLogin, email, password, err };
   },
 };
 </script>
