@@ -319,6 +319,9 @@ export default {
 };
 </script>
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .img_align {
   position: relative;
 }
