@@ -8,25 +8,126 @@
     <!--div class="album py-5 bg-light"-->
     <div class="container">
       <!-- change here -->
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+      <div class="row" v-if="gridLayout">
+        <div class="col-11"></div>
+        <div class="col-1">
+          <button
+            class="btn rounded-circle float-right"
+            @click="gridLayout = !gridLayout"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="2em"
+              height="2em"
+              fill="currentColor"
+              class="bi bi-list-ul"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="row" v-else>
+        <div class="col-11"></div>
+        <div class="col-1">
+          <button
+            class="btn rounded-circle float-right"
+            @click="gridLayout = !gridLayout"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="2em"
+              height="2em"
+              fill="currentColor"
+              class="bi bi-grid-3x2-gap"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M4 4v2H2V4h2zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4v2H7V4h2zm5 0h-2v2h2V4zM4 9v2H2V9h2zm5 0v2H7V9h2zm5 0v2h-2V9h2zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3"
+        v-if="gridLayout"
+      >
         <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
         <div v-for="csp in csps" :key="csp.id">
           <div class="col">
             <div class="card shadow-sm">
-              <img :src="csp.image" height="225" alt="" />
-              <div class="card-body">
-                <p>{{ csp.name }}</p>
-                <p>{{ csp.category }}</p>
-                <p>{{ csp.location }}</p>
-                <p class="card-text">{{ csp.description }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small class="text-muted">{{ csp.hours }}</small>
+              <div class="img_align">
+                <img class="w-100 p-0" height="225" :src="csp.image" alt="" />
+                <div class="text_align">
+                  <small>{{ csp.openings }} Openings</small>
+                </div>
+              </div>
+
+              <div class="card-body px-3">
+                <h3 style="text-align: left">{{ csp.name }}</h3>
+                <span class="d-flex justify-content-left pb-3"
+                  ><span class="badge text-uppercase">{{ csp.cat }}</span></span
+                >
+                <p style="text-align: left">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-clock-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
+                    /></svg
+                  >&nbsp;&nbsp;Estimated: {{ csp.hours }} Hours
+                </p>
+                <p style="text-align: left">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-pin-map-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
+                    /></svg
+                  >&nbsp; {{ csp.address }}
+                </p>
+                <p style="text-align: left" class="card-text">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-file-earmark-text-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
+                    />
+                  </svg>
+                  &nbsp;{{ csp.description }}
+                </p>
+                <div class="d-flex justify-content-center">
                   <div class="btn-group">
                     <button
                       type="button"
                       class="btn btn-sm btn-outline-secondary"
                     >
-                      More Details align to center
+                      More Details
                     </button>
                   </div>
                 </div>
@@ -34,6 +135,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div v-else>
+        <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
+        <p>this is a list layout</p>
       </div>
     </div>
   </div>
@@ -46,279 +151,40 @@ export default {
   data() {
     return {
       csps: MOCK_DATA,
+      gridLayout: true,
     };
+  },
+  methods: {
+    // if addresss is too long, then truncate it
+    shortenAddress() {
+      for (let i = 0; i < this.csps.length; i++) {
+        if (this.csps[i].address.length > 20) {
+          this.csps[i].address = this.csps[i].address.substring(0, 20) + "...";
+        }
+      }
+    },
+  },
+  beforeMount() {
+    this.shortenAddress();
   },
 };
 </script>
 <style scoped>
-body {
-  background: #dcdcdc;
-  margin-top: 20px;
+.badge {
+  background-color: #ccc;
+  color: #252525;
+  border-radius: 30px;
+  padding: 0.5rem 0.8rem;
 }
-
-.widget-26 {
-  color: #3c4142;
-  font-weight: 400;
-}
-
-.widget-26 tr:first-child td {
-  border: 0;
-}
-
-.widget-26 .widget-26-job-emp-img img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-}
-
-.widget-26 .widget-26-job-title {
-  min-width: 200px;
-}
-
-.widget-26 .widget-26-job-title a {
-  font-weight: 400;
-  font-size: 0.875rem;
-  color: #3c4142;
-  line-height: 1.5;
-}
-
-.widget-26 .widget-26-job-title a:hover {
-  color: #68cbd7;
-  text-decoration: none;
-}
-
-.widget-26 .widget-26-job-title .employer-name {
-  margin: 0;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #3c4142;
-  font-size: 0.8125rem;
-  color: #3c4142;
-}
-
-.widget-26 .widget-26-job-title .employer-name:hover {
-  color: #68cbd7;
-  text-decoration: none;
-}
-
-.widget-26 .widget-26-job-title .time {
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.widget-26 .widget-26-job-info {
-  min-width: 100px;
-  font-weight: 400;
-}
-
-.widget-26 .widget-26-job-info p {
-  line-height: 1.5;
-  color: #3c4142;
-  font-size: 0.8125rem;
-}
-
-.widget-26 .widget-26-job-info .location {
-  color: #3c4142;
-}
-
-.widget-26 .widget-26-job-salary {
-  min-width: 70px;
-  font-weight: 400;
-  color: #3c4142;
-  font-size: 0.8125rem;
-}
-
-.widget-26 .widget-26-job-category {
-  padding: 0.5rem;
-  display: inline-flex;
-  white-space: nowrap;
-  border-radius: 15px;
-}
-
-.widget-26 .widget-26-job-category .indicator {
-  width: 13px;
-  height: 13px;
-  margin-right: 0.5rem;
-  float: left;
-  border-radius: 50%;
-}
-
-.widget-26 .widget-26-job-category span {
-  font-size: 0.8125rem;
-  color: #3c4142;
-  font-weight: 600;
-}
-
-.widget-26 .widget-26-job-starred svg {
-  width: 20px;
-  height: 20px;
-  color: #fd8b2c;
-}
-
-.widget-26 .widget-26-job-starred svg.starred {
-  fill: #fd8b2c;
-}
-.bg-soft-base {
-  background-color: #e1f5f7;
-}
-.bg-soft-warning {
-  background-color: #fff4e1;
-}
-.bg-soft-success {
-  background-color: #d1f6f2;
-}
-.bg-soft-danger {
-  background-color: #fedce0;
-}
-.bg-soft-info {
-  background-color: #d7efff;
-}
-
-.search-form {
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 1rem;
-}
-
-.search-form input {
-  height: 100%;
-  background: transparent;
-  border: 0;
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  height: 100%;
-  font-size: 1rem;
-}
-
-.search-form select {
-  background: transparent;
-  border: 0;
-  padding: 1rem;
-  height: 100%;
-  font-size: 1rem;
-}
-
-.search-form select:focus {
-  border: 0;
-}
-
-.search-form button {
-  height: 100%;
-  width: 100%;
-  font-size: 1rem;
-}
-
-.search-form button svg {
-  width: 24px;
-  height: 24px;
-}
-
-.search-body {
-  margin-bottom: 1.5rem;
-}
-
-.search-body .search-filters .filter-list {
-  margin-bottom: 1.3rem;
-}
-
-.search-body .search-filters .filter-list .title {
-  color: #3c4142;
-  margin-bottom: 1rem;
-}
-
-.search-body .search-filters .filter-list .filter-text {
-  color: #727686;
-}
-
-.search-body .search-result .result-header {
-  margin-bottom: 2rem;
-}
-
-.search-body .search-result .result-header .records {
-  color: #3c4142;
-}
-
-.search-body .search-result .result-header .result-actions {
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.search-body .search-result .result-header .result-actions .result-sorting {
-  display: flex;
-  align-items: center;
-}
-
-.search-body
-  .search-result
-  .result-header
-  .result-actions
-  .result-sorting
-  span {
-  flex-shrink: 0;
-  font-size: 0.8125rem;
-}
-
-.search-body
-  .search-result
-  .result-header
-  .result-actions
-  .result-sorting
-  select {
-  color: #68cbd7;
-}
-
-.search-body
-  .search-result
-  .result-header
-  .result-actions
-  .result-sorting
-  select
-  option {
-  color: #3c4142;
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .search-body .search-filters {
-    display: flex;
-  }
-  .search-body .search-filters .filter-list {
-    margin-right: 1rem;
-  }
-}
-
-.card-margin {
-  margin-bottom: 1.875rem;
-}
-
-@media (min-width: 992px) {
-  .col-lg-2 {
-    flex: 0 0 16.66667%;
-    max-width: 16.66667%;
-  }
-}
-
-.card-margin {
-  margin-bottom: 1.875rem;
-}
-.card {
-  border: 0;
-  box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-  -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-  -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-  -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-}
-.card {
+.img_align {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #ffffff;
-  background-clip: border-box;
-  border: 1px solid #e6e4e9;
-  border-radius: 8px;
+}
+.text_align {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  color: white;
 }
 </style>
