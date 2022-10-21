@@ -30,6 +30,7 @@
               class="form-control"
               id="editEmail"
               v-model="editedUser.email"
+              disabled
             />
           </td>
         </tr>
@@ -79,6 +80,11 @@
             />
           </td>
         </tr>
+        <!-- <tr rowspan="2">
+          <td rowspan="2" colspan="2">
+            <input type="checkbox" v-model="editedUser.interest" />
+          </td>
+        </tr> -->
         <tr>
           <td colspan="2">
             <p class="form-text">Enter your password to confirm changes:</p>
@@ -164,6 +170,7 @@ export default {
       profilePicture: "",
       phoneNumber: "",
       telegramHandle: "@",
+      interest: [],
     };
     const changeProfilePic = (event) => {
       editedUser.profilePicture = event.target.files[0];
@@ -184,6 +191,7 @@ export default {
       editedUser.profilePicture = user.value.photoURL;
       editedUser.phoneNumber = userAddInfo.value.phoneNo;
       editedUser.telegramHandle = userAddInfo.value.teleHandle;
+      editedUser.interest = userAddInfo.value.interest;
     });
     return { editedUser, changeProfilePic, handleEdit, err };
   },

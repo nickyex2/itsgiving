@@ -9,6 +9,7 @@ import SearchView from "../views/SearchView.vue";
 import SearchTest from "../views/SearchTest.vue";
 import SearchResults from "../views/SearchResults.vue";
 import PageNotFound from "../views/PageNotFound.vue";
+import setupProfile from "../views/setupProfile.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: Signup,
+  },
+  {
+    path: "/setup",
+    name: "setupprofile",
+    component: setupProfile,
   },
   {
     path: "/profile",
@@ -66,6 +72,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  // eslint-disable-next-line
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 };
+  },
 });
 
 export default router;

@@ -87,7 +87,8 @@ export default {
           password: password.value,
           userName: userName.value,
         });
-        router.push("/");
+        // need to change this to match a query so that dont need to store in vuex
+        router.push({ path: "/setup", query: { edit: true } });
       } catch (error) {
         console.log(error);
       }

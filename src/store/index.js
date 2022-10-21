@@ -7,10 +7,10 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import VuexPersist from "vuex-persist";
 // import getUserAddInfo from "../services/getUserAddInfo";
-import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
+import { getDatabase, ref as dbRefe, onValue, set } from "firebase/database";
 
 // user store when user is logged in
 // user info (name, email, password, photoURL, uid)
@@ -118,6 +118,35 @@ if (cookieEnabled) {
           // snapshotValue = snapshot.val();
           // console.log(snapshotValue);
         });
+      },
+      async makeUserAddInfo({ commit }, payload) {
+        // entire function needs to use payload.value as it sends the entire ref object
+        const user = this.getters.user;
+        if (payload.value.profilePicture !== "") {
+          const storage = getStorage();
+          const storageRef = ref(
+            storage,
+            `profilePics/${payload.value.profilePicture.name}`
+          );
+          console.log(storageRef);
+          await uploadBytes(storageRef, payload.value.profilePicture);
+          const photoURL = await getDownloadURL(storageRef);
+          await updateProfile(user, {
+            displayName: user.displayName,
+            photoURL: photoURL,
+          });
+        }
+        delete payload.value.profilePicture;
+        // send user additional info to database
+        const db = getDatabase();
+        const dbRef = dbRefe(db, `users/${user.uid}`);
+        try {
+          await set(dbRef, payload.value);
+          console.log("user additional info updated");
+          commit("setUserAddInfo", payload.value);
+        } catch (error) {
+          console.log(error);
+        }
       },
     },
     modules: {},
