@@ -6,28 +6,51 @@
     <br />
     <br />
     <div class="vid">
-      <h1>What CSP Are You Looking For Today?</h1>
+      <h1>testing converting address to LONG AND LAT</h1>
+      <br />
+      <br />
+      <h1>
+        {{ long }}
+        {{ lat }}
+      </h1>
+      <br />
+      <br />
       <br />
       <br />
       <form action="">
         <input
-          type="search"
           v-model="search"
-          placeholder="Enter A CSP Title Or Category..."
+          placeholder="Enter An Address"
           required
+          ref="autocomplete"
         />
-        <i class="fa fa-search" @click="performSearch"></i>
+        <svg
+          @click="getLongLat"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          class="bi bi-search fa"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
         <a id="clear-btn" @click="deleteData">Clear</a>
       </form>
     </div>
   </header>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: "SearchTest",
   data() {
     return {
       search: "",
+      long: "",
+      lat: "",
+      apiKey: "AIzaSyBuOFt-d_m9wfX3sjpebEx3IEhuLbSTmfE",
     };
   },
   methods: {
@@ -44,6 +67,30 @@ export default {
         this.$router.path = "/searchresults";
       }
     },
+    getLongLat() {
+      axios
+        .get(
+          "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+            encodeURIComponent(this.search) +
+            "&key=" +
+            this.apiKey
+        )
+        .then((response) => {
+          console.log(response.data.results);
+          this.long = response.data.results[0].geometry.location.lng;
+          this.lat = response.data.results[0].geometry.location.lat;
+        });
+    },
+  },
+  mounted() {
+    // const autocomplete = new window.google.maps.places.Autocomplete(
+    //   this.$refs["autocomplete"],
+    //   {
+    //     bounds: new window.google.maps.LatLngBounds(
+    //       new window.google.maps.LatLng(1.29027, 103.851959)
+    //     ),
+    //   }
+    // );
   },
 };
 </script>
@@ -68,7 +115,6 @@ form {
   box-sizing: border-box;
   border-radius: 50px;
   border: 4px solid white;
-  padding: 5px;
 }
 
 input {
@@ -88,7 +134,7 @@ input {
 
 .fa {
   box-sizing: border-box;
-  padding: 15px;
+  padding: 20px;
   width: 85px;
   height: 85px;
   position: absolute;
@@ -97,7 +143,7 @@ input {
   border-radius: 50%;
   color: #07051a;
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   transition: all 1s;
 }
 

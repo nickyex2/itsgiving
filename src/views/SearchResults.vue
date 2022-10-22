@@ -15,14 +15,15 @@
               v-model="search"
               placeholder="Got a Specific Project In Mind?"
               ref=""
+              @keyup="showPlacesOnMap"
             />
           </div>
           <div class="col-5 d-flex justify-content-left">
             <input
               class="form-control h-100"
               v-model="autocompleteaddress"
-              placeholder="Alternatively Enter Your Address"
-              ref="autocomplete"
+              placeholder="Want to Search By Address?"
+              ref="autocompleteaddress"
             />
             <button
               type="button"
@@ -213,9 +214,9 @@
             </div>
             <div v-else>
               <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
-              <span :class="{ active: activeIndex === index }">
+              <span>
                 <div
-                  class="list-group"
+                  :class="{ active: activeIndex === index, true: list - group }"
                   v-for="(csp, index) in filteredList"
                   @click="showInfoWindow(index)"
                   :key="csp.id"
@@ -443,29 +444,34 @@ export default {
     showPlacesOnMap() {
       this.places = [];
       this.markers = [];
-      this.places = this.csps;
+      this.places = this.filteredList;
       var map = new window.google.maps.Map(this.$refs["map"], {
         zoom: 15,
         center: new window.google.maps.LatLng(this.lat, this.lng),
         mapTypeId: window.google.maps.MapTypeId.ROADMAP,
       });
+      var boxicon =
+        "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|Your%20Location|FF0000|000000";
       new window.google.maps.Marker({
         position: new window.google.maps.LatLng(this.lat, this.lng),
         map: map,
         animation: window.google.maps.Animation.DROP,
-        label: "You",
+        icon: boxicon,
       });
       const infoWindow = new window.google.maps.InfoWindow();
       console.log(this.places);
       for (let i = 0; i < this.places.length; i++) {
         const lat = this.places[i].lat;
         const lng = this.places[i].lng;
-
+        let pinIcon =
+          "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|" +
+          `${this.places[i].name}: ${this.places[i].hours} Hours` +
+          "|ffe48c|000000";
         const marker = new window.google.maps.Marker({
           position: new window.google.maps.LatLng(lat, lng),
           map: map,
           animation: window.google.maps.Animation.DROP,
-          label: `${this.places[i].hours} Hours`,
+          icon: pinIcon,
         });
         this.markers.push(marker);
         new window.markerClusterer.MarkerClusterer({
@@ -500,8 +506,8 @@ export default {
     },
   },
   mounted() {
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      this.$refs["autocomplete"],
+    const autocompleteaddress = new window.google.maps.places.Autocomplete(
+      this.$refs["autocompleteaddress"],
       {
         bounds: new window.google.maps.LatLngBounds(
           new window.google.maps.LatLng(1.29027, 103.851959)
@@ -509,11 +515,12 @@ export default {
       }
     );
 
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
+    autocompleteaddress.addListener("place_changed", () => {
+      const place = autocompleteaddress.getPlace();
       this.address = place.formatted_address;
       this.lat = place.geometry.location.lat();
       this.lng = place.geometry.location.lng();
+      this.showPlacesOnMap();
     });
   },
 };

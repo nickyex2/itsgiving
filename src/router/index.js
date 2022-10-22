@@ -48,8 +48,8 @@ const routes = [
     component: EditProfile,
   },
   {
-    path: "/search",
-    name: "search",
+    path: "/searchresults",
+    name: "searchresults",
     component: SearchView,
   },
   {
@@ -58,8 +58,8 @@ const routes = [
     component: SearchTest,
   },
   {
-    path: "/searchresults",
-    name: "searchresults",
+    path: "/search",
+    name: "search",
     component: SearchResults,
   },
   {
