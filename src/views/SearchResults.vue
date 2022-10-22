@@ -463,10 +463,17 @@ export default {
       for (let i = 0; i < this.places.length; i++) {
         const lat = this.places[i].lat;
         const lng = this.places[i].lng;
-        let pinIcon =
-          "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|" +
-          `${this.places[i].name}: ${this.places[i].hours} Hours` +
-          "|ffe48c|000000";
+        let pinIcon = {
+          url:
+            "https://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=bb|ffe48c|000000|" +
+            `${this.places[i].name}` +
+            "|" +
+            `${this.places[i].hours} Hours` +
+            "|***Click+For+More+Details***",
+          scaledSize: new window.google.maps.Size(100, 60),
+          origin: new window.google.maps.Point(0, 0), // origin
+          anchor: new window.google.maps.Point(0, 0), // anchor
+        };
         const marker = new window.google.maps.Marker({
           position: new window.google.maps.LatLng(lat, lng),
           map: map,
