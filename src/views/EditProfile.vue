@@ -80,11 +80,29 @@
             />
           </td>
         </tr>
-        <!-- <tr rowspan="2">
-          <td rowspan="2" colspan="2">
-            <input type="checkbox" v-model="editedUser.interest" />
+        <tr>
+          <td>Interests:</td>
+          <td>
+            <ul>
+              <li
+                v-for="interest_tag in interest_tags"
+                :key="interest_tag"
+                class="align-items-left form-check form-check-inline"
+              >
+                <input
+                  type="checkbox"
+                  :id="interest_tag"
+                  class="form-check-input"
+                  :value="interest_tag"
+                  v-model="editedUser.interest"
+                />
+                <label :for="interest_tag" class="form-check-label">{{
+                  interest_tag
+                }}</label>
+              </li>
+            </ul>
           </td>
-        </tr> -->
+        </tr>
         <tr>
           <td colspan="2">
             <p class="form-text">Enter your password to confirm changes:</p>
@@ -143,8 +161,8 @@
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { ref, computed, onBeforeMount } from "vue";
-// import getUserAddInfo from "../services/getUserAddInfo";
-// import { getStorage } from "firebase/storage";
+import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
+import { reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 
 export default {
   name: "EditProfile",
@@ -152,7 +170,7 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
-    // const storage = getStorage();
+    const db = getDatabase();
     // if the user accidentally found this page without clicking the edit button on the profile page, redirect them to the profile page
     if (!store.getters.editUserBool) {
       router.push("/");
@@ -161,8 +179,16 @@ export default {
     store.dispatch("editProfileBool", false);
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
+    const interest_tags = ref([]);
+    const dbRef = dbRefe(db, "interest-tags/");
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      for (let key in data) {
+        interest_tags.value.push(data[key]);
+      }
+    });
     const err = ref("");
-    const editedUser = {
+    const editedUser = ref({
       name: "",
       email: "",
       password: "",
@@ -171,29 +197,44 @@ export default {
       phoneNumber: "",
       telegramHandle: "@",
       interest: [],
-    };
+    });
+    onBeforeMount(() => {
+      editedUser.value.name = user.value.displayName;
+      editedUser.value.email = user.value.email;
+      editedUser.value.profilePicture = user.value.photoURL;
+      editedUser.value.phoneNumber = userAddInfo.value.phoneNo;
+      editedUser.value.telegramHandle = userAddInfo.value.telegramHandle;
+      editedUser.value.interest = userAddInfo.value.interest;
+    });
     const changeProfilePic = (event) => {
-      editedUser.profilePicture = event.target.files[0];
+      editedUser.value.profilePicture = event.target.files[0];
     };
-    const handleEdit = () => {
-      if (editedUser.password !== editedUser.confirmPassword) {
+    const handleEdit = async () => {
+      if (editedUser.value.password !== editedUser.value.confirmPassword) {
         err.value = "Passwords do not match";
       } else {
-        // console.log(editedUser);
-        // retrieve the users uid
-        // const uid = user.uid;
-        // send the edited user object to both user auth (displayName, email, profilePicURL) and realtime db (phoneNo and teleHandle, interest tags)
+        try {
+          await reauthenticateWithCredential(
+            store.getters.user,
+            EmailAuthProvider.credential(
+              user.value.email,
+              editedUser.value.password
+            )
+          );
+          await store.dispatch("updateUserAddInfo", editedUser.value);
+          router.push("/profile");
+        } catch (error) {
+          err.value = "Incorrect password";
+        }
       }
     };
-    onBeforeMount(() => {
-      editedUser.name = user.value.displayName;
-      editedUser.email = user.value.email;
-      editedUser.profilePicture = user.value.photoURL;
-      editedUser.phoneNumber = userAddInfo.value.phoneNo;
-      editedUser.telegramHandle = userAddInfo.value.teleHandle;
-      editedUser.interest = userAddInfo.value.interest;
-    });
-    return { editedUser, changeProfilePic, handleEdit, err };
+    return {
+      editedUser,
+      changeProfilePic,
+      handleEdit,
+      err,
+      interest_tags,
+    };
   },
 };
 </script>

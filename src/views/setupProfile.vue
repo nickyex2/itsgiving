@@ -58,7 +58,6 @@
             >
           </td>
           <td>
-            <!-- wont load on refresh -->
             <ul>
               <li
                 v-for="interest_tag in interest_tags"
@@ -108,16 +107,6 @@ export default {
       router.push("/profile");
     }
     const interest_tags = ref([]);
-    // getting interest tags
-    // const dbRef = dbRefe(db, "interest-tags/");
-    // console.log(dbRef);
-    // onValue(dbRef, (snapshot) => {
-    //   const data = snapshot.val();
-    //   for (let key in data) {
-    //     interest_tags.push(data[key]);
-    //   }
-    // });
-    // console.log(interest_tags);
     const userAddInfo = ref({
       profilePicture: "",
       phoneNo: "",
@@ -133,7 +122,7 @@ export default {
       // settle profile picture first and remove from userAddInfo
       // then add the rest of the info to userAddInfo
       await store.dispatch("makeUserAddInfo", userAddInfo);
-      // router.push("/");
+      router.push("/profile");
     };
     const handleImg = (event) => {
       userAddInfo.value.profilePicture = event.target.files[0];
