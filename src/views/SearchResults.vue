@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <div class="row" v-if="gridLayout">
+        <div class="row">
           <div class="col-5 searchbar d-flex justify-content-left">
             <input
               class="form-control h-100"
@@ -38,7 +38,7 @@
               @change="toggleMap"
             />
           </div>
-          <div class="col-1">
+          <div class="col-1" v-if="gridLayout">
             <button
               class="btn rounded-circle float-right"
               @click="gridLayout = !gridLayout"
@@ -58,39 +58,7 @@
               </svg>
             </button>
           </div>
-        </div>
-        <div class="row" v-else>
-          <div class="col-5 searchbar d-flex justify-content-left">
-            <input
-              class="form-control h-100"
-              type="text"
-              v-model="search"
-              placeholder="Got a Specific Project In Mind?"
-              ref=""
-            />
-          </div>
-          <div class="col-5 d-flex justify-content-left">
-            <input
-              class="form-control h-100"
-              v-model="autocompleteaddress"
-              placeholder="Alternatively Enter Your Address"
-              ref="autocomplete"
-            />
-          </div>
-          <div class="col-1 form-check form-switch">
-            <label class="form-check-label" for="flexSwitchCheckChecked"
-              >Show Map</label
-            >
-            <br />
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="flexSwitchCheckChecked"
-              v-model="checked"
-              @change="toggleMap"
-            />
-          </div>
-          <div class="col-1">
+          <div class="col-1" v-else>
             <button
               class="btn rounded-circle float-right"
               @click="gridLayout = !gridLayout"
