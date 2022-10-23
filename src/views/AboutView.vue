@@ -20,11 +20,15 @@
               </p>
               <div class="numbers row">
                 <div class="col-md-6">
-                  <h1>100</h1>
+                  <div class="counter-container">
+                    <div class="counter-ani-abt" data-target="100"></div>
+                  </div>
                   <p>CSPs listed</p>
                 </div>
                 <div class="col-md-6">
-                  <h1>200</h1>
+                  <div class="counter-container">
+                    <div class="counter-ani-abt" data-target="200"></div>
+                  </div>
                   <p>Sign Ups</p>
                 </div>
               </div>
@@ -137,5 +141,21 @@
 export default {
   name: "AboutView",
   setup() {},
+  mounted() {
+    const counters = document.querySelectorAll(".counter-ani-abt");
+    counters.forEach((counter) => {
+      counter.innerText = "0";
+      const updateCounter = () => {
+        const target = +counter.getAttribute("data-target");
+        const count = +counter.innerText;
+        const increment = target / 200;
+        if (count < target) {
+          counter.innerText = `${Math.ceil(count + increment)}`;
+          setTimeout(updateCounter, 10);
+        } else counter.innerText = target;
+      };
+      updateCounter();
+    });
+  },
 };
 </script>
