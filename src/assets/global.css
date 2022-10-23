@@ -107,6 +107,12 @@ button:hover{
     margin-top: 1vw;
 }
 
+.counter-ani{
+    font-size: 80px;
+    font-weight: bolder;
+    margin-top: 1vw;
+}
+
 #counters p{
     font-size: 30px;
     font-weight: bolder;
@@ -295,6 +301,12 @@ a {
     margin: 0;
 }
 
+.counter-ani-abt{
+    font-size: 45px;
+    font-weight: bolder;
+    margin: 0;
+}
+
 .numbers div{
     margin-top: 2vw;
     margin-bottom: 1vw;
@@ -413,9 +425,9 @@ a {
 /* FOOTER */
 
 .footer-basic {
-    padding:40px 0;
+    padding:25px 0;
     background-color:#D9D9D9;
-    color:#4b4c4d;
+    color:#aaa;
 }
 
 .footer-basic ul {
@@ -443,7 +455,7 @@ a {
 
 .footer-basic .social {
     text-align:center;
-    padding-bottom:25px;
+    padding-bottom:15px;
 }
 
 .footer-basic .social > a {
@@ -454,23 +466,25 @@ a {
     display:inline-block;
     text-align:center;
     border-radius:50%;
-    border:1px solid #ccc;
+    border:2px solid #aaa;
     margin:0 8px;
     color:inherit;
-    opacity:0.75;
+    opacity:1;
     transition: 0.3s;
 }
 
 .footer-basic .social > a:hover {
-    opacity:1;
+    color: black;
+    border: 2px solid black;
 }
 
 .footer-basic .copyright {
-    margin-top:15px;
+    margin-top:10px;
     text-align:center;
     font-size:13px;
-    color:#aaa;
+    color: #aaa;
     margin-bottom:0;
+    font-weight: bold;
 }
 
 .list-inline-item{
@@ -555,4 +569,214 @@ a {
 .card{
     margin-left: 10px;
     margin-right: 10px;
+}
+
+/* PROFILE */
+
+.profile-all:hover{
+    background-color: #D9D9D9;
+}
+
+.profile-container{
+    margin-top: 5vw;
+    margin-bottom: 6.5vw;
+}
+
+/* SETUP PROFILE */
+
+.container-prof{
+    width: 500px;
+    background: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 50px 35px 10px 35px;
+    margin-top: 3vw;
+    margin-bottom: 4vw;
+  }
+  .container-prof header{
+    font-size: 35px;
+    font-weight: 600;
+    margin: 0 0 30px 0;
+  }
+  .container-prof .form-outer{
+    width: 100%;
+    overflow: hidden;
+  }
+  .container-prof .form-outer form{
+    display: flex;
+    width: 400%;
+  }
+  .form-outer form .page{
+    width: 25%;
+    transition: margin-left 0.3s ease-in-out;
+    
+  }
+  .form-outer form .page .title{
+    text-align: left;
+    font-size: 25px;
+    font-weight: 500;
+  }
+  .form-outer form .page .field{
+    width: 330px;
+    height: 45px;
+    margin: 45px 0;
+    display: flex;
+    position: relative;
+  }
+  form .page .field .label{
+    position: absolute;
+    top: -30px;
+    font-weight: 500;
+  }
+  form .page .field input{
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding-left: 15px;
+    font-size: 18px;
+  }
+  form .page .field select{
+    width: 100%;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  form .page .field button{
+    width: 100%;
+    height: calc(100% + 5px);
+    border: none;
+    background: #FFE48C;
+    margin-top: -20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+  }
+  form .page .field button:hover{
+    background: #d9d9d9;
+  }
+  form .page .btns button{
+    margin-top: -20px!important;
+  }
+  form .page .btns button.prev{
+    margin-right: 3px;
+    font-size: 17px;
+  }
+  form .page .btns button.next{
+    margin-left: 3px;
+  }
+  .container-prof .progress-bar{
+    display: flex;
+    margin: 40px 0;
+    user-select: none;
+    background-color: white;
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .container-prof .progress-bar .step{
+    text-align: center;
+    width: 100%;
+    position: relative;
+    width: 25%;
+    display: inline;
+    
+  }
+  .container-prof .progress-bar .step p{
+    font-weight: 500;
+    font-size: 18px;
+    color: #d9d9d9;
+    margin-bottom: 8px;
+    
+  }
+  .progress-bar .step .bullet{
+    height: 25px;
+    width: 25px;
+    border: 2px solid #d9d9d9;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    color: #D9D9D9;
+  }
+  .progress-bar .step .bullet.active{
+    border-color: black;
+    background: black;
+  }
+  .progress-bar .step .bullet span{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .progress-bar .step .bullet.active span{
+    display: none;
+  }
+  .progress-bar .step .bullet:before,
+  .progress-bar .step .bullet:after{
+    position: absolute;
+    content: '';
+    bottom: 9px;
+    right: -64px;
+    height: 3px;
+    width: 44px;
+    background: #D9D9D9;
+  }
+  .progress-bar .step .bullet.active:after{
+    background: black;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+  }
+  @keyframes animate {
+    100%{
+      transform: scaleX(1);
+    }
+  }
+  .progress-bar .step:last-child .bullet:before,
+  .progress-bar .step:last-child .bullet:after{
+    display: none;
+  }
+  .progress-bar .step p.active{
+    color: black;
+    transition: 0.2s linear;
+  }
+  .progress-bar .step .check{
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    font-size: 15px;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  .progress-bar .step .check.active{
+    display: block;
+    color: #D9D9D9;
+  }
+
+.temp{
+    text-align: center;
+}
+
+.form-check-input{
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.field-int{
+    margin: 10px;
+    text-align: left;
+}
+
+/* EDIT PROFILE */
+.edit-title{
+    text-align: left;
+    font-weight: bold;
 }
