@@ -9,7 +9,7 @@
             <!-- Profile picture image-->
             <img
               class="img-account-profile rounded-circle mb-2"
-              :src="editedUser.profilePicture"
+              :src="user.photoURL"
               alt=""
             />
             <!-- Profile picture help block-->

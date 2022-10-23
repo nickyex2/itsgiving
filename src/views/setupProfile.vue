@@ -98,7 +98,7 @@
             </div>
             <div class="field btns">
               <button class="prev-2 prev">Previous</button>
-              <button class="next-2 next">Next</button>
+              <button class="next-2 next" :disabled="isDisabled">Next</button>
             </div>
           </div>
           <div class="page">
@@ -243,6 +243,13 @@ export default {
       pending_csp: false,
       rejected_csp: false,
     });
+    const isDisabled = computed(() => {
+      if (userAddInfo.value.interest.length > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
     const handleSetup = async () => {
       // settle profile picture first and remove from userAddInfo
       // then add the rest of the info to userAddInfo
@@ -267,6 +274,7 @@ export default {
       user,
       handleSetup,
       handleImg,
+      isDisabled,
     };
   },
   mounted() {
