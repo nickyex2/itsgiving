@@ -9,7 +9,7 @@
             <!-- Profile picture image-->
             <img
               class="img-account-profile rounded-circle mb-2"
-              :src="user.photoURL"
+              :src="currPhoto"
               alt=""
             />
             <!-- Profile picture help block-->
@@ -370,6 +370,7 @@ export default {
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const interest_tags = ref([]);
+    const currPhoto = ref("");
     const dbRef = dbRefe(db, "interest-tags/");
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
@@ -394,6 +395,7 @@ export default {
       editedUser.value.displayName = user.value.displayName;
       editedUser.value.email = user.value.email;
       editedUser.value.profilePicture = user.value.photoURL;
+      currPhoto.value = user.value.photoURL;
       editedUser.value.firstName = userAddInfo.value.firstName;
       editedUser.value.lastName = userAddInfo.value.lastName;
       editedUser.value.phoneNo = userAddInfo.value.phoneNo;
@@ -430,6 +432,7 @@ export default {
       handleEdit,
       err,
       interest_tags,
+      currPhoto,
     };
   },
 };
