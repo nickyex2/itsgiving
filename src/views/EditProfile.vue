@@ -9,7 +9,7 @@
             <!-- Profile picture image-->
             <img
               class="img-account-profile rounded-circle mb-2"
-              src="http://bootdey.com/img/Content/avatar/avatar1.png"
+              :src="editedUser.profilePicture"
               alt=""
             />
             <!-- Profile picture help block-->
@@ -41,7 +41,7 @@
                   type="text"
                   class="form-control"
                   id="editUsername"
-                  v-model="editedUser.name"
+                  v-model="editedUser.displayName"
                 />
               </div>
               <!-- Form Row-->
@@ -56,7 +56,7 @@
                     id="inputFirstName"
                     type="text"
                     placeholder="Enter your first name"
-                    value="Valerie"
+                    v-model="editedUser.firstName"
                   />
                 </div>
                 <!-- Form Group (last name)-->
@@ -69,7 +69,7 @@
                     id="inputLastName"
                     type="text"
                     placeholder="Enter your last name"
-                    value="Luna"
+                    v-model="editedUser.lastName"
                   />
                 </div>
               </div>
@@ -100,7 +100,7 @@
                     class="form-control"
                     id="editPhone"
                     size="8"
-                    v-model="editedUser.phoneNumber"
+                    v-model="editedUser.phoneNo"
                   />
                 </div>
                 <!-- Form Group (phone number)-->
@@ -379,22 +379,28 @@ export default {
     });
     const err = ref("");
     const editedUser = ref({
-      name: "",
+      displayName: "",
       email: "",
       password: "",
       confirmPassword: "",
+      firstName: "",
+      lastName: "",
       profilePicture: "",
-      phoneNumber: "",
+      phoneNo: "",
       telegramHandle: "@",
       interest: [],
     });
     onBeforeMount(() => {
-      editedUser.value.name = user.value.displayName;
+      editedUser.value.displayName = user.value.displayName;
       editedUser.value.email = user.value.email;
       editedUser.value.profilePicture = user.value.photoURL;
-      editedUser.value.phoneNumber = userAddInfo.value.phoneNo;
+      editedUser.value.firstName = userAddInfo.value.firstName;
+      editedUser.value.lastName = userAddInfo.value.lastName;
+      editedUser.value.phoneNo = userAddInfo.value.phoneNo;
       editedUser.value.telegramHandle = userAddInfo.value.telegramHandle;
-      editedUser.value.interest = userAddInfo.value.interest;
+      if (userAddInfo.value.interest != undefined) {
+        editedUser.value.interest = userAddInfo.value.interest;
+      }
     });
     const changeProfilePic = (event) => {
       editedUser.value.profilePicture = event.target.files[0];

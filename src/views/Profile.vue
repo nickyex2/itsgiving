@@ -22,22 +22,14 @@
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center p-3"
                 >
-                  <p class="mb-0">Indicated Interests</p>
+                  <p class="mb-0 fw-bold">Indicated Interests</p>
                 </li>
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center p-3"
+                  v-for="interest in userAddInfo.interest"
+                  :key="interest"
                 >
-                  <p class="mb-0">Animal Welfare</p>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center p-3"
-                >
-                  <p class="mb-0">Children & Youth</p>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center p-3"
-                >
-                  <p class="mb-0">Sports</p>
+                  <p class="mb-0">{{ interest }}</p>
                 </li>
               </ul>
             </div>
@@ -48,10 +40,21 @@
             <div class="profile-cards card-body">
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Full Name</p>
+                  <p class="mb-0 fw-bold">Display Name</p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">{{ user.displayName }}</p>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0 fw-bold">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    {{ `${userAddInfo.firstName} ${userAddInfo.lastName}` }}
+                  </p>
                 </div>
               </div>
               <hr />
@@ -69,11 +72,11 @@
                   <p class="mb-0 fw-bold">Phone</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">(097) 234-5678</p>
+                  <p class="text-muted mb-0">{{ userAddInfo.phoneNo }}</p>
                 </div>
               </div>
               <hr />
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0 fw-bold">Mobile</p>
                 </div>
@@ -81,13 +84,15 @@
                   <p class="text-muted mb-0">(098) 765-4321</p>
                 </div>
               </div>
-              <hr />
+              <hr /> -->
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0 fw-bold">Telegram</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">@abcdef</p>
+                  <p class="text-muted mb-0">
+                    {{ userAddInfo.telegramHandle }}
+                  </p>
                 </div>
               </div>
               <hr />
@@ -101,6 +106,7 @@
               </div>
             </div>
           </div>
+          <!-- need to edit later -->
           <div class="row">
             <div class="col-md-6">
               <div class="profile-all card mb-4 mb-md-0">
@@ -142,6 +148,7 @@
               </div>
             </div>
           </div>
+          <!-- end of edit later -->
         </div>
       </div>
     </div>

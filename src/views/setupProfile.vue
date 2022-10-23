@@ -39,11 +39,11 @@
               <div class="title">Basic Info:</div>
               <div class="field">
                 <div class="label">First Name</div>
-                <input type="text" />
+                <input type="text" v-model="userAddInfo.firstName" />
               </div>
               <div class="field">
                 <div class="label">Last Name</div>
-                <input type="text" />
+                <input type="text" v-model="userAddInfo.lastName" />
               </div>
               <div class="field">
                 <button class="firstNext next">Next</button>
@@ -77,7 +77,9 @@
             </div>
           </div>
           <div class="page">
-            <div class="title">Your Interests:</div>
+            <div class="title">
+              Your Interests: (please select at least 1 interest)
+            </div>
             <div
               v-for="interest_tag in interest_tags"
               :key="interest_tag"
@@ -228,17 +230,9 @@ export default {
       router.push("/profile");
     }
     const interest_tags = ref([]);
-    // getting interest tags
-    // const dbRef = dbRefe(db, "interest-tags/");
-    // console.log(dbRef);
-    // onValue(dbRef, (snapshot) => {
-    //   const data = snapshot.val();
-    //   for (let key in data) {
-    //     interest_tags.push(data[key]);
-    //   }
-    // });
-    // console.log(interest_tags);
     const userAddInfo = ref({
+      firstName: "",
+      lastName: "",
       profilePicture: "",
       phoneNo: "",
       telegramHandle: "@",
@@ -253,7 +247,7 @@ export default {
       // settle profile picture first and remove from userAddInfo
       // then add the rest of the info to userAddInfo
       await store.dispatch("makeUserAddInfo", userAddInfo);
-      // router.push("/");
+      router.push("/");
     };
     const handleImg = (event) => {
       userAddInfo.value.profilePicture = event.target.files[0];
