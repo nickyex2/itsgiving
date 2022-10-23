@@ -50,13 +50,17 @@
       <div class="row row-col-sm-1">
         <div class="counter col-6" id="csp">
           <img src="../assets/help.png" alt="csp" />
-          <h1>10</h1>
+          <div class="counter-container">
+            <div class="counter-ani" data-target="10"></div>
+          </div>
           <p>Community Service Projects</p>
         </div>
 
         <div class="counter col-6" id="vol">
           <img src="../assets/clock.png" alt="vol" />
-          <h1>80</h1>
+          <div class="counter-container">
+            <div class="counter-ani" data-target="80"></div>
+          </div>
           <p>Hours</p>
         </div>
       </div>
@@ -326,6 +330,21 @@ export default {
       }
     });
     console.log(items);
+
+    const counters = document.querySelectorAll(".counter-ani");
+    counters.forEach((counter) => {
+      counter.innerText = "0";
+      const updateCounter = () => {
+        const target = +counter.getAttribute("data-target");
+        const count = +counter.innerText;
+        const increment = target / 200;
+        if (count < target) {
+          counter.innerText = `${Math.ceil(count + increment)}`;
+          setTimeout(updateCounter, 50);
+        } else counter.innerText = target;
+      };
+      updateCounter();
+    });
   },
 };
 </script>
