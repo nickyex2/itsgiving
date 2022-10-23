@@ -1,7 +1,13 @@
 <template>
-  <Navbar />
+  <Navbar v-if="$route.name !== 'setupprofile'" />
   <router-view />
-  <div v-if="$route.name !== 'login' && $route.name !== 'signup'">
+  <div
+    v-if="
+      $route.name !== 'login' &&
+      $route.name !== 'signup' &&
+      $route.name !== 'setupprofile'
+    "
+  >
     <Footer />
   </div>
 </template>

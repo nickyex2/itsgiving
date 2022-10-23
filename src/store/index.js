@@ -168,7 +168,7 @@ if (cookieEnabled) {
         delete payload.confirmPassword;
         if (
           payload.profilePicture != user.photoURL ||
-          payload.name != user.displayName
+          payload.displayName != user.displayName
         ) {
           const storage = getStorage();
           if (payload.profilePicture != user.photoURL) {
@@ -182,13 +182,13 @@ if (cookieEnabled) {
           await uploadBytes(storageRef, payload.profilePicture);
           const photoURL = await getDownloadURL(storageRef);
           await updateProfile(user, {
-            displayName: payload.name,
+            displayName: payload.displayName,
             photoURL: photoURL,
           });
           commit("setUser", auth.currentUser);
         }
         delete payload.profilePicture;
-        delete payload.name;
+        delete payload.displayName;
         const db = getDatabase();
         const dbRef = dbRefe(db, `users/${user.uid}`);
         try {
