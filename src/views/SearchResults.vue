@@ -217,9 +217,9 @@
             </div>
             <div v-else>
               <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
-              <span>
+              <span class="list-group">
                 <div
-                  :class="{ active: activeIndex === index, true: list - group }"
+                  :class="{ active: activeIndex === index }"
                   v-for="(csp, index) in filteredList"
                   @click="showInfoWindow(index)"
                   :key="csp.id"
