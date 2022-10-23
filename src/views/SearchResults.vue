@@ -101,7 +101,7 @@
         </div>
       </div>
     </div>
-    <div class="row py-2">
+    <div class="row py-2" style="margin-bottom: 900px">
       <div :class="showMap ? breakCol : dontBreak">
         <div class="album">
           <!--div class="album py-5 bg-light"-->
