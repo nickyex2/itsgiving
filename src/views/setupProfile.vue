@@ -1,5 +1,125 @@
 <template>
-  <div class="container-fluid d-flex justify-content-center">
+  <div class="container-fluid d-flex justify-content-center py-5">
+    <div class="container-prof">
+      <header>More about yourself...</header>
+      <div class="progress-bar">
+        <div class="step">
+          <p>Name</p>
+          <div class="bullet">
+            <span>1</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>Contact</p>
+          <div class="bullet">
+            <span>2</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>Interests</p>
+          <div class="bullet">
+            <span>3</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>Picture</p>
+          <div class="bullet">
+            <span>4</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+      </div>
+      <div class="form-outer">
+        <form action="#">
+          <div class="page slide-page">
+            <div class="container temp">
+              <div class="title">Basic Info:</div>
+              <div class="field">
+                <div class="label">First Name</div>
+                <input type="text" />
+              </div>
+              <div class="field">
+                <div class="label">Last Name</div>
+                <input type="text" />
+              </div>
+              <div class="field">
+                <button class="firstNext next">Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="page">
+            <div class="title">Contact Info:</div>
+            <div class="field">
+              <div class="label">Telegram Handle</div>
+              <input
+                type="text"
+                class="form-control"
+                id="editTeleHandle"
+                v-model="userAddInfo.telegramHandle"
+              />
+            </div>
+            <div class="field">
+              <div class="label">Phone Number</div>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                size="8"
+                v-model="userAddInfo.phoneNo"
+              />
+            </div>
+            <div class="field btns">
+              <button class="prev-1 prev">Previous</button>
+              <button class="next-1 next">Next</button>
+            </div>
+          </div>
+          <div class="page">
+            <div class="title">Your Interests:</div>
+            <div
+              v-for="interest_tag in interest_tags"
+              :key="interest_tag"
+              class="field-int align-items-left form-check form-check-inline"
+            >
+              <input
+                type="checkbox"
+                :id="interest_tag"
+                class="form-check-input"
+                :value="interest_tag"
+                v-model="userAddInfo.interest"
+              />
+              <label :for="interest_tag" class="form-check-label">{{
+                interest_tag
+              }}</label>
+            </div>
+            <div class="field btns">
+              <button class="prev-2 prev">Previous</button>
+              <button class="next-2 next">Next</button>
+            </div>
+          </div>
+          <div class="page">
+            <div class="title">Profile Pic:</div>
+            <div class="field">
+              <input
+                type="file"
+                class="form-control"
+                id="profilePic"
+                @change="handleImg"
+              />
+            </div>
+            <div class="field btns">
+              <button class="prev-3 prev">Previous</button>
+              <button class="submit" @click.prevent="handleSetup">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- 
     <form class="my-5">
       <table class="setup-table">
         <tr>
@@ -58,6 +178,7 @@
             >
           </td>
           <td>
+          
             <ul>
               <li
                 v-for="interest_tag in interest_tags"
@@ -84,7 +205,7 @@
           </td>
         </tr>
       </table>
-    </form>
+    </form> -->
   </div>
 </template>
 
@@ -107,6 +228,16 @@ export default {
       router.push("/profile");
     }
     const interest_tags = ref([]);
+    // getting interest tags
+    // const dbRef = dbRefe(db, "interest-tags/");
+    // console.log(dbRef);
+    // onValue(dbRef, (snapshot) => {
+    //   const data = snapshot.val();
+    //   for (let key in data) {
+    //     interest_tags.push(data[key]);
+    //   }
+    // });
+    // console.log(interest_tags);
     const userAddInfo = ref({
       profilePicture: "",
       phoneNo: "",
@@ -122,7 +253,7 @@ export default {
       // settle profile picture first and remove from userAddInfo
       // then add the rest of the info to userAddInfo
       await store.dispatch("makeUserAddInfo", userAddInfo);
-      router.push("/profile");
+      // router.push("/");
     };
     const handleImg = (event) => {
       userAddInfo.value.profilePicture = event.target.files[0];
@@ -143,6 +274,78 @@ export default {
       handleSetup,
       handleImg,
     };
+  },
+  mounted() {
+    const slidePage = document.querySelector(".slide-page");
+    const nextBtnFirst = document.querySelector(".firstNext");
+    const prevBtnSec = document.querySelector(".prev-1");
+    const nextBtnSec = document.querySelector(".next-1");
+    const prevBtnThird = document.querySelector(".prev-2");
+    const nextBtnThird = document.querySelector(".next-2");
+    const prevBtnFourth = document.querySelector(".prev-3");
+    const submitBtn = document.querySelector(".submit");
+    const progressText = document.querySelectorAll(".step p");
+    const progressCheck = document.querySelectorAll(".step .check");
+    const bullet = document.querySelectorAll(".step .bullet");
+    let current = 1;
+    nextBtnFirst.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-25%";
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+    });
+    nextBtnSec.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-50%";
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+    });
+    nextBtnThird.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-75%";
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+    });
+    submitBtn.addEventListener("click", function () {
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+      setTimeout(function () {
+        alert("Your Form Successfully Signed up");
+        location.reload();
+      }, 800);
+    });
+    prevBtnSec.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "0%";
+      bullet[current - 2].classList.remove("active");
+      progressCheck[current - 2].classList.remove("active");
+      progressText[current - 2].classList.remove("active");
+      current -= 1;
+    });
+    prevBtnThird.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-25%";
+      bullet[current - 2].classList.remove("active");
+      progressCheck[current - 2].classList.remove("active");
+      progressText[current - 2].classList.remove("active");
+      current -= 1;
+    });
+    prevBtnFourth.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-50%";
+      bullet[current - 2].classList.remove("active");
+      progressCheck[current - 2].classList.remove("active");
+      progressText[current - 2].classList.remove("active");
+      current -= 1;
+    });
   },
 };
 </script>
