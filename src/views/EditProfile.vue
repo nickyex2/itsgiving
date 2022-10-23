@@ -1,5 +1,195 @@
 <template>
-  <div class="container-fluid d-flex justify-content-center">
+  <div class="container-xl px-4 mt-4 py-5">
+    <div class="row">
+      <div class="col-xl-4">
+        <!-- Profile picture card-->
+        <div class="card mb-4 mb-xl-0 profile-all">
+          <div class="card-header">Profile Picture</div>
+          <div class="card-body text-center">
+            <!-- Profile picture image-->
+            <img
+              class="img-account-profile rounded-circle mb-2"
+              src="http://bootdey.com/img/Content/avatar/avatar1.png"
+              alt=""
+            />
+            <!-- Profile picture help block-->
+            <div class="small font-italic text-muted mb-3">
+              Change Profile Picture
+            </div>
+            <!-- Profile picture upload button-->
+            <input
+              type="file"
+              class="form-control"
+              id="editProfilePic"
+              @change="changeProfilePic"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8">
+        <!-- Account details card-->
+        <div class="card mb-4 profile-all">
+          <div class="card-header">Account Details</div>
+          <div class="card-body">
+            <form>
+              <!-- Form Group (username)-->
+              <div class="mb-3 edit-title">
+                <label for="editUsername" class="form-label small mb-1"
+                  >Username:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editUsername"
+                  v-model="editedUser.name"
+                />
+              </div>
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3 edit-title">
+                <!-- Form Group (first name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputFirstName"
+                    >First name</label
+                  >
+                  <input
+                    class="form-control"
+                    id="inputFirstName"
+                    type="text"
+                    placeholder="Enter your first name"
+                    value="Valerie"
+                  />
+                </div>
+                <!-- Form Group (last name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1 edit-title" for="inputLastName"
+                    >Last name</label
+                  >
+                  <input
+                    class="form-control"
+                    id="inputLastName"
+                    type="text"
+                    placeholder="Enter your last name"
+                    value="Luna"
+                  />
+                </div>
+              </div>
+
+              <!-- Form Group (email address)-->
+              <div class="mb-3 edit-title">
+                <label for="editEmail" class="form-label small mb-1"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="editEmail"
+                  v-model="editedUser.email"
+                  disabled
+                />
+              </div>
+
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3 edit-title">
+                <!-- Form Group (phone number)-->
+                <div class="col-md-6">
+                  <label for="editPhone" class="form-label small mb-1"
+                    >Change Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="editPhone"
+                    size="8"
+                    v-model="editedUser.phoneNumber"
+                  />
+                </div>
+                <!-- Form Group (phone number)-->
+                <div class="col-md-6">
+                  <label for="editTeleHandle" class="form-label small mb-1"
+                    >Telegram Handle</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editTeleHandle"
+                    v-model="editedUser.telegramHandle"
+                  />
+                </div>
+              </div>
+
+              <!-- Form Group (email address)-->
+              <div class="edit-title">
+                <label for="editInterest" class="form-label edit-title">
+                  Interests:
+                </label>
+              </div>
+              <div
+                v-for="interest_tag in interest_tags"
+                :key="interest_tag"
+                class="align-items-left form-check form-check-inline small mb-2"
+              >
+                <label
+                  :for="interest_tag"
+                  class="form-check-label small mb-1"
+                  >{{ interest_tag }}</label
+                >
+                <input
+                  type="checkbox"
+                  :id="interest_tag"
+                  class="form-check-input"
+                  :value="interest_tag"
+                  v-model="editedUser.interest"
+                />
+              </div>
+
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3 edit-title mt-2">
+                <!-- Form Group (phone number)-->
+                <div class="col-md-6">
+                  <label for="editPassword" class="form-label small mb-1"
+                    >Password:</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="editPassword"
+                    v-model="editedUser.password"
+                  />
+                </div>
+                <!-- Form Group (phone number)-->
+                <div class="col-md-6">
+                  <label for="confirmPassword" class="form-label small mb-1"
+                    >Confirm Password:</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    v-model="editedUser.confirmPassword"
+                  />
+                </div>
+                <div v-if="err != ''" class="errcode">
+                  <div>
+                    {{ err }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Save changes button-->
+              <button
+                type="submit"
+                class="btn btn-primary mt-2"
+                @click.prevent="handleEdit"
+              >
+                Save Changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container-fluid d-flex justify-content-center">
     <form class="my-5">
       <table class="editProfile-table">
         <tr>
@@ -154,7 +344,7 @@
         </tr>
       </table>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script>
