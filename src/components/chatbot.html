@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giver</title>
+    <!-- Axios -->
+    <script src='https://unpkg.com/axios/dist/axios.js'></script>
+    
+</head>
+<body>
+    
+<script type='text/javascript'>
+    var url = "https://its-giving-default-rtdb.asia-southeast1.firebasedatabase.app/csp.json"
+    axios.get(url)
+        .then(response => {
+            var res = response.data
+            console.log(res);
+            var cardNode = {
+            "node_type": "CAROUSEL",
+            "elements": []
+            };
+            var objLength = Object.keys(res).length 
+            // console.log(objLength)
+            if (objLength<=3) {
+                // console.log("in iteration")
+                for (let key in res) {
+                    // console.log(key)
+                    cardNode.elements.push({
+                        title: res[key].name,
+                        subtitle: res[key].description,
+                        image_url: res[key].image,
+                        buttons: [{
+                            link_type: "LINK",
+                        open_in_new_tab: true,
+                        title: "View video",
+                        url: res[key].link
+                        }]
+                    })
+                    // console.log(cardNode)
+                }
+            }
+            else {
+                var output = []
+                for(var i=0;i<3;i++) {
+                    let randomNumber = Math.floor(Math.random() * Object.keys(res).length)
+                    while (output.includes(randomNumber)) {
+                        randomNumber = Math.floor(Math.random() * Object.keys(res).length)
+                    }
+                    output.push(randomNumber)
+                    
+                    let chosen = Object.keys(res)[randomNumber]
+
+                    cardNode.elements.push({
+                        title: res[chosen].name,
+                        subtitle: res[chosen].description,
+                        image_url: res[chosen].image,
+                        buttons: [{
+                            link_type: "LINK",
+                        open_in_new_tab: true,
+                        title: "View video",
+                        url: res[chosen].link
+                        }]
+                })};
+            }
+            console.log(cardNode)
+
+            return {
+                nodes:[cardNode]
+            };
+        })
+        .catch( error => {
+            console.log(error.message);
+        });
+    // REMOVE THE API KEY WHEN PUSHING
+
+type='text/javascript'>
+		(function(I, L, T, i, c, k, s) {if(I.iticks) return;I.iticks = {host:c, settings:s, clientId:k, cdn:L, queue:[]};var h = T.head || T.documentElement;var e = T.createElement(i);var l = I.location;e.async = true;e.src = (L||c)+'/client/inject-v2.min.js';h.insertBefore(e, h.firstChild);I.iticks.call = function(a, b) {I.iticks.queue.push([a, b]);};})(window, 'https://cdn-v1.intelliticks.com/prod/common', document, 'script', 'https://app.intelliticks.com', 'yM2GwteJgGswJsgSh_c', {});
+
+</script>
+</body>
+</html>
+
