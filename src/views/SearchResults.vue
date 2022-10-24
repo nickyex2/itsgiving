@@ -408,22 +408,6 @@ export default {
       mapDisplay: "container px-0 overflow-auto",
       selectedRadius: 0,
       circle: null,
-      activeFilters: {
-        pets: true,
-        arts: true,
-        children: true,
-        community: true,
-        disability: true,
-        education: true,
-        elderly: true,
-        environment: true,
-        families: true,
-        health: true,
-        humanitarian: true,
-        social: true,
-        sports: true,
-        women: true,
-      },
     };
   },
   methods: {
@@ -588,6 +572,7 @@ export default {
       this.lng = place.geometry.location.lng();
       this.showPlacesOnMap();
     });
+    this.updateCheckString();
   },
 };
 </script>
