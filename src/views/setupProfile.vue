@@ -121,93 +121,6 @@
         </form>
       </div>
     </div>
-    <!-- 
-    <form class="my-5">
-      <table class="setup-table">
-        <tr>
-          <td colspan="2">
-            <h3>We want to get to know you more</h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="profilePic" class="form-label"
-              >Set Profile Picture:</label
-            >
-          </td>
-          <td>
-            <input
-              type="file"
-              class="form-control"
-              id="profilePic"
-              @change="handleImg"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="phone" class="form-label">Phone Number:</label>
-          </td>
-          <td>
-            <input
-              type="tel"
-              class="form-control"
-              id="phone"
-              size="8"
-              v-model="userAddInfo.phoneNo"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="editTeleHandle" class="form-label"
-              >Telegram Handle:</label
-            >
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              id="editTeleHandle"
-              v-model="userAddInfo.telegramHandle"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="setupInterest" class="form-label">
-              Interests (select at least 1):</label
-            >
-          </td>
-          <td>
-          
-            <ul>
-              <li
-                v-for="interest_tag in interest_tags"
-                :key="interest_tag"
-                class="align-items-left form-check form-check-inline"
-              >
-                <input
-                  type="checkbox"
-                  :id="interest_tag"
-                  class="form-check-input"
-                  :value="interest_tag"
-                  v-model="userAddInfo.interest"
-                />
-                <label :for="interest_tag" class="form-check-label">{{
-                  interest_tag
-                }}</label>
-              </li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <button @click.prevent="handleSetup">Submit</button>
-          </td>
-        </tr>
-      </table>
-    </form> -->
   </div>
 </template>
 
@@ -254,7 +167,7 @@ export default {
       // settle profile picture first and remove from userAddInfo
       // then add the rest of the info to userAddInfo
       await store.dispatch("makeUserAddInfo", userAddInfo);
-      router.push("/");
+      // router.push("/");
     };
     const handleImg = (event) => {
       userAddInfo.value.profilePicture = event.target.files[0];
@@ -289,6 +202,7 @@ export default {
     const progressText = document.querySelectorAll(".step p");
     const progressCheck = document.querySelectorAll(".step .check");
     const bullet = document.querySelectorAll(".step .bullet");
+    const router = useRouter();
     let current = 1;
     nextBtnFirst.addEventListener("click", function (event) {
       event.preventDefault();
@@ -321,7 +235,7 @@ export default {
       current += 1;
       setTimeout(function () {
         alert("Your Form Successfully Signed up");
-        location.reload();
+        router.push("/");
       }, 800);
     });
     prevBtnSec.addEventListener("click", function (event) {

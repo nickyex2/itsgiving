@@ -11,6 +11,8 @@ import SearchResults from "../views/SearchResults.vue";
 import PageNotFound from "../views/PageNotFound.vue";
 import setupProfile from "../views/setupProfile.vue";
 import CreateCsp from "../views/CreateCsp.vue";
+import CSPView from "../views/CSPView.vue";
+
 const routes = [
   {
     path: "/",
@@ -66,6 +68,11 @@ const routes = [
     path: "/create",
     name: "create",
     component: CreateCsp,
+  },
+  {
+    path: "/csp/:id",
+    name: "csp",
+    component: CSPView,
   },
   {
     path: "/:catchAll(.*)",
