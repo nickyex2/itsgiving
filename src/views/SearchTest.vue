@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <header>
     <br />
     <br />
@@ -83,14 +83,14 @@ export default {
     },
   },
   mounted() {
-    // const autocomplete = new window.google.maps.places.Autocomplete(
-    //   this.$refs["autocomplete"],
-    //   {
-    //     bounds: new window.google.maps.LatLngBounds(
-    //       new window.google.maps.LatLng(1.29027, 103.851959)
-    //     ),
-    //   }
-    // );
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      this.$refs["autocomplete"],
+      {
+        bounds: new window.google.maps.LatLngBounds(
+          new window.google.maps.LatLng(1.29027, 103.851959)
+        ),
+      }
+    );
   },
 };
 </script>
@@ -180,4 +180,4 @@ a {
 form:valid a {
   display: block;
 }
-</style>
+</style> -->

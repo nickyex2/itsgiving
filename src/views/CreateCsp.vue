@@ -34,31 +34,25 @@
             <div class="row gx-3 mb-3 edit-title">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="cspLocation">CSP Location</label>
+                <label for="cspLocation" class="form-label small mb-1"
+                  >CSP Location</label
+                >
                 <input
+                  type="text"
                   class="form-control"
                   id="cspLocation"
-                  type="text"
-                  placeholder="How many hours is your project?"
+                  placeholder="Where will your CSP be conducted?"
+                  ref="autocompleteaddress"
+                  v-model="autocompleteaddress"
                 />
               </div>
               <div class="col-md-6">
-                <label for="cspDate" class="form-label">CSP Date</label>
+                <label for="cspLocation" class="form-label small mb-1"
+                  >CSP Date</label
+                >
                 <input type="date" class="form-control" id="cspDate" />
               </div>
             </div>
-            <div class="mb-3 edit-title">
-              <label for="cspLocation" class="form-label small mb-1"
-                >CSP Location</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="cspLocation"
-                placeholder="Where will your CSP be conducted?"
-              />
-            </div>
-            <!-- Form Group (email address)-->
             <div class="mb-3 edit-title">
               <label for="description" class="form-label small mb-1"
                 >Email address</label
@@ -140,7 +134,25 @@ export default {
       ],
       lng: 0,
       lat: 0,
+      autocompleteaddress: "",
     };
+  },
+  mounted() {
+    const autocompleteaddress = new window.google.maps.places.Autocomplete(
+      this.$refs["autocompleteaddress"],
+      {
+        bounds: new window.google.maps.LatLngBounds(
+          new window.google.maps.LatLng(1.29027, 103.851959)
+        ),
+      }
+    );
+
+    autocompleteaddress.addListener("place_changed", () => {
+      const place = autocompleteaddress.getPlace();
+      this.address = place.formatted_address;
+      this.lat = place.geometry.location.lat();
+      this.lng = place.geometry.location.lng();
+    });
   },
 };
 </script>
