@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col">
         <div class="row">
-          <div class="col-5 searchbar d-flex justify-content-left">
+          <div class="col-3 searchbar d-flex justify-content-left">
             <input
               class="form-control h-100"
               type="text"
@@ -46,6 +46,20 @@
               </svg>
               <p style="font-size: 0.6rem; margin: 0" class="pb-2">Locate Me</p>
             </button>
+          </div>
+          <div class="col-2">
+            <select
+              class="form-select"
+              v-model="selectedRadius"
+              @change="replotRadius"
+            >
+              <option value="0" selected disabled hidden>
+                --Select A Radius--
+              </option>
+              <option value="1000">1km</option>
+              <option value="2000">2km</option>
+              <option value="3000">3km</option>
+            </select>
           </div>
           <div class="col-1 form-check form-switch">
             <label class="form-check-label" for="flexSwitchCheckChecked"
@@ -144,7 +158,11 @@
                     <div class="card-body px-3">
                       <h3 style="text-align: left">{{ csp.name }}</h3>
                       <div class="parent">
-                        <span clas="child" v-for="tag in csp.cat" :key="tag">
+                        <span
+                          clas="child"
+                          v-for="tag in csp.interest"
+                          :key="tag"
+                        >
                           <span
                             class="badge rounded-pill bg-secondary me-2"
                             style="font-size: 0.7rem"
@@ -164,7 +182,7 @@
                           <path
                             d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
                           /></svg
-                        >&nbsp;&nbsp;Estimated: {{ csp.hours }} Hours
+                        >&nbsp;&nbsp;Estimated: {{ csp.csp_hours }} Hours
                       </p>
                       <p style="text-align: left">
                         <svg
@@ -183,7 +201,7 @@
                             fill-rule="evenodd"
                             d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
                           /></svg
-                        >&nbsp; {{ shortenAddress(csp.address) }}
+                        >&nbsp; {{ shortenAddress(csp.location.address) }}
                       </p>
                       <p style="text-align: left" class="card-text">
                         <svg
@@ -247,7 +265,11 @@
                       >
                         <h2 style="text-align: left">{{ csp.name }}</h2>
                         <div class="parent">
-                          <span clas="child" v-for="tag in csp.cat" :key="tag">
+                          <span
+                            clas="child"
+                            v-for="tag in csp.interest"
+                            :key="tag"
+                          >
                             <span
                               class="badge rounded-pill bg-secondary me-2 mb-2"
                               style="font-size: 1rem"
@@ -267,7 +289,7 @@
                             <path
                               d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
                             /></svg
-                          >&nbsp;&nbsp;Estimated: {{ csp.hours }} Hours
+                          >&nbsp;&nbsp;Estimated: {{ csp.csp_hours }} Hours
                         </p>
                         <p
                           style="text-align: left"
@@ -289,7 +311,7 @@
                               fill-rule="evenodd"
                               d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
                             /></svg
-                          >&nbsp; {{ csp.address }}
+                          >&nbsp; {{ csp.location.address }}
                         </p>
                         <p
                           style="text-align: left"
@@ -384,6 +406,24 @@ export default {
       activeIndex: -1,
       normalDisplay: "container px-0",
       mapDisplay: "container px-0 overflow-auto",
+      selectedRadius: 0,
+      circle: null,
+      activeFilters: {
+        pets: true,
+        arts: true,
+        children: true,
+        community: true,
+        disability: true,
+        education: true,
+        elderly: true,
+        environment: true,
+        families: true,
+        health: true,
+        humanitarian: true,
+        social: true,
+        sports: true,
+        women: true,
+      },
     };
   },
   methods: {
@@ -444,6 +484,9 @@ export default {
           console.log(error.message);
         });
     },
+    replotRadius() {
+      this.showPlacesOnMap();
+    },
     showPlacesOnMap() {
       this.places = [];
       this.markers = [];
@@ -452,6 +495,16 @@ export default {
         zoom: 15,
         center: new window.google.maps.LatLng(this.lat, this.lng),
         mapTypeId: window.google.maps.MapTypeId.ROADMAP,
+      });
+      this.circle = new window.google.maps.Circle({
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        map,
+        center: { lat: this.lat, lng: this.lng },
+        radius: parseInt(this.selectedRadius),
       });
       var boxicon =
         "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|Your%20Location|FF0000|000000";
@@ -464,14 +517,14 @@ export default {
       const infoWindow = new window.google.maps.InfoWindow();
       console.log(this.places);
       for (let i = 0; i < this.places.length; i++) {
-        const lat = this.places[i].lat;
-        const lng = this.places[i].lng;
+        const lat = this.places[i].location.lat;
+        const lng = this.places[i].location.lng;
         let pinIcon = {
           url:
             "https://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=bb|ffe48c|000000|" +
             `${this.places[i].name}` +
             "|" +
-            `${this.places[i].hours} Hours` +
+            `${this.places[i].csp_hours} Hours` +
             "|***Click+For+More+Details***",
           scaledSize: new window.google.maps.Size(100, 60),
           origin: new window.google.maps.Point(0, 0), // origin
@@ -492,8 +545,8 @@ export default {
           const place = this.places[i];
           infoWindow.setContent(
             `<img src="${place.image}"><div class="ui header">${place.name}</div>
-                    ${place.cat} <br>
-                    ${place.hours} Hours</a>
+                    ${place.interest} <br>
+                    ${place.csp_hours} Hours</a>
                     
                     
                     `
@@ -602,7 +655,9 @@ export default {
   bottom: 0;
   right: 50%;
   transform: translate(50%, 0);
+  width: 30px !important;
 }
+
 .test {
   max-height: 600px;
 }
