@@ -22,7 +22,7 @@
             <input
               class="form-control h-100"
               v-model="autocompleteaddress"
-              placeholder="Want to Search By Address?"
+              placeholder="Find CSPs Near You"
               ref="autocompleteaddress"
               style="width: 85%"
             />
@@ -507,7 +507,7 @@ export default {
         radius: parseInt(this.selectedRadius),
       });
       var boxicon =
-        "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|Your%20Location|FF0000|000000";
+        "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|You|FF0000|000000";
       new window.google.maps.Marker({
         position: new window.google.maps.LatLng(this.lat, this.lng),
         map: map,
