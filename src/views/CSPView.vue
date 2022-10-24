@@ -136,6 +136,7 @@ export default {
       cover_image: "",
       photos: [],
       owner_uid: "",
+      no_of_interviews_per_hour: 0,
     }); // need to get all the deets that we want to show on the page
     const avail_DateTime = ref({});
     const interestImg = ref({});
@@ -193,6 +194,8 @@ export default {
           csp.value.cover_image = snapshot.val().cover_image;
           csp.value.photos = snapshot.val().photos;
           csp.value.owner_uid = snapshot.val().owner_uid;
+          csp.value.no_of_interviews_per_hour =
+            snapshot.val().no_of_interviews_per_hour;
         }
         if (user.value && user.value.email === csp.value.owner_email) {
           editAccess.value = true;
