@@ -48,6 +48,10 @@
             </button>
           </div>
           <div class="col-1">
+            <p style="font-size: 12px">
+              this shit at the bottom to be displayed only if user wanna plot
+              circle
+            </p>
             <select
               class="form-select"
               v-model="selectedRadius"
