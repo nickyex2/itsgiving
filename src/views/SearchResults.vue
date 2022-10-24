@@ -151,8 +151,10 @@
                         "
                       />
                       <div class="text_align d-flex">
-                        <h4>{{ csp.openings }}&nbsp;</h4>
-                        <small style="line-height: 32px">Openings</small>
+                        <span class="badge bg-light text-dark"
+                          >Posted {{ monthsDiff(csp.date_created) }} Months
+                          Ago</span
+                        >
                       </div>
                     </div>
                     <div class="card-body px-3">
@@ -248,12 +250,22 @@
                     class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 overflow-auto"
                     style="height: 250px; width: 100%"
                   >
-                    <span class="d-flex align-left h-100 position-relative">
+                    <span
+                      class="d-flex align-left h-100 position-relative img_align"
+                    >
                       <img
                         :src="csp.image"
                         :class="showMap ? hideImage : showImage"
                         style="border-radius: 12px"
                       />
+                      <span :class="showMap ? hideImage : showImage">
+                        <div class="text_align d-flex">
+                          <span class="badge bg-light text-dark"
+                            >Posted {{ monthsDiff(csp.date_created) }} Months
+                            Ago</span
+                          >
+                        </div>
+                      </span>
                       <div
                         class="d-block ps-3"
                         style="
@@ -544,6 +556,15 @@ export default {
       new window.google.maps.event.trigger(this.markers[index], "click");
       console.log(this.markers);
     },
+    monthsDiff(date1) {
+      var d1 = new Date(date1);
+      var d2 = new Date();
+      var months;
+      months = (d2.getFullYear() - d1.getFullYear()) * 12;
+      months -= d1.getMonth() + 1;
+      months += d2.getMonth();
+      return months <= 0 ? 0 : months;
+    },
   },
   computed: {
     filteredList() {
@@ -572,7 +593,6 @@ export default {
       this.lng = place.geometry.location.lng();
       this.showPlacesOnMap();
     });
-    this.updateCheckString();
   },
 };
 </script>
@@ -587,11 +607,10 @@ export default {
 
 .text_align {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  padding-left: 0.7rem;
-  padding-bottom: 0.4rem;
-  color: white;
+  padding-left: 0.3rem;
+  padding-top: 0.3rem;
 }
 
 .zoom {
