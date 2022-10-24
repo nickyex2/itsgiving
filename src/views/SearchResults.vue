@@ -118,13 +118,13 @@
         </div>
       </div>
     </div>
-    <div class="row py-2" style="margin-bottom: 900px">
+    <div class="row py-2" :style="showMap ? 'margin-bottom: 500px' : ''">
       <div :class="showMap ? breakCol : dontBreak">
         <div class="album">
           <!--div class="album py-5 bg-light"-->
           <div
             :class="showMap ? mapDisplay : normalDisplay"
-            :style="[showMap ? { height: '600px' } : '']"
+            :style="[showMap ? { height: '700px' } : '']"
           >
             <!-- change here -->
             <div
@@ -666,6 +666,6 @@ export default {
 }
 
 .test {
-  max-height: 600px;
+  max-height: 700px;
 }
 </style>
