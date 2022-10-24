@@ -24,21 +24,27 @@
     <div class="action container">
       <div class="row">
         <div class="click col-12 col-sm-6">
-          <div class="box_text">
-            <h3>Search & Apply</h3>
-            <p>
-              ipsum dolor sit amet, consectetur adipiscing elit,<br />
-              sed d veniam, adipiscing elit, sed d veniam
-            </p>
-          </div>
+          <!-- binding method A -->
+          <router-link :to="'/search'">
+            <div class="box_text">
+              <h3>Search & Apply</h3>
+              <p>
+                ipsum dolor sit amet, consectetur adipiscing elit,<br />
+                sed d veniam, adipiscing elit, sed d veniam
+              </p>
+            </div>
+          </router-link>
         </div>
         <div class="click col-12 col-sm-6">
+          <!-- binding method B -->
           <div class="box_text">
-            <h3>Create CSP</h3>
-            <p>
-              ipsum dolor sit amet, consectetur adipiscing elit, <br />
-              sed d veniam, adipiscing elit, sed d veniam
-            </p>
+            <router-link :to="'/create'">
+              <h3>Create CSP</h3>
+              <p>
+                ipsum dolor sit amet, consectetur adipiscing elit, <br />
+                sed d veniam, adipiscing elit, sed d veniam
+              </p>
+            </router-link>
           </div>
         </div>
       </div>
@@ -329,7 +335,6 @@ export default {
         next = next.nextElementSibling;
       }
     });
-    console.log(items);
 
     const counters = document.querySelectorAll(".counter-ani");
     counters.forEach((counter) => {

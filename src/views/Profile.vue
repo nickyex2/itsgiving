@@ -12,7 +12,11 @@
                 style="width: 150px"
               />
               <h5 class="my-3">{{ user.displayName }}</h5>
-              <p class="text-muted mb-4">Volunteer</p>
+              <p class="text-muted mb-4">
+                Volunteer<span v-if="userAddInfo.projectLead"
+                  >/Project Lead</span
+                >
+              </p>
               <button class="btn btn-primary" @click="editProfile">Edit</button>
             </div>
           </div>

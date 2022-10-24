@@ -28,10 +28,12 @@ export default {
     const editAccess = ref(false);
     const db = getDatabase();
     const csp = ref({}); // need to get all the deets that we want to show on the page
+    const application = ref({});
     const handleEditCSP = () => {
       console.log("edit csp");
     };
     onBeforeMount(() => {
+      // getting csp details
       const cspRef = dbRefe(db, "csp/" + route.params.id);
       onValue(cspRef, (snapshot) => {
         csp.value = snapshot.val();
@@ -40,8 +42,13 @@ export default {
           editAccess.value = true;
         }
       });
+      const applyRef = dbRefe(db, "availability/" + route.params.id);
+      onValue(applyRef, (snapshot) => {
+        application.value = snapshot.val();
+        console.log(application.value);
+      });
     });
-    return { csp, editAccess, handleEditCSP };
+    return { csp, editAccess, handleEditCSP, application };
   },
 };
 </script>
