@@ -54,7 +54,7 @@
               @change="replotRadius"
             >
               <option value="0" selected disabled hidden>
-                --Select A Radius--
+                --Plot A Radius Circle--
               </option>
               <option value="1000">1km</option>
               <option value="2000">2km</option>
@@ -159,6 +159,7 @@
                     </div>
                     <div class="card-body px-3">
                       <h3 style="text-align: left">{{ csp.name }}</h3>
+                      <div v-if="autocompleteaddress!=''" style="text-align: left">{{getDistance(csp.location.lat,csp.location.lng)}} away from you</div>
                       <div class="parent">
                         <span
                           clas="child"
@@ -276,6 +277,7 @@
                         "
                       >
                         <h2 style="text-align: left">{{ csp.name }}</h2>
+                        <div v-if="autocompleteaddress!=''" style="text-align: left">{{getDistance(csp.location.lat,csp.location.lng)}} away from you</div>
                         <div class="parent">
                           <span
                             clas="child"
@@ -445,7 +447,6 @@ export default {
         navigator.geolocation.getCurrentPosition((position) => {
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
-
           this.getAddressFrom(
             position.coords.latitude,
             position.coords.longitude
@@ -471,8 +472,8 @@ export default {
             this.err = response.data.error_message;
             console.log(response.data.error_message);
           } else {
-            this.address = response.data.results[0].formatted_address;
-            console.log(response.data.results[0].formatted_address);
+            this.autocompleteaddress = response.data.results[0].formatted_address;
+            console.log(this.autocompleteaddress);
           }
         })
         .catch((error) => {
@@ -565,6 +566,31 @@ export default {
       months += d2.getMonth();
       return months <= 0 ? 0 : months;
     },
+    toRad(Value) 
+    {
+        return Value * Math.PI / 180;
+    },
+    calcCrow(lat1, lon1, lat2, lon2) 
+    {
+      var R = 6371; // km
+      var dLat = this.toRad(lat2-lat1);
+      var dLon = this.toRad(lon2-lon1);
+      var lat1 = this.toRad(lat1);
+      var lat2 = this.toRad(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d.toFixed(2);
+    },
+
+    // Converts numeric degrees to radians
+    getDistance(lat,lng){
+      if(this.autocompleteaddress!=""){
+        return this.calcCrow(lat,lng,this.lat,this.lng) + " km";
+      }
+    }
   },
   computed: {
     filteredList() {
@@ -588,7 +614,7 @@ export default {
 
     autocompleteaddress.addListener("place_changed", () => {
       const place = autocompleteaddress.getPlace();
-      this.address = place.formatted_address;
+      this.autocompleteaddress = place.formatted_address;
       this.lat = place.geometry.location.lat();
       this.lng = place.geometry.location.lng();
       this.showPlacesOnMap();
