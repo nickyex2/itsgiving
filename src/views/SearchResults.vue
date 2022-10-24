@@ -8,17 +8,27 @@
     <div class="row">
       <div class="col">
         <div class="row">
-          <div class="col-3 searchbar d-flex justify-content-left">
+          <div class="col-2 searchbar d-flex justify-content-left">
             <input
               class="form-control h-100"
               type="text"
               v-model="search"
-              placeholder="Enter A Project Title or Category"
+              placeholder="Enter A Project Title"
               ref=""
               @keyup="showPlacesOnMap"
             />
           </div>
-          <div class="col-6 d-flex justify-content-left">
+          <div class="col-2 searchbar d-flex justify-content-left">
+            <input
+              class="form-control h-100"
+              type="text"
+              v-model="cat"
+              placeholder="Enter A Category"
+              ref=""
+              @keyup="showPlacesOnMap"
+            />
+          </div>
+          <div class="col-5 d-flex justify-content-left">
             <input
               class="form-control h-100"
               v-model="autocompleteaddress"
@@ -438,6 +448,7 @@ export default {
       mapDisplay: "container px-0 overflow-auto",
       selectedRadius: 0,
       circle: null,
+      cat:"",
     };
   },
   methods: {
@@ -615,8 +626,8 @@ export default {
     filteredList() {
       return this.csps.filter((csp) => {
         return (
-          csp.name.toLowerCase().includes(this.search.toLowerCase()) ||
-          csp.interest.join().toLowerCase().includes(this.search.toLowerCase())
+          csp.name.toLowerCase().includes(this.search.toLowerCase()) &&
+          csp.interest.join().toLowerCase().includes(this.cat.toLowerCase())
         );
       });
     },
