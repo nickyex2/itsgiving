@@ -22,7 +22,7 @@
             <input
               class="form-control h-100"
               v-model="autocompleteaddress"
-              placeholder="Find CSPs Near You"
+              placeholder="Enter Your Address To Find CSPs Near You"
               ref="autocompleteaddress"
               style="width: 85%"
             />
