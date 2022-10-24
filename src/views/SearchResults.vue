@@ -448,7 +448,7 @@ export default {
       mapDisplay: "container px-0 overflow-auto",
       selectedRadius: 0,
       circle: null,
-      cat:"",
+      cat: "",
     };
   },
   methods: {
