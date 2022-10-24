@@ -10,7 +10,7 @@ import SearchTest from "../views/SearchTest.vue";
 import SearchResults from "../views/SearchResults.vue";
 import PageNotFound from "../views/PageNotFound.vue";
 import setupProfile from "../views/setupProfile.vue";
-
+import CreateCsp from "../views/CreateCsp.vue";
 const routes = [
   {
     path: "/",
@@ -61,6 +61,11 @@ const routes = [
     path: "/search",
     name: "search",
     component: SearchResults,
+  },
+  {
+    path: "/create",
+    name: "create",
+    component: CreateCsp,
   },
   {
     path: "/:catchAll(.*)",
