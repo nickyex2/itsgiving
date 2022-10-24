@@ -18,11 +18,11 @@
               @keyup="showPlacesOnMap"
             />
           </div>
-          <div class="col-5 d-flex justify-content-left">
+          <div class="col-6 d-flex justify-content-left">
             <input
               class="form-control h-100"
               v-model="autocompleteaddress"
-              placeholder="Enter Your Address To Find CSPs Near You"
+              placeholder="Enter Your Address To Find Out How Far You Are From A Project"
               ref="autocompleteaddress"
               style="width: 85%"
             />
@@ -47,7 +47,7 @@
               <p style="font-size: 0.6rem; margin: 0" class="pb-2">Locate Me</p>
             </button>
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <select
               class="form-select"
               v-model="selectedRadius"
@@ -159,7 +159,13 @@
                     </div>
                     <div class="card-body px-3">
                       <h3 style="text-align: left">{{ csp.name }}</h3>
-                      <div v-if="autocompleteaddress!=''" style="text-align: left">{{getDistance(csp.location.lat,csp.location.lng)}} away from you</div>
+                      <div
+                        v-if="autocompleteaddress != ''"
+                        style="text-align: left"
+                      >
+                        {{ getDistance(csp.location.lat, csp.location.lng) }}
+                        away from you
+                      </div>
                       <div class="parent">
                         <span
                           clas="child"
@@ -277,7 +283,13 @@
                         "
                       >
                         <h2 style="text-align: left">{{ csp.name }}</h2>
-                        <div v-if="autocompleteaddress!=''" style="text-align: left">{{getDistance(csp.location.lat,csp.location.lng)}} away from you</div>
+                        <div
+                          v-if="autocompleteaddress != ''"
+                          style="text-align: left"
+                        >
+                          {{ getDistance(csp.location.lat, csp.location.lng) }}
+                          away from you
+                        </div>
                         <div class="parent">
                           <span
                             clas="child"
@@ -472,7 +484,8 @@ export default {
             this.err = response.data.error_message;
             console.log(response.data.error_message);
           } else {
-            this.autocompleteaddress = response.data.results[0].formatted_address;
+            this.autocompleteaddress =
+              response.data.results[0].formatted_address;
             console.log(this.autocompleteaddress);
           }
         })
@@ -566,31 +579,33 @@ export default {
       months += d2.getMonth();
       return months <= 0 ? 0 : months;
     },
-    toRad(Value) 
-    {
-        return Value * Math.PI / 180;
+    toRad(Value) {
+      return (Value * Math.PI) / 180;
     },
-    calcCrow(lat1, lon1, lat2, lon2) 
-    {
+    calcCrow(lat1, lon1, lat2, lon2) {
       var R = 6371; // km
-      var dLat = this.toRad(lat2-lat1);
-      var dLon = this.toRad(lon2-lon1);
-      var lat1 = this.toRad(lat1);
-      var lat2 = this.toRad(lat2);
+      var dLat = this.toRad(lat2 - lat1);
+      var dLon = this.toRad(lon2 - lon1);
+      lat1 = this.toRad(lat1);
+      lat2 = this.toRad(lat2);
 
-      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) *
+          Math.sin(dLon / 2) *
+          Math.cos(lat1) *
+          Math.cos(lat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       var d = R * c;
       return d.toFixed(2);
     },
 
     // Converts numeric degrees to radians
-    getDistance(lat,lng){
-      if(this.autocompleteaddress!=""){
-        return this.calcCrow(lat,lng,this.lat,this.lng) + " km";
+    getDistance(lat, lng) {
+      if (this.autocompleteaddress != "") {
+        return this.calcCrow(lat, lng, this.lat, this.lng) + " km";
       }
-    }
+    },
   },
   computed: {
     filteredList() {
