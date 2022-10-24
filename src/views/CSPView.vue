@@ -185,7 +185,7 @@ export default {
           csp.value.name = snapshot.val().name;
           csp.value.owner = snapshot.val().owner;
           csp.value.description = snapshot.val().description;
-          csp.value.address = snapshot.val().address;
+          csp.value.address = snapshot.val().location.address;
           csp.value.date_start = snapshot.val().date_start;
           csp.value.csp_hours = snapshot.val().csp_hours;
           csp.value.owner_email = snapshot.val().owner_email;
