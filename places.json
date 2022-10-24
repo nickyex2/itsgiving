@@ -6,7 +6,7 @@
     "csp_hours": 63,
     "image": "http://dummyimage.com/154x100.png/cc0000/ffffff",
     "photos":[ "http://dummyimage.com/154x100.png/cc0000/ffffff", "http://dummyimage.com/154x100.png/cc0000/ffffff"],   
-    "interest": ["Elderly","Women & Girls","Humanitarian"],
+    "interest": ["Elderly","Women & Girls","Humanitarian","Sports"],
     "date_created": "2020-01-01",
     "date_start": "2020-01-01",
     "description": "this is ssome random description of the csp",

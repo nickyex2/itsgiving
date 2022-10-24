@@ -13,7 +13,7 @@
               class="form-control h-100"
               type="text"
               v-model="search"
-              placeholder="Got a Specific Project In Mind?"
+              placeholder="Enter A Project Title or Category"
               ref=""
               @keyup="showPlacesOnMap"
             />
@@ -564,7 +564,10 @@ export default {
   computed: {
     filteredList() {
       return this.csps.filter((csp) => {
-        return csp.name.toLowerCase().includes(this.search.toLowerCase());
+        return (
+          csp.name.toLowerCase().includes(this.search.toLowerCase()) ||
+          csp.interest.join().toLowerCase().includes(this.search.toLowerCase())
+        );
       });
     },
   },
