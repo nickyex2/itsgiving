@@ -8,9 +8,10 @@
           <div class="card-body text-center">
             <!-- Profile picture image-->
             <img
-              class="img-account-profile rounded-circle mb-2"
+              class="img-account-profile rounded-circle mb-2 img-fluid"
               :src="currPhoto"
               alt=""
+              style="width: 150px"
             />
             <!-- Profile picture help block-->
             <div class="small font-italic text-muted mb-3">
