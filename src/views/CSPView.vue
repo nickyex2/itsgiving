@@ -135,7 +135,6 @@ export default {
       interest: [],
       cover_image: "",
       photos: [],
-      owner_uid: "",
       no_of_interviews_per_hour: 0,
     }); // need to get all the deets that we want to show on the page
     const avail_DateTime = ref({});
@@ -176,12 +175,10 @@ export default {
     const handleEditCSP = () => {
       console.log("edit csp");
     };
-    onBeforeMount(async () => {
+    onBeforeMount(() => {
       // getting csp details
       const cspRef = dbRefe(db, "csp/" + route.params.id);
       onValue(cspRef, (snapshot) => {
-        // csp.value = snapshot.val();
-        // console.log(csp.value);
         if (snapshot.val()) {
           csp.value.name = snapshot.val().name;
           csp.value.owner = snapshot.val().owner;
@@ -193,9 +190,16 @@ export default {
           csp.value.interest = snapshot.val().interest;
           csp.value.cover_image = snapshot.val().cover_image;
           csp.value.photos = snapshot.val().photos;
-          csp.value.owner_uid = snapshot.val().owner_uid;
           csp.value.no_of_interviews_per_hour =
             snapshot.val().no_of_interviews_per_hour;
+          // getting owner additional information
+          const ownerRef = dbRefe(db, "users/" + snapshot.val().owner_uid);
+          onValue(ownerRef, (snapshot2) => {
+            if (snapshot2.val()) {
+              ownerInfo.value.phoneNo = snapshot2.val().phoneNo;
+              ownerInfo.value.telegramHandle = snapshot2.val().telegramHandle;
+            }
+          });
         }
         if (user.value && user.value.email === csp.value.owner_email) {
           editAccess.value = true;
@@ -213,14 +217,6 @@ export default {
       const interestImgRef = dbRefe(db, "interest-image/");
       onValue(interestImgRef, (snapshot) => {
         interestImg.value = snapshot.val();
-      });
-      // getting owner additional information
-      const ownerRef = dbRefe(db, "users/" + csp.value.owner_uid);
-      onValue(ownerRef, (snapshot) => {
-        if (snapshot.val()) {
-          ownerInfo.value.phoneNo = snapshot.val().phoneNo;
-          ownerInfo.value.telegramHandle = snapshot.val().telegramHandle;
-        }
       });
     });
     return {
