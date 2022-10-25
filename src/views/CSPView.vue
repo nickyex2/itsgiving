@@ -56,24 +56,24 @@
           </div>
           <div class="apply-csp">
             <div
-              v-for="(times, date) in avail_DateTime"
+              v-for="(times, date) in avail_DateTime.dates_avail"
               :key="date"
               class="d-flex justify-content-center py-2"
             >
               <b class="pe-4 my-auto">{{ date }}</b>
-              <button v-for="time in times" :key="time" class="mx-2">
-                <label :for="`${date}-${time}`">{{ time }}</label>
-                <input
-                  type="radio"
-                  :id="`${date}-${time}`"
+              <span v-for="time in times" :key="time" class="mx-2">
+                <button
                   :value="`${date} ${time}`"
-                  class="d-none"
-                  v-model="appliedDateTime"
-                />
-              </button>
+                  @click="handleAppliedDateTime"
+                >
+                  {{ time }}
+                </button>
+              </span>
             </div>
             <div class="d-flex justify-content-center mt-2">
-              <button @click="handleApply">Apply Now</button>
+              <button v-show="applyButtonToggle" @click="handleApply">
+                Apply Now
+              </button>
             </div>
           </div>
         </div>
@@ -119,11 +119,14 @@ import { useStore } from "vuex";
 export default {
   setup() {
     const route = useRoute();
+    // const router = useRouter();
     const store = useStore();
     // get csp details from route
     const user = computed(() => store.getters.user);
     const editAccess = ref(false);
     const db = getDatabase();
+    const avail_DateTime = ref({});
+    const interestImg = ref({});
     const csp = ref({
       name: "",
       owner: "",
@@ -136,45 +139,56 @@ export default {
       cover_image: "",
       photos: [],
       no_of_interviews_per_hour: 0,
-    }); // need to get all the deets that we want to show on the page
-    const avail_DateTime = ref({});
-    const interestImg = ref({});
+    });
     const ownerInfo = ref({
       phoneNo: "",
       telegramHandle: "",
     });
+    const applyButtonBool = ref(false);
     const appliedDateTime = ref("");
+    const handleAppliedDateTime = (e) => {
+      appliedDateTime.value = e.target.value;
+      applyButtonBool.value = true;
+    };
+    // logic wonky but does the job
+    const applyButtonToggle = computed(() => {
+      if (applyButtonBool.value) {
+        return "d-none";
+      } else {
+        return "";
+      }
+    });
     // applying for csp button
     const handleApply = () => {
-      var dateTimeSplit = appliedDateTime.value.split(" ");
-      console.log(dateTimeSplit);
-      const db = getDatabase();
-      const dbRef = dbRefe(
-        db,
-        `availability/${route.params.id}/applicants/${dateTimeSplit[0]}/${dateTimeSplit[1]}`
-      );
-      onValue(dbRef, (snapshot) => {
-        console.log(snapshot.val());
-        if (snapshot.val() != null) {
-          // check if there are still slots available
-          if (snapshot.val().length >= csp.value.no_of_interviews_per_hour) {
-            alert("Sorry, no more slots available for this time slot");
-          } else {
+      if (user.value == null) {
+        // router.push("/login");
+        alert("Please login to apply for this CSP");
+      } else {
+        const dateTimeSplit = appliedDateTime.value.split(" ");
+        console.log(dateTimeSplit);
+        const dbRef = dbRefe(
+          db,
+          `availability/${route.params.id}/applicants/${dateTimeSplit[0]}/${dateTimeSplit[1]}`
+        );
+        onValue(dbRef, (snapshot) => {
+          console.log(snapshot.val());
+          if (snapshot.val() != null) {
             console.log(
               "user application storing to db now - update() (NOT YET IMPLEMENTED)"
             );
+          } else {
+            console.log(
+              "user application storing to db now - set() (NOT YET IMPLEMENTED)"
+            );
           }
-        } else {
-          console.log(
-            "user application storing to db now - set() (NOT YET IMPLEMENTED)"
-          );
-        }
-      });
+        });
+      }
     };
     // owner edit csp button
     const handleEditCSP = () => {
       console.log("edit csp");
     };
+    // things that are done before mounting the DOM
     onBeforeMount(() => {
       // getting csp details
       const cspRef = dbRefe(db, "csp/" + route.params.id);
@@ -205,13 +219,27 @@ export default {
           editAccess.value = true;
         }
       });
-      // getting interview timeslot details
-      const applyRef = dbRefe(
-        db,
-        "availability/" + route.params.id + "/dates_avail"
-      );
+      // getting interview timeslot details & remove those that are full
+      const applyRef = dbRefe(db, "availability/" + route.params.id);
       onValue(applyRef, (snapshot) => {
-        avail_DateTime.value = snapshot.val();
+        if (snapshot.val()) {
+          console.log(snapshot.val());
+          avail_DateTime.value = snapshot.val();
+          for (let date in avail_DateTime.value.dates_avail) {
+            for (let timeIndex in avail_DateTime.value.dates_avail[date]) {
+              const currTime =
+                avail_DateTime.value.dates_avail[date][timeIndex];
+              if (
+                avail_DateTime.value.applicants[date] != null &&
+                avail_DateTime.value.applicants[date][currTime] != null &&
+                avail_DateTime.value.applicants[date][currTime].length >=
+                  csp.value.no_of_interviews_per_hour
+              ) {
+                avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+              }
+            }
+          }
+        }
       });
       // getting interest images
       const interestImgRef = dbRefe(db, "interest-image/");
@@ -228,6 +256,8 @@ export default {
       ownerInfo,
       appliedDateTime,
       handleApply,
+      handleAppliedDateTime,
+      applyButtonToggle,
     };
   },
 };

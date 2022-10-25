@@ -830,3 +830,64 @@ a {
     text-align: left;
     font-weight: bold;
 }
+
+/* SEARCHVIEW */
+
+.card-csp{
+    background-color: white;
+    transition: box-shadow .3s;
+    transition: 0.3s;
+}
+
+.card-csp:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    background-color: white;
+}
+
+.filter-nav{
+    margin-right: 20px;
+    float: left;
+}
+
+.cards-all{
+    float: right;
+}
+
+.searchbar{
+    margin-bottom: 15px;
+}
+
+.list-item{
+    background-color: white;
+    border-radius: 12px;
+}
+
+.album .list-group-item{
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.parent, .child{
+    font-size: 10px;
+}
+
+.parent{
+    float: left;
+}
+
+.csp-deets{
+    font-size: 13px;
+}
+
+input#flexSwitchCheckChecked {
+    bottom: 0;
+    right: 50%;
+    transform: translate(50%, 0);
+    width: 30px !important;
+}
+
+.show-map{
+    text-align: left;
+}
