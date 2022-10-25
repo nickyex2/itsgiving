@@ -25,21 +25,23 @@
       <div class="row">
         <div class="click col-12 col-sm-6">
           <!-- binding method A -->
-          <router-link :to="'/search'">
-            <div class="box_text">
-              <h3>Search & Apply</h3>
+          <div class="box_text">
+            <router-link :to="'/search'" class="home-2">
+              <i><img src="../assets/discover.png" alt="#" /></i>
+              <span>Search & Apply</span>
               <p>
                 ipsum dolor sit amet, consectetur adipiscing elit,<br />
                 sed d veniam, adipiscing elit, sed d veniam
               </p>
-            </div>
-          </router-link>
+            </router-link>
+          </div>
         </div>
         <div class="click col-12 col-sm-6">
           <!-- binding method B -->
           <div class="box_text">
-            <router-link :to="'/create'">
-              <h3>Create CSP</h3>
+            <router-link :to="'/create'" class="home-2">
+              <i><img src="../assets/idea.png" alt="#" /></i>
+              <span>Create CSP</span>
               <p>
                 ipsum dolor sit amet, consectetur adipiscing elit, <br />
                 sed d veniam, adipiscing elit, sed d veniam
