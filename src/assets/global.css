@@ -599,7 +599,7 @@ a {
 }
 
 .i-i{
-    height: 250px;
+    max-height: 250px;
     overflow-y: scroll;
     border-radius: 0px;
 }
