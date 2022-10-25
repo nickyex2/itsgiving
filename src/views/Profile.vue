@@ -21,18 +21,15 @@
             </div>
           </div>
           <div class="profile-all card mb-4 mb-lg-0">
-            <div class="profile-cards card-body p-0">
+            <p class="mb-0 fw-bold i-i-title">Indicated Interests</p>
+            <div class="profile-cards card-body p-0 i-i">
               <ul class="list-group list-group-flush rounded-3">
                 <li
-                  class="list-group-item d-flex justify-content-between align-items-center p-3"
-                >
-                  <p class="mb-0 fw-bold">Indicated Interests</p>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center p-3"
+                  class="list-group-item d-flex align-items-center"
                   v-for="interest in userAddInfo.interest"
                   :key="interest"
                 >
+                  <img :src="interestImg[interest]" alt="" />
                   <p class="mb-0">{{ interest }}</p>
                 </li>
               </ul>
@@ -99,15 +96,6 @@
                   </p>
                 </div>
               </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Address</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                </div>
-              </div>
             </div>
           </div>
           <!-- need to edit later -->
@@ -162,20 +150,30 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { computed } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
+import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
+
 export default {
   name: "ProfileView",
   components: {},
   setup() {
     const router = useRouter();
     const store = useStore();
+    const db = getDatabase();
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
+    const interestImg = ref({});
     const editProfile = () => {
       store.dispatch("editProfileBool", true);
       router.push("/profile/edit");
     };
-    return { user, editProfile, userAddInfo };
+    onBeforeMount(() => {
+      const interestImgRef = dbRefe(db, "interest-image/");
+      onValue(interestImgRef, (snapshot) => {
+        interestImg.value = snapshot.val();
+      });
+    });
+    return { user, editProfile, userAddInfo, interestImg };
   },
 };
 </script>
