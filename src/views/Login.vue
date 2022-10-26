@@ -2,60 +2,6 @@
   <video autoplay muted loop id="loginvid" style="position: fixed">
     <source src="../assets/login.mp4" type="video/mp4" />
   </video>
-  <!-- <div class="login container-fluid login d-flex justify-content-center">
-    <form class="my-5">
-      <table class="login-table">
-        <tr>
-          <td colspan="2">
-            <h3>Login</h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="loginEmail" class="form-label">Email address:</label>
-          </td>
-          <td>
-            <input
-              type="email"
-              class="form-input"
-              id="loginEmail"
-              aria-describedby="emailHelp"
-              v-model="email"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="loginPassword" class="form-label">Password:</label>
-          </td>
-          <td>
-            <input
-              type="password"
-              class="form-input"
-              id="loginPassword"
-              v-model="password"
-            />
-          </td>
-        </tr>
-        <tr v-if="err != ''" class="errcode">
-          <td colspan="2">
-            {{ err }}
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <button
-              type="submit"
-              class="btn btn-primary"
-              @click.prevent="handleLogin"
-            >
-              Login
-            </button>
-          </td>
-        </tr>
-      </table>
-    </form>
-  </div> -->
   <div
     class="container col-md-6 col-lg-4 col-xl-3"
     style="overflow: hidden; position: relative; margin-top: 200px"

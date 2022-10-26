@@ -1,6 +1,68 @@
 <template>
-  <div class="container-fluid signup d-flex justify-content-center">
-    <form class="my-5">
+  <video autoplay muted loop id="loginvid" style="position: fixed">
+    <source src="../assets/signup.mp4" type="video/mp4" />
+  </video>
+  <div
+    class="container col-md-6 col-lg-4 col-xl-3"
+    style="overflow: hidden; position: relative; margin-top: 200px"
+  >
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <h2 class="heading-title">Sign Up</h2>
+      </div>
+    </div>
+    <div class="row logo mb-4 w-25 mx-auto">
+      <img src="../assets/its-giving-logo.png" alt="" />
+    </div>
+    <div class="row justify-content-center login-box">
+      <form action="#">
+        <div class="row form-group">
+          <input
+            type="text"
+            class="form-input"
+            id="signupUsername"
+            v-model="userName"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="row form-group">
+          <input
+            type="email"
+            class="form-input"
+            id="signupEmail"
+            aria-describedby="emailHelp"
+            v-model="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div class="row form-group">
+          <input
+            type="password"
+            class="form-input"
+            id="signupPassword"
+            v-model="password"
+            placeholder="Password"
+            required
+          />
+          <span class="show-password d-flex justify-content-end px-0 mt-2">
+            <i id="showPassword" @click="showPassword">Show</i>
+          </span>
+        </div>
+        <div class="row form-group w-50 mx-auto">
+          <button
+            type="submit"
+            class="form-button btn btn-primary"
+            @click.prevent="handleRegister"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- <form class="my-5">
       <table class="signup-table">
         <tr>
           <td colspan="2">
@@ -62,7 +124,7 @@
           </td>
         </tr>
       </table>
-    </form>
+    </form> -->
   </div>
 </template>
 
@@ -94,6 +156,21 @@ export default {
       }
     };
     return { handleRegister, userName, email, password };
+  },
+  methods: {
+    showPassword() {
+      var x = document.getElementById("signupPassword");
+      var y = document.getElementById("showPassword");
+      if (x.type === "password") {
+        x.type = "text";
+        y.classList.remove("bi-eye-slash");
+        y.classList.add("bi-eye");
+      } else {
+        x.type = "password";
+        y.classList.remove("bi-eye");
+        y.classList.add("bi-eye-slash");
+      }
+    },
   },
 };
 </script>
