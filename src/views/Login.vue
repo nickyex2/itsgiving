@@ -40,6 +40,9 @@
             <i id="showPassword" @click="showPassword">Show</i>
           </span>
         </div>
+        <div class="row login-error">
+          <p v-if="err.length" class="login-error-message">{{ err }}</p>
+        </div>
         <div class="row login-form-group w-50 mx-auto">
           <button
             type="submit"

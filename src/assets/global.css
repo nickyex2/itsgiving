@@ -582,6 +582,11 @@ a {
     opacity: 1;
 }
 
+.login-error-message {
+    color: red;
+    font-weight: bold;
+}
+
 .signup-text {
     color: #333;
     font-size: 18px;
@@ -661,8 +666,12 @@ a {
     opacity: 1;
 }
 
-/* DONT TOUCH */
+.signup-error-message {
+    color: red;
+    font-weight: bold;
+}
 
+/* DONT TOUCH */
 @media (max-width: 767px) {
     .carousel-inner .carousel-item > div {
         display: none;

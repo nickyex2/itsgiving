@@ -50,6 +50,9 @@
             <i id="showPassword" @click="showPassword">Show</i>
           </span>
         </div>
+        <div class="row signup-error">
+          <p v-if="err.length" class="signup-error-message">{{ err }}</p>
+        </div>
         <div class="row signup-form-group w-50 mx-auto">
           <button
             type="submit"
@@ -78,6 +81,7 @@ export default {
     const userName = ref("");
     const email = ref("");
     const password = ref("");
+    const err = ref("");
     const handleRegister = async () => {
       try {
         await store.dispatch("signup", {
@@ -88,10 +92,17 @@ export default {
         // need to change this to match a query so that dont need to store in vuex
         router.push({ path: "/setup", query: { edit: true } });
       } catch (error) {
-        console.log(error);
+        if (error.message == "Firebase: Error (auth/invalid-email).") {
+          err.value = "Invalid email";
+        } else if (
+          error.message ==
+          "Firebase: Password should be at least 6 characters (auth/weak-password)."
+        ) {
+          err.value = "Password should be at least 6 characters";
+        }
       }
     };
-    return { handleRegister, userName, email, password };
+    return { handleRegister, userName, email, password, err };
   },
   methods: {
     showPassword() {
