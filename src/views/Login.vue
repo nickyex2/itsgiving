@@ -8,7 +8,7 @@
   >
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
-        <h2 class="heading-title">Welcome</h2>
+        <h2 class="login-heading-title">Welcome</h2>
       </div>
     </div>
     <div class="row logo mb-4 w-25 mx-auto">
@@ -16,10 +16,10 @@
     </div>
     <div class="row justify-content-center login-box">
       <form action="#">
-        <div class="row form-group">
+        <div class="row login-form-group">
           <input
             type="email"
-            class="form-input"
+            class="login-form-input"
             id="loginEmail"
             aria-describedby="emailHelp"
             v-model="email"
@@ -27,10 +27,10 @@
             required
           />
         </div>
-        <div class="row form-group">
+        <div class="row login-form-group">
           <input
             type="password"
-            class="form-input"
+            class="login-form-input"
             id="loginPassword"
             v-model="password"
             placeholder="Password"
@@ -40,10 +40,10 @@
             <i id="showPassword" @click="showPassword">Show</i>
           </span>
         </div>
-        <div class="row form-group w-50 mx-auto">
+        <div class="row login-form-group w-50 mx-auto">
           <button
             type="submit"
-            class="form-button btn btn-primary px-4"
+            class="login-form-button btn btn-primary px-4"
             @click.prevent="handleLogin"
           >
             Login
@@ -92,103 +92,18 @@ export default {
   },
   methods: {
     showPassword() {
-      var x = document.getElementById("loginPassword");
-      var y = document.getElementById("showPassword");
-      if (x.type === "password") {
-        x.type = "text";
-        y.classList.remove("bi-eye-slash");
-        y.classList.add("bi-eye");
+      var loginPassword = document.getElementById("loginPassword");
+      var showPassword = document.getElementById("showPassword");
+      if (loginPassword.type === "password") {
+        loginPassword.type = "text";
+        showPassword.classList.remove("bi-eye-slash");
+        showPassword.classList.add("bi-eye");
       } else {
-        x.type = "password";
-        y.classList.remove("bi-eye");
-        y.classList.add("bi-eye-slash");
+        loginPassword.type = "password";
+        showPassword.classList.remove("bi-eye");
+        showPassword.classList.add("bi-eye-slash");
       }
     },
   },
 };
 </script>
-
-<style>
-.heading-title {
-  font-size: 28px;
-  color: rgba(255, 255, 255, 1);
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-input {
-  display: block;
-  width: 100%;
-  height: 40px;
-  padding: 20px;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #333;
-  background: rgb(255, 255, 255, 0.4);
-  border: none;
-  border-radius: 0.8rem;
-  position: relative;
-}
-
-.form-input::placeholder {
-  color: #666;
-  opacity: 1;
-}
-
-.form-input:focus {
-  outline: none;
-  box-shadow: none;
-  color: #495057;
-  background-color: #fff;
-}
-
-.form-input:hover {
-  background-color: #fff;
-}
-
-.form-button {
-  border: none;
-  outline: none;
-  height: 40px;
-  background: #fee48d;
-  color: #333;
-  font-size: 18px;
-  border-radius: 20px;
-  transition: 0.5s;
-  cursor: pointer;
-}
-
-.form-button:hover {
-  background: #e7ad5b9a;
-  color: #fff;
-  opacity: 1;
-}
-
-.signup-text {
-  color: #333;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.signup-link {
-  color: rgb(4, 83, 255);
-  text-decoration: underline;
-}
-
-.show-password {
-  position: absolute;
-  right: 15px;
-  width: 40px;
-  color: #333;
-  background: transparent;
-  font-size: 15px;
-  cursor: pointer;
-}
-</style>
-
-<link rel=”stylesheet”
-href=”https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css”
-/>
