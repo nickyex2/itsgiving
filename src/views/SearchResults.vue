@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-5">
+  <div class="container search-container">
     <div class="row row-cols-2 overall">
       <div
         class="container-fluid col filter-nav py-2"
@@ -144,7 +144,7 @@
                             :key="tag"
                           >
                             <span
-                              class="badge rounded-pill bg-secondary me-2 mb-2"
+                              class="badge rounded-pill bg-secondary mb-2"
                               style="font-size: 10px"
                               >{{ tag }}</span
                             >
@@ -311,10 +311,7 @@
                   :key="csp.id"
                 >
                   <div class="col">
-                    <div
-                      class="card-csp shadow-sm zoom"
-                      style="border-radius: 12px"
-                    >
+                    <div class="card-csp" style="border-radius: 12px">
                       <div class="img_align">
                         <img
                           class="w-100 p-0"
@@ -348,7 +345,7 @@
                             :key="tag"
                           >
                             <span
-                              class="badge rounded-pill bg-secondary me-2"
+                              class="badge rounded-pill bg-secondary"
                               style="font-size: 0.7rem"
                               >{{ tag }}</span
                             >
@@ -475,7 +472,7 @@
                               :key="tag"
                             >
                               <span
-                                class="badge rounded-pill bg-secondary me-2 mb-2"
+                                class="badge rounded-pill bg-secondary mx-2 mb-2"
                                 style="font-size: 1rem"
                                 >{{ tag }}</span
                               >

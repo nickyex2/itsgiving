@@ -238,7 +238,7 @@ color: white;
     font-weight: bolder;
     padding-right: 1.5vw;
     font-size: 25px;
-    color: white;
+    color: black;
 }
 
 .navbar .nav-item{
@@ -247,7 +247,7 @@ color: white;
 }
 
 .nav-link{
-    color: white;
+    color: black;
 }
 
 a {
@@ -515,6 +515,19 @@ a {
 
 /* LOGIN */
 /* make video full screen background */
+.login{
+    position: absolute;
+    padding-top: 200px;
+}
+
+.login-table{
+    height:300px;
+    width:100%;
+    overflow: hidden;
+    position: relative;
+    border: none;
+}
+
 #loginvid {
     position: fixed;
     right: 0;
@@ -525,141 +538,9 @@ a {
     opacity: 0.7;
 }
 
-.login-heading-title {
-    font-size: 28px;
-    color: rgba(255, 255, 255, 1);
-  }
-  
-.login-form-group {
-    margin-bottom: 1rem;
-}
-
-.login-form-input {
-    display: block;
-    width: 100%;
-    height: 40px;
-    padding: 20px;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #333;
-    background: rgb(255, 255, 255, 0.4);
-    border: none;
-    border-radius: 0.8rem;
-    position: relative;
-}
-
-.login-form-input::placeholder {
-    color: #666;
-    opacity: 1;
-}
-
-.login-form-input:focus {
-    outline: none;
-    box-shadow: none;
-    color: #495057;
-    background-color: #fff;
-}
-
-.login-form-input:hover {
-    background-color: #fff;
-}
-
-.login-form-button {
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fee48d;
-    color: #333;
-    font-size: 18px;
-    border-radius: 20px;
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-.login-form-button:hover {
-    background: #e7ad5b9a;
-    color: #fff;
-    opacity: 1;
-}
-
-.signup-text {
-    color: #333;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.signup-link {
-    color: rgb(4, 83, 255);
-    text-decoration: underline;
-}
-
-.show-password {
-    position: absolute;
-    right: 15px;
-    width: 40px;
-    color: #333;
-    background: transparent;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.signup-heading-title {
-    font-size: 28px;
-    color: rgba(255, 255, 255, 1);
-  }
-  
-.signup-form-group {
-    margin-bottom: 1rem;
-}
-
-.signup-form-input {
-    display: block;
-    width: 100%;
-    height: 40px;
-    padding: 20px;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #333;
-    background: rgb(255, 255, 255, 0.4);
-    border: none;
-    border-radius: 0.8rem;
-    position: relative;
-}
-
-.signup-form-input::placeholder {
-    color: #666;
-    opacity: 1;
-}
-
-.signup-form-input:focus {
-    outline: none;
-    box-shadow: none;
-    color: #495057;
-    background-color: #fff;
-}
-
-.signup-form-input:hover {
-    background-color: #fff;
-}
-
-.signup-form-button {
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fee48d;
-    color: #333;
-    font-size: 18px;
-    border-radius: 20px;
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-.signup-form-button:hover {
-    background: #e7ad5b9a;
-    color: #fff;
-    opacity: 1;
+.login-table td{
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 @media (max-width: 767px) {
@@ -954,13 +835,15 @@ a {
 
 .card-csp{
     background-color: white;
-    transition: box-shadow .3s;
     transition: 0.3s;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    margin: 5px;
 }
 
 .card-csp:hover{
-    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    box-shadow: 0 0 20px rgba(33,33,33,.2); 
     background-color: white;
+    transform: scale(1.02);
 }
 
 .filter-nav{
@@ -979,6 +862,13 @@ a {
 .list-item{
     background-color: white;
     border-radius: 12px;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    transition: 0.3s;
+}
+
+.list-item:hover{
+    background-color: white;
+    transform: scale(1.02);
 }
 
 .album .list-group-item{
@@ -1009,4 +899,19 @@ input#flexSwitchCheckChecked {
 
 .show-map{
     text-align: left;
+}
+
+.search-container{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.child span{
+    float: left;
+}
+
+.rounded-pill{
+    margin-bottom: 5px;
+    margin-right: 5px;
+    float: left;
 }
