@@ -51,13 +51,18 @@
               alt=""
               style="width: 45px; height: 45px"
             />
-            <li class="nav-item">
+            <li class="nav-item" v-if="userAddInfo">
               <router-link class="nav-link" :to="'/profile'"
                 >Profile: {{ user.email }}</router-link
               >
             </li>
+            <li class="nav-item" v-else>
+              <router-link class="nav-link" :to="'/setup?edit=true'"
+                >Setup Profile</router-link
+              >
+            </li>
             <li class="nav-item">
-              <button class="nav-link btn" @click="logout">Logout</button>
+              <a class="nav-link" href="#" @click="logout">Logout</a>
             </li>
           </ul>
         </div>
@@ -76,13 +81,14 @@ export default {
   components: {},
   setup() {
     const store = useStore();
-    const user = computed(() => store.state.user);
+    const user = computed(() => store.getters.user);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
     const router = useRouter();
     const logout = async () => {
       await router.push("/");
       store.dispatch("logout");
     };
-    return { user, logout };
+    return { user, logout, userAddInfo };
   },
   data: function () {
     return {

@@ -76,7 +76,9 @@
               <button v-show="applyButtonToggle" @click="handleApply">
                 Apply Now
               </button>
-              <p>{{ applyMessage }}</p>
+              <span class="fw-bold ps-3 my-auto" id="apply-text">
+                {{ applyMessage }}
+              </span>
             </div>
           </div>
         </div>
@@ -284,7 +286,13 @@
 <script>
 import { onBeforeMount, ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
+import {
+  getDatabase,
+  ref as dbRefe,
+  onValue,
+  set,
+  update,
+} from "firebase/database";
 import { useStore } from "vuex";
 
 export default {
@@ -313,7 +321,6 @@ export default {
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const editAccess = ref(false);
     const db = getDatabase();
-    const avail_DateTime = ref({});
     const interestImg = ref({});
     const csp = ref({
       name: "",
@@ -333,6 +340,39 @@ export default {
       phoneNo: "",
       telegramHandle: "",
     });
+    const avail_DateTime = computed(() => {
+      // getting interview timeslot details & remove those that are full
+      const avail_DateTime = ref({});
+      const applyRef = dbRefe(db, "availability/" + route.params.id);
+      onValue(applyRef, (snapshot) => {
+        if (snapshot.val()) {
+          console.log(snapshot.val());
+          avail_DateTime.value = snapshot.val();
+          for (let date in avail_DateTime.value.dates_avail) {
+            for (
+              var timeIndex = avail_DateTime.value.dates_avail[date].length - 1;
+              timeIndex >= 0;
+              timeIndex--
+            ) {
+              const currTime =
+                avail_DateTime.value.dates_avail[date][timeIndex];
+              if (
+                avail_DateTime.value.applicants[date] != null &&
+                avail_DateTime.value.applicants[date][currTime] != null
+              ) {
+                if (
+                  Object.keys(avail_DateTime.value.applicants[date][currTime])
+                    .length >= csp.value.no_of_interviews_per_hour
+                ) {
+                  avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                }
+              }
+            }
+          }
+        }
+      });
+      return avail_DateTime.value;
+    });
     const applyButtonBool = ref(false);
     const appliedDateTime = ref("");
     const applyMessage = ref("");
@@ -349,7 +389,9 @@ export default {
       }
     });
     // applying for csp button
-    const handleApply = () => {
+    const handleApply = async () => {
+      const dateTimeSplit = appliedDateTime.value.split(" ");
+      console.log(dateTimeSplit);
       if (user.value == null) {
         // router.push("/login");
         alert("Please login to apply for this CSP");
@@ -362,27 +404,93 @@ export default {
           userAddInfo.value.rejected_csp.includes(route.params.id))
       ) {
         applyMessage.value = "You have already applied for this CSP";
+        document.getElementById("apply-text").classList.add("text-danger");
         // this is based on the trust that the tables are created correctly. (need to add in the checking with db maybe)
+        // } else if (
+        //   avail_DateTime.value.applicants[dateTimeSplit[0]][dateTimeSplit[1]] &&
+        //   avail_DateTime.value.applicants[dateTimeSplit[0]][dateTimeSplit[1]] >=
+        //     csp.value.no_of_interviews_per_hour
+        // ) {
+        //   applyMessage.value =
+        //     "This timeslot is full! Please refresh the page to see the updated timeslots";
+        //   document.getElementById("apply-text").classList.add("text-danger");
       } else {
-        const dateTimeSplit = appliedDateTime.value.split(" ");
-        console.log(dateTimeSplit);
         // storing process
-        const dbRef = dbRefe(
+        const applicantsRef = dbRefe(
           db,
           `availability/${route.params.id}/applicants/${dateTimeSplit[0]}/${dateTimeSplit[1]}`
         );
-        onValue(dbRef, (snapshot) => {
+        const userAddInfoRef = dbRefe(
+          db,
+          `users/${user.value.uid}/pending_csp`
+        );
+        var applicantsData = null;
+        var userAddInfoData = null;
+        onValue(applicantsRef, (snapshot) => {
           console.log(snapshot.val());
           if (snapshot.val() != null) {
-            console.log(
-              "user application storing to db now - update() (NOT YET IMPLEMENTED)"
-            );
-          } else {
-            console.log(
-              "user application storing to db now - set() (NOT YET IMPLEMENTED)"
-            );
+            applicantsData = snapshot.val();
           }
         });
+        onValue(userAddInfoRef, (snapshot) => {
+          if (snapshot.val() != false) {
+            userAddInfoData = snapshot.val();
+          }
+        });
+        // set up user info to store in db
+        const applicantInfo = {
+          full_name: `${userAddInfo.value.firstName} ${userAddInfo.value.lastName}`,
+          email: user.value.email,
+          telegramHandle: userAddInfo.value.telegramHandle,
+          status: "pending",
+        };
+        const applicantRef = dbRefe(
+          db,
+          `availability/${route.params.id}/applicants/${
+            dateTimeSplit[0]
+          }/${dateTimeSplit[1].toString()}/${user.value.uid}`
+        );
+        if (applicantsData) {
+          console.log("user application storing to db now - update()");
+          // set db with new applicant
+          try {
+            await set(applicantRef, applicantInfo);
+            applyMessage.value = "You have successfully applied for this CSP";
+          } catch (error) {
+            applyMessage.value = error.message;
+          }
+        } else {
+          console.log("user application storing to db now - set()");
+          // update db with new applicant
+          try {
+            await update(applicantRef, applicantInfo);
+          } catch (error) {
+            applyMessage.value = error.message;
+          }
+        }
+        if (userAddInfoData) {
+          // update userAddInfo with csp data
+          console.log("updating userAddInfo db");
+          const nextKey = userAddInfoData.length;
+          try {
+            await update(userAddInfoRef, {
+              [nextKey]: route.params.id,
+            });
+          } catch (error) {
+            applyMessage.value = error.message;
+          }
+        } else {
+          // set userAddInfo with csp data
+          try {
+            await set(userAddInfoRef, [route.params.id]);
+          } catch (error) {
+            applyMessage.value = error.message;
+          }
+        }
+        await store.dispatch("setUserAddInfo", user.value.uid);
+        applyMessage.value = "You have successfully applied for this CSP";
+        document.getElementById("apply-text").classList.add("text-success");
+        console.log("user application storing to db done");
       }
     };
     // owner edit csp button
@@ -421,31 +529,6 @@ export default {
         }
         if (user.value && user.value.email === csp.value.owner_email) {
           editAccess.value = true;
-        }
-      });
-      // getting interview timeslot details & remove those that are full
-      const applyRef = dbRefe(db, "availability/" + route.params.id);
-      onValue(applyRef, (snapshot) => {
-        if (snapshot.val()) {
-          console.log(snapshot.val());
-          avail_DateTime.value = snapshot.val();
-          for (let date in avail_DateTime.value.dates_avail) {
-            for (let timeIndex in avail_DateTime.value.dates_avail[date]) {
-              const currTime =
-                avail_DateTime.value.dates_avail[date][timeIndex];
-              if (
-                avail_DateTime.value.applicants[date] != null &&
-                avail_DateTime.value.applicants[date][currTime] != null
-              ) {
-                if (
-                  Object.keys(avail_DateTime.value.applicants[date][currTime])
-                    .length >= csp.value.no_of_interviews_per_hour
-                ) {
-                  avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
-                }
-              }
-            }
-          }
         }
       });
       // getting interest images
