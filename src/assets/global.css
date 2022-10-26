@@ -661,42 +661,6 @@ a {
     opacity: 1;
 }
 
-/* DONT TOUCH */
-
-@media (max-width: 767px) {
-    .carousel-inner .carousel-item > div {
-        display: none;
-    }
-    .carousel-inner .carousel-item > div:first-child {
-        display: block;
-    }
-}
-
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-    display: flex;
-}
-
-/* medium and up screens */
-@media (min-width: 768px) {
-
-    .carousel-inner .carousel-item-end.active,
-    .carousel-inner .carousel-item-next {
-        transform: translateX(25%);
-    }
-
-    .carousel-inner .carousel-item-start.active, 
-    .carousel-inner .carousel-item-prev {
-        transform: translateX(-25%);
-    }
-}
-
-.carousel-inner .carousel-item-end,
-.carousel-inner .carousel-item-start { 
-    transform: translateX(0);
-}
-
 .cc{
     margin-top: 5vw;
     margin-bottom: 7vw;
@@ -756,7 +720,8 @@ a {
 
 .container-prof{
     width: 500px;
-    background: #fff;
+    background: whitesmoke;
+    opacity: 90%;
     text-align: center;
     border-radius: 5px;
     padding: 50px 35px 10px 35px;
@@ -844,7 +809,7 @@ a {
     display: flex;
     margin: 40px 0;
     user-select: none;
-    background-color: white;
+    background-color: whitesmoke;
     flex-direction: row;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -998,6 +963,11 @@ a {
     padding: 0;
 }
 
+.album button:hover, .album .btn{
+    background: none;
+    border: none;
+}
+
 .parent, .child{
     font-size: 10px;
 }
@@ -1034,4 +1004,189 @@ input#flexSwitchCheckChecked {
     margin-bottom: 5px;
     margin-right: 5px;
     float: left;
+}
+
+/* CSP VIEW */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+.cspContent {
+    text-align: left;
+}
+
+.interest-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+.csp-deets2{
+    background-color: #FFE48C;
+    border-radius: 10px;
+}
+
+.csp-deets2 h5{
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.d2-last{
+    padding-bottom: 20px;
+}
+
+.csp-deets p{
+    margin-bottom: 35px;
+}
+
+.csp-deets3, .csp-deets4{
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.csp-deets3 h4{
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.csp-deets3 li{
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    font-size: 13px;
+}
+
+.csp-deets3 ul{
+    padding-bottom: 10px;
+}
+
+.csp-deets4 p{
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    font-size: 13px;
+}
+
+.csp-deets4 h4{
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
+.csp-deets3 img{
+    width: 35px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.csp-deets4 svg{
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.apply-csp{
+    padding:20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFE48C;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.csp-view-carousel{
+    width: 90%;
+}
+
+.csp-view-carousel button:hover{
+    background: none;
+}
+
+.cspContent .carousel-item{
+    transition: 1s;
+}
+
+
+/* DONT TOUCH  */
+/* CAROUSEL FOR HOMEPAGE */
+
+@media (max-width: 767px) {
+    .home .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .home .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.home .carousel-inner .carousel-item.active,
+.home .carousel-inner .carousel-item-next,
+.home .carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+
+    .home .carousel-inner .carousel-item-end.active,
+    .home .carousel-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+    .home .carousel-inner .carousel-item-start.active, 
+    .home .carousel-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+.home .carousel-inner .carousel-item-end,
+.home .carousel-inner .carousel-item-start { 
+    transform: translateX(0);
+}
+
+
+/* CAROUSEL FOR CSPVIEW */
+
+@media (max-width: 767px) {
+     .unique-inner .unique > div {
+        display: none;
+    }
+     .unique-inner .unique > div:first-child {
+        display: block;
+    }
+}
+
+ .unique-inner .carousel-item.active,
+ .unique-inner .carousel-item-next,
+ .unique-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+
+     .unique-inner .carousel-item-end.active,
+     .unique-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+     .unique-inner .carousel-item-start.active, 
+     .unique-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+ .unique-inner .carousel-item-end,
+ .unique-inner .carousel-item-start { 
+    transform: translateX(0);
 }

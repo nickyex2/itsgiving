@@ -1,4 +1,7 @@
 <template>
+  <video autoplay muted loop id="loginvid" style="position: fixed">
+    <source src="../assets/signup.mp4" type="video/mp4" />
+  </video>
   <div class="container-fluid d-flex justify-content-center py-5">
     <div class="container-prof">
       <header>More about yourself...</header>
@@ -46,9 +49,7 @@
                 <input type="text" v-model="userAddInfo.lastName" />
               </div>
               <div class="field">
-                <button class="firstNext next" v-show="showFirstNext">
-                  Next
-                </button>
+                <button class="firstNext next">Next</button>
               </div>
             </div>
           </div>
@@ -75,7 +76,7 @@
             </div>
             <div class="field btns">
               <button class="prev-1 prev">Previous</button>
-              <button class="next-1 next" v-show="showSecondNext">Next</button>
+              <button class="next-1 next">Next</button>
             </div>
           </div>
           <div class="page">
@@ -100,7 +101,7 @@
             </div>
             <div class="field btns">
               <button class="prev-2 prev">Previous</button>
-              <button class="next-2 next" v-show="showThirdNext">Next</button>
+              <button class="next-2 next" :disabled="isDisabled">Next</button>
             </div>
           </div>
           <div class="page">
@@ -140,6 +141,7 @@ export default {
     const db = getDatabase();
     const router = useRouter();
     const route = useRoute();
+    console.log(route.query.edit);
     if (route.query.edit != "true") {
       router.push("/profile");
     }
@@ -157,31 +159,11 @@ export default {
       pending_csp: false,
       rejected_csp: false,
     });
-    const showThirdNext = computed(() => {
+    const isDisabled = computed(() => {
       if (userAddInfo.value.interest.length > 0) {
-        return "d-none";
+        return false;
       } else {
-        return "";
-      }
-    });
-    const showFirstNext = computed(() => {
-      if (
-        userAddInfo.value.firstName != "" &&
-        userAddInfo.value.lastName != ""
-      ) {
-        return "d-none";
-      } else {
-        return "";
-      }
-    });
-    const showSecondNext = computed(() => {
-      if (
-        userAddInfo.value.phoneNo != "" &&
-        userAddInfo.value.telegramHandle != "@"
-      ) {
-        return "d-none";
-      } else {
-        return "";
+        return true;
       }
     });
     const handleSetup = async () => {
@@ -194,10 +176,6 @@ export default {
       userAddInfo.value.profilePicture = event.target.files[0];
     };
     onBeforeMount(() => {
-      history.pushState(null, null, location.href);
-      window.onpopstate = function () {
-        history.go(1);
-      };
       const dbRef = dbRefe(db, "interest-tags/");
       onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
@@ -212,9 +190,7 @@ export default {
       user,
       handleSetup,
       handleImg,
-      showFirstNext,
-      showSecondNext,
-      showThirdNext,
+      isDisabled,
     };
   },
   mounted() {
