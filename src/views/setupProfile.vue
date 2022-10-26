@@ -46,7 +46,7 @@
                 <input type="text" v-model="userAddInfo.lastName" />
               </div>
               <div class="field">
-                <button class="firstNext next" :disabled="isDisabledName">
+                <button class="firstNext next" v-show="showFirstNext">
                   Next
                 </button>
               </div>
@@ -75,9 +75,7 @@
             </div>
             <div class="field btns">
               <button class="prev-1 prev">Previous</button>
-              <button class="next-1 next" :disabled="isDisabledSecond">
-                Next
-              </button>
+              <button class="next-1 next" v-show="showSecondNext">Next</button>
             </div>
           </div>
           <div class="page">
@@ -102,9 +100,7 @@
             </div>
             <div class="field btns">
               <button class="prev-2 prev">Previous</button>
-              <button class="next-2 next" :disabled="isDisabledInterest">
-                Next
-              </button>
+              <button class="next-2 next" v-show="showThirdNext">Next</button>
             </div>
           </div>
           <div class="page">
@@ -161,31 +157,31 @@ export default {
       pending_csp: false,
       rejected_csp: false,
     });
-    const isDisabledInterest = computed(() => {
+    const showThirdNext = computed(() => {
       if (userAddInfo.value.interest.length > 0) {
-        return false;
+        return "d-none";
       } else {
-        return true;
+        return "";
       }
     });
-    const isDisabledName = computed(() => {
+    const showFirstNext = computed(() => {
       if (
         userAddInfo.value.firstName != "" &&
         userAddInfo.value.lastName != ""
       ) {
-        return false;
+        return "d-none";
       } else {
-        return true;
+        return "";
       }
     });
-    const isDisabledSecond = computed(() => {
+    const showSecondNext = computed(() => {
       if (
         userAddInfo.value.phoneNo != "" &&
         userAddInfo.value.telegramHandle != "@"
       ) {
-        return false;
+        return "d-none";
       } else {
-        return true;
+        return "";
       }
     });
     const handleSetup = async () => {
@@ -216,9 +212,9 @@ export default {
       user,
       handleSetup,
       handleImg,
-      isDisabledInterest,
-      isDisabledName,
-      isDisabledSecond,
+      showFirstNext,
+      showSecondNext,
+      showThirdNext,
     };
   },
   mounted() {
