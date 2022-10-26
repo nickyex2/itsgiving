@@ -49,7 +49,9 @@
                 <input type="text" v-model="userAddInfo.lastName" />
               </div>
               <div class="field">
-                <button class="firstNext next">Next</button>
+                <button class="firstNext next" v-show="showFirstNext">
+                  Next
+                </button>
               </div>
             </div>
           </div>
@@ -76,7 +78,7 @@
             </div>
             <div class="field btns">
               <button class="prev-1 prev">Previous</button>
-              <button class="next-1 next">Next</button>
+              <button class="next-1 next" v-show="showSecondNext">Next</button>
             </div>
           </div>
           <div class="page">
@@ -101,7 +103,7 @@
             </div>
             <div class="field btns">
               <button class="prev-2 prev">Previous</button>
-              <button class="next-2 next" :disabled="isDisabled">Next</button>
+              <button class="next-2 next" v-show="showThirdNext">Next</button>
             </div>
           </div>
           <div class="page">
@@ -141,7 +143,6 @@ export default {
     const db = getDatabase();
     const router = useRouter();
     const route = useRoute();
-    console.log(route.query.edit);
     if (route.query.edit != "true") {
       router.push("/profile");
     }
@@ -159,11 +160,31 @@ export default {
       pending_csp: false,
       rejected_csp: false,
     });
-    const isDisabled = computed(() => {
+    const showThirdNext = computed(() => {
       if (userAddInfo.value.interest.length > 0) {
-        return false;
+        return "d-none";
       } else {
-        return true;
+        return "";
+      }
+    });
+    const showFirstNext = computed(() => {
+      if (
+        userAddInfo.value.firstName != "" &&
+        userAddInfo.value.lastName != ""
+      ) {
+        return "d-none";
+      } else {
+        return "";
+      }
+    });
+    const showSecondNext = computed(() => {
+      if (
+        userAddInfo.value.phoneNo != "" &&
+        userAddInfo.value.telegramHandle != "@"
+      ) {
+        return "d-none";
+      } else {
+        return "";
       }
     });
     const handleSetup = async () => {
@@ -176,6 +197,10 @@ export default {
       userAddInfo.value.profilePicture = event.target.files[0];
     };
     onBeforeMount(() => {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
       const dbRef = dbRefe(db, "interest-tags/");
       onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
@@ -190,7 +215,9 @@ export default {
       user,
       handleSetup,
       handleImg,
-      isDisabled,
+      showFirstNext,
+      showSecondNext,
+      showThirdNext,
     };
   },
   mounted() {
