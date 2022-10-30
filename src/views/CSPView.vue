@@ -406,32 +406,24 @@ export default {
         applyMessage.value = "You have already applied for this CSP";
         document.getElementById("apply-text").classList.add("text-danger");
         // this is based on the trust that the tables are created correctly. (need to add in the checking with db maybe)
-        // } else if (
-        //   avail_DateTime.value.applicants[dateTimeSplit[0]][dateTimeSplit[1]] &&
-        //   avail_DateTime.value.applicants[dateTimeSplit[0]][dateTimeSplit[1]] >=
-        //     csp.value.no_of_interviews_per_hour
-        // ) {
-        //   applyMessage.value =
-        //     "This timeslot is full! Please refresh the page to see the updated timeslots";
-        //   document.getElementById("apply-text").classList.add("text-danger");
       } else {
         // storing process
         const applicantsRef = dbRefe(
           db,
           `availability/${route.params.id}/applicants/${dateTimeSplit[0]}/${dateTimeSplit[1]}`
         );
-        const userAddInfoRef = dbRefe(
-          db,
-          `users/${user.value.uid}/pending_csp`
-        );
         var applicantsData = null;
-        var userAddInfoData = null;
         onValue(applicantsRef, (snapshot) => {
           console.log(snapshot.val());
           if (snapshot.val() != null) {
             applicantsData = snapshot.val();
           }
         });
+        const userAddInfoRef = dbRefe(
+          db,
+          `users/${user.value.uid}/pending_csp`
+        );
+        var userAddInfoData = null;
         onValue(userAddInfoRef, (snapshot) => {
           if (snapshot.val() != false) {
             userAddInfoData = snapshot.val();
@@ -446,9 +438,7 @@ export default {
         };
         const applicantRef = dbRefe(
           db,
-          `availability/${route.params.id}/applicants/${
-            dateTimeSplit[0]
-          }/${dateTimeSplit[1].toString()}/${user.value.uid}`
+          `availability/${route.params.id}/applicants/${dateTimeSplit[0]}/${dateTimeSplit[1]}/${user.value.uid}`
         );
         if (applicantsData) {
           console.log("user application storing to db now - update()");
