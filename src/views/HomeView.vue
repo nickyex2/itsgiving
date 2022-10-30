@@ -12,16 +12,27 @@
       </div>
       <div class="container">
         <div class="content">
-          <h1 id="title" class="mb-0">ITS GIVING</h1>
-          <p class="mb-0">POVERTY</p>
-          <button>Learn More</button>
+          <h1
+            id="title"
+            class="mb-0"
+            data-aos="fade-in"
+            data-aos-duration="1500"
+          >
+            ITS GIVING
+          </h1>
+          <p class="mb-0" data-aos="fade-in" data-aos-duration="1500">
+            POVERTY
+          </p>
+          <button data-aos="fade-in" data-aos-duration="1500">
+            Learn More
+          </button>
         </div>
       </div>
     </header>
     <!-- end -->
 
     <!-- 2 action tabs -->
-    <div class="action container">
+    <div class="action container" data-aos="fade-in" data-aos-duration="1500">
       <div class="row">
         <div class="click col-12 col-sm-6">
           <!-- binding method A -->
@@ -54,7 +65,12 @@
     <!-- end -->
 
     <!-- 2 counters -->
-    <div class="container" id="counters">
+    <div
+      class="container"
+      id="counters"
+      data-aos="fade-in"
+      data-aos-duration="1500"
+    >
       <div class="row row-col-sm-1">
         <div class="counter col-6" id="csp">
           <img src="../assets/help.png" alt="csp" />
@@ -76,7 +92,11 @@
     <!-- end -->
 
     <!-- card carousel -->
-    <div class="cc container text-center">
+    <div
+      class="cc container text-center"
+      data-aos="fade-in"
+      data-aos-duration="1500"
+    >
       <h1 class="explore-title">Just Listed</h1>
       <div class="row mx-auto my-auto justify-content-center">
         <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -216,10 +236,9 @@
       </div>
     </div>
     <!-- end -->
-    <div class="container-fluid"></div>
 
     <!-- explore icons -->
-    <div class="explore container">
+    <div class="explore container" data-aos="fade-in" data-aos-duration="1500">
       <h1 class="explore-title">Explore</h1>
       <div class="explore-row row">
         <div class="explore-item col-lg-2 col-md-4">
@@ -317,7 +336,6 @@
 
 <script>
 // @ is an alias to /src
-
 export default {
   name: "HomeView",
   components: {},

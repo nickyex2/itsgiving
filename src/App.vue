@@ -16,10 +16,14 @@
 // @ is an alias to /src
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import AOS from "aos";
 
 export default {
   components: { Navbar, Footer },
   setup() {},
+  mounted() {
+    AOS.init();
+  },
 };
 </script>
 

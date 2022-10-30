@@ -280,45 +280,5 @@ export default {
       interviews,
     };
   },
-  // data() {
-  //   return {
-  //     interest_tags: [
-  //       "Animal Welfare",
-  //       "Arts & Heritage",
-  //       "Children & Youth",
-  //       "Community",
-  //       "Disability",
-  //       "Education",
-  //       "Elderly",
-  //       "Environment",
-  //       "Families",
-  //       "Health",
-  //       "Humanitarian",
-  //       "Social Services",
-  //       "Sports",
-  //       "Women & Girls",
-  //     ],
-  //     lng: 0,
-  //     lat: 0,
-  //     autocompleteaddress: "",
-  //   };
-  // },
-  // mounted() {
-  //   const autocompleteaddress = new window.google.maps.places.Autocomplete(
-  //     this.$refs["autocompleteaddress"],
-  //     {
-  //       bounds: new window.google.maps.LatLngBounds(
-  //         new window.google.maps.LatLng(1.29027, 103.851959)
-  //       ),
-  //     }
-  //   );
-
-  //   autocompleteaddress.addListener("place_changed", () => {
-  //     const place = autocompleteaddress.getPlace();
-  //     this.address = place.formatted_address;
-  //     this.lat = place.geometry.location.lat();
-  //     this.lng = place.geometry.location.lng();
-  //   });
-  // },
 };
 </script>

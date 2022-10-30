@@ -5,7 +5,10 @@
   >
     <!-- can edit this is just the base line -->
     <div class="navhead container-fluid">
-      <router-link class="navbar-brand" :to="'/'">ItsGiving</router-link>
+      <router-link class="navbar-brand" :to="'/'">
+        <img src="../assets/its-giving-logo.png" alt="logo" />
+        ItsGiving</router-link
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -48,14 +51,14 @@
 
         <div v-else class="d-flex justify-content-end mt-1">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <img
+            <!-- <img
               :src="user.photoURL"
               alt=""
               style="width: 45px; height: 45px"
-            />
+            /> -->
             <li class="nav-item" v-if="userAddInfo">
               <router-link class="nav-link" :to="'/profile'"
-                >Profile: {{ user.email }}</router-link
+                >Welcome, {{ user.displayName }}</router-link
               >
             </li>
             <li class="nav-item" v-else>

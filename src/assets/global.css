@@ -241,6 +241,12 @@ color: white;
     color: black;
 }
 
+.navbar-brand img{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+}
+
 .navbar .nav-item{
     margin-left: 0.8vw;
     margin-right: 0.8vw;
@@ -1190,3 +1196,25 @@ ul {
  .unique-inner .carousel-item-start { 
     transform: translateX(0);
 }
+
+
+/* the classes */
+.hidden {
+    opacity: 0;
+  }
+  
+  .hidden-right {
+    transform: translate(50px, 0);
+  }
+  
+  .hidden-left {
+    transform: translate(-50px, 0);
+  }
+  
+  .showElement {
+    opacity: 1;
+    transform: translate(0, 0);
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+  }

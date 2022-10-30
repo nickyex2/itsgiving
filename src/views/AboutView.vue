@@ -6,11 +6,11 @@
     <!-- about us header -->
     <div class="section">
       <div class="container">
-        <div class="abouttop row">
+        <div class="abouttop row" data-aos="fade-in" data-aos-duration="1500">
           <div class="col-md-6">
             <img src="../assets/image.jpeg" alt="#" />
           </div>
-          <div class="aboutinfo col-md-6">
+          <div class="aboutinfo col-md-6" data-aos="fade-in">
             <div class="full">
               <h4 class="about-title">Who are we?</h4>
               <p class="about-desc">
@@ -40,7 +40,7 @@
     <!-- end -->
 
     <!-- what we do/how it works -->
-    <div class="hiw container">
+    <div class="hiw container" data-aos="fade-in" data-aos-duration="1500">
       <h1>How it works</h1>
       <div class="how-it-works row row-cols-2">
         <div class="col">
@@ -74,7 +74,11 @@
     <!-- end -->
 
     <!-- sign up now -->
-    <div class="signupbanner container">
+    <div
+      class="signupbanner container"
+      data-aos="fade-in"
+      data-aos-duration="1500"
+    >
       <div class="aboutvid vid">
         <video autoplay muted loop id="myVideo">
           <source src="../assets/vid2.mp4" type="video/mp4" />
@@ -89,7 +93,7 @@
     </div>
 
     <!-- meet our team -->
-    <div class="container">
+    <div class="container" data-aos="fade-in" data-aos-duration="1500">
       <h1 class="mtthead">Meet The Team</h1>
       <div class="mtt row row-cols-lg-4 row-cols-2 g-4">
         <div class="col">
