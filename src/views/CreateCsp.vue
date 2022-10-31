@@ -1,16 +1,48 @@
 <template>
-  <div class="container-xl px-4 mt-4 py-5">
-    <div class="col-xl-8 mx-auto my-auto">
-      <!-- Account details card-->
-      <div class="card mb-4 profile-all">
-        <div class="card-header">Create Your CSP</div>
-        <div class="card-body">
-          <form>
-            <!-- Form Group (username)-->
-            <div class="row gx-3 mb-3 edit-title">
-              <!-- Form Group (first name)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="name">CSP Name</label>
+  <video autoplay muted loop id="loginvid" style="position: fixed">
+    <source src="../assets/login.mp4" type="video/mp4" />
+  </video>
+
+  <div class="container-fluid d-flex justify-content-center createcsp">
+    <div class="container-prof">
+      <header>Create CSP</header>
+      <div class="progress-bar">
+        <div class="step">
+          <p>Name</p>
+          <div class="bullet">
+            <span>1</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>Details</p>
+          <div class="bullet">
+            <span>2</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>Interview</p>
+          <div class="bullet">
+            <span>3</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>Pictures</p>
+          <div class="bullet">
+            <span>4</span>
+          </div>
+          <div class="check fas fa-check"></div>
+        </div>
+      </div>
+      <div class="form-outer">
+        <form action="#">
+          <div class="page slide-page">
+            <div class="container temp">
+              <div class="title">Basic Info:</div>
+              <div class="field">
+                <div class="label">CSP Name</div>
                 <input
                   class="form-control"
                   id="name"
@@ -19,47 +51,79 @@
                   v-model="createCsp.name"
                 />
               </div>
-              <!-- Form Group (last name)-->
-              <div class="col-md-6">
-                <label class="small mb-1 edit-title" for="csp_hours"
-                  >Project Hours</label
-                >
-                <input
+              <div class="field">
+                <div class="label">CSP Description</div>
+                <textarea
+                  type="email"
                   class="form-control"
-                  id="csp_hours"
-                  type="number"
-                  placeholder="How many hours is your project?"
-                  v-model="createCsp.csp_hours"
-                />
+                  id="description"
+                  rows="3"
+                  placeholder="How would you describe your CSP?"
+                  v-model="createCsp.description"
+                ></textarea>
+              </div>
+              <div class="field">
+                <div class="label">Project Category (at least 1):</div>
+                <div class="container">
+                  <div
+                    v-for="interest_tag in interest_tags"
+                    :key="interest_tag"
+                    class="align-items-left form-check form-check-inline small mb-2"
+                  >
+                    <label
+                      :for="interest_tag"
+                      class="form-check-label small mb-1 checkbox-label-2"
+                      >{{ interest_tag }}</label
+                    >
+                    <input
+                      type="checkbox"
+                      :id="interest_tag"
+                      class="form-check-input"
+                      :value="interest_tag"
+                      v-model="createCsp.interest"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <button class="firstNext next">Next</button>
               </div>
             </div>
-            <div class="row gx-3 mb-3 edit-title">
-              <!-- Form Group (first name)-->
-              <div class="col-md-6">
-                <label for="cspLocation" class="form-label small mb-1"
-                  >CSP Location</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cspLocation"
-                  placeholder="Please enter the full address of your CSP"
-                  v-model="location.address"
-                />
-              </div>
-              <div class="col-md-6">
-                <label for="cspLocation" class="form-label small mb-1"
-                  >CSP Start Date</label
-                >
+          </div>
+          <div class="page">
+            <div class="title">Contact Info:</div>
+            <div class="field">
+              <div class="label">Location</div>
+              <input
+                type="text"
+                class="form-control"
+                id="cspLocation"
+                placeholder="Please enter the full address of your CSP"
+                v-model="location.address"
+              />
+            </div>
+            <div class="field">
+              <div class="label">Total Hours</div>
+              <input
+                class="form-control"
+                id="csp_hours"
+                type="number"
+                placeholder="How many hours is your project?"
+                v-model="createCsp.csp_hours"
+              />
+            </div>
+            <div class="row-cols-2 field">
+              <div class="col p-0 startd">
+                <div class="label">CSP Start Date</div>
                 <input
                   type="date"
                   class="form-control"
                   id="startDate"
                   v-model="createCsp.date_start"
                 />
-                <label for="cspLocation" class="form-label small mb-1"
-                  >CSP End Date</label
-                >
+              </div>
+              <div class="col p-0 endd">
+                <div class="label">CSP End Date</div>
                 <input
                   type="date"
                   class="form-control"
@@ -68,37 +132,54 @@
                 />
               </div>
             </div>
-            <div class="row mb-3 edit-title">
-              <label for="description" class="form-label small mb-1"
-                >Project Description</label
-              >
-              <textarea
-                type="email"
-                class="form-control"
-                id="description"
-                rows="3"
-                placeholder="How would you describe your CSP?"
-                v-model="createCsp.description"
-              ></textarea>
+            <div class="field btns">
+              <button class="prev-1 prev">Previous</button>
+              <button class="next-1 next">Next</button>
             </div>
-            <div class="row">
-              <label for="cspLocation" class="form-label small mb-1"
-                >Interview Start Date</label
-              >
-              <input type="date" class="form-control" id="startDate" />
-              <label for="cspLocation" class="form-label small mb-1"
-                >Interview End Date</label
-              >
-              <input type="date" class="form-control" id="endDate" />
-              <label for="interviewStart" class="form-label small mb-1">
-                Interview Start Time
-              </label>
-              <input type="time" id="interviewStart" />
-              <label for="interviewEnd" class="form-label small mb-1">
-                Interview End Time
-              </label>
-              <input type="time" id="interviewEnd" />
-              <label for="intervieweesPerHour">Interviews per Hour</label>
+          </div>
+          <div class="page">
+            <div class="title">Interview Info:</div>
+            <div class="row-cols-2 field">
+              <div class="col p-0 startd">
+                <div class="label">Interview Start Date</div>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="startDate"
+                  v-model="interviews.startDate"
+                />
+              </div>
+              <div class="col p-0 endd">
+                <div class="label">Interview End Date</div>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="endDate"
+                  v-model="interviews.endDate"
+                />
+              </div>
+            </div>
+
+            <div class="row field">
+              <div class="col p-0 startd">
+                <div class="label">Interview Start Time</div>
+                <input
+                  type="time"
+                  id="interviewStart"
+                  v-model="interviews.startTime"
+                />
+              </div>
+              <div class="col p-0 endd">
+                <div class="label">Interview End Time</div>
+                <input
+                  type="time"
+                  id="interviewEnd"
+                  v-model="interviews.endTime"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="label">Interviews per hour</div>
               <input
                 type="number"
                 id="intervieweesPerHour"
@@ -106,65 +187,47 @@
                 v-model="createCsp.no_of_interviews_per_hour"
               />
             </div>
-            <div class="edit-title">
-              <label for="editInterest" class="form-label edit-title">
-                Project Category
-              </label>
+            <div class="field btns">
+              <button class="prev-2 prev">Previous</button>
+              <button class="next-2 next">Next</button>
             </div>
-            <div
-              v-for="interest_tag in interest_tags"
-              :key="interest_tag"
-              class="align-items-left form-check form-check-inline small mb-2"
-            >
-              <label :for="interest_tag" class="form-check-label small mb-1">{{
-                interest_tag
-              }}</label>
+          </div>
+          <div class="page">
+            <div class="title">Profile Pic:</div>
+            <div class="field">
+              <div class="label">Upload Primary Image:</div>
               <input
-                type="checkbox"
-                :id="interest_tag"
-                class="form-check-input"
-                :value="interest_tag"
-                v-model="createCsp.interest"
+                type="file"
+                class="form-control"
+                id="image"
+                @change="handleCoverImg"
               />
             </div>
-            <!-- Form Row-->
-            <div class="row gx-3 mb-3 edit-title mt-2">
-              <!-- Form Group (phone number)-->
-              <div class="col-md-6">
-                <label for="image" class="form-label small mb-1"
-                  >Upload A Primary Image</label
-                >
-                <input
-                  type="file"
-                  class="form-control"
-                  id="image"
-                  @change="handleCoverImg"
-                />
-              </div>
-              <!-- Form Group (phone number)-->
-              <div class="col-md-6">
-                <label for="image2" class="form-label small mb-1"
-                  >Upload A Secondary Image</label
-                >
-                <input
-                  type="file"
-                  class="form-control"
-                  id="image2"
-                  multiple
-                  @change="handlePhotos"
-                />
-              </div>
+            <div class="field">
+              <div class="label">Upload Secondary Image:</div>
+              <input
+                type="file"
+                class="form-control"
+                id="image2"
+                multiple
+                @change="handlePhotos"
+              />
             </div>
-            <!-- Save changes button-->
-            <button
-              type="submit"
-              class="btn btn-primary mt-2 w-100"
-              @click.prevent="handleCreate"
-            >
-              List It!
-            </button>
-          </form>
-        </div>
+            <div class="field btns">
+              <button class="prev-3 prev">Previous</button>
+              <button
+                type="submit"
+                class="btn btn-primary mt-2 w-100"
+                @click.prevent="handleCreate"
+              >
+                List It!
+              </button>
+              <!-- <button class="submit" @click.prevent="handleSetup">
+                Submit
+              </button> -->
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -174,11 +237,18 @@
 import { ref, onMounted, computed } from "vue";
 import { getDatabase, ref as dbRefe, onValue, get } from "firebase/database";
 import { useStore } from "vuex";
+// import { useRouter, useRoute } from "vue-router";
+
 export default {
   setup() {
     const db = getDatabase();
     const store = useStore();
     const user = computed(() => store.getters.user);
+    // const router = useRouter();
+    // const route = useRoute();
+    // if (route.query.edit != "true") {
+    //   router.push("");
+    // }
     const createCsp = ref({
       name: "",
       csp_hours: "",
@@ -270,6 +340,30 @@ export default {
         console.log(location.value);
       });
     });
+    // const showThirdNext = computed(() => {
+    //   if (createCsp.value.interest.length > 0) {
+    //     return "d-none";
+    //   } else {
+    //     return "";
+    //   }
+    // });
+    // const showFirstNext = computed(() => {
+    //   if (createCsp.value.name != "" && createCsp.value.description != "") {
+    //     return "d-none";
+    //   } else {
+    //     return "";
+    //   }
+    // });
+    // const showSecondNext = computed(() => {
+    //   if (
+    //     createCsp.value.phoneNo != "" &&
+    //     createCsp.value.telegramHandle != "@"
+    //   ) {
+    //     return "d-none";
+    //   } else {
+    //     return "";
+    //   }
+    // });
     return {
       location,
       interest_tags,
@@ -278,7 +372,83 @@ export default {
       handleCoverImg,
       handlePhotos,
       interviews,
+      // showFirstNext,
+      // showSecondNext,
+      // showThirdNext,
     };
+  },
+  mounted() {
+    const slidePage = document.querySelector(".slide-page");
+    const nextBtnFirst = document.querySelector(".firstNext");
+    const prevBtnSec = document.querySelector(".prev-1");
+    const nextBtnSec = document.querySelector(".next-1");
+    const prevBtnThird = document.querySelector(".prev-2");
+    const nextBtnThird = document.querySelector(".next-2");
+    const prevBtnFourth = document.querySelector(".prev-3");
+    // const submitBtn = document.querySelector(".submit");
+    const progressText = document.querySelectorAll(".step p");
+    const progressCheck = document.querySelectorAll(".step .check");
+    const bullet = document.querySelectorAll(".step .bullet");
+    // const router = useRouter();
+    let current = 1;
+    nextBtnFirst.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-25%";
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+    });
+    nextBtnSec.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-50%";
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+    });
+    nextBtnThird.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-75%";
+      bullet[current - 1].classList.add("active");
+      progressCheck[current - 1].classList.add("active");
+      progressText[current - 1].classList.add("active");
+      current += 1;
+    });
+    // submitBtn.addEventListener("click", function () {
+    //   bullet[current - 1].classList.add("active");
+    //   progressCheck[current - 1].classList.add("active");
+    //   progressText[current - 1].classList.add("active");
+    //   current += 1;
+    //   setTimeout(function () {
+    //     alert("Your Form Successfully Signed up");
+    //     router.push("/");
+    //   }, 800);
+    // });
+    prevBtnSec.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "0%";
+      bullet[current - 2].classList.remove("active");
+      progressCheck[current - 2].classList.remove("active");
+      progressText[current - 2].classList.remove("active");
+      current -= 1;
+    });
+    prevBtnThird.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-25%";
+      bullet[current - 2].classList.remove("active");
+      progressCheck[current - 2].classList.remove("active");
+      progressText[current - 2].classList.remove("active");
+      current -= 1;
+    });
+    prevBtnFourth.addEventListener("click", function (event) {
+      event.preventDefault();
+      slidePage.style.marginLeft = "-50%";
+      bullet[current - 2].classList.remove("active");
+      progressCheck[current - 2].classList.remove("active");
+      progressText[current - 2].classList.remove("active");
+      current -= 1;
+    });
   },
 };
 </script>
