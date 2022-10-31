@@ -160,21 +160,14 @@ export default {
       pending_csp: false,
       rejected_csp: false,
     });
-    const showThirdNext = computed(() => {
-      if (userAddInfo.value.interest.length > 0) {
-        return "d-none";
-      } else {
-        return "";
-      }
-    });
     const showFirstNext = computed(() => {
       if (
         userAddInfo.value.firstName != "" &&
         userAddInfo.value.lastName != ""
       ) {
-        return "d-none";
+        return true;
       } else {
-        return "";
+        return false;
       }
     });
     const showSecondNext = computed(() => {
@@ -182,9 +175,16 @@ export default {
         userAddInfo.value.phoneNo != "" &&
         userAddInfo.value.telegramHandle != "@"
       ) {
-        return "d-none";
+        return true;
       } else {
-        return "";
+        return false;
+      }
+    });
+    const showThirdNext = computed(() => {
+      if (userAddInfo.value.interest.length > 0) {
+        return true;
+      } else {
+        return false;
       }
     });
     const handleSetup = async () => {

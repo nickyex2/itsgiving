@@ -92,7 +92,10 @@
 
           <div class="csp-deets2 mb-4">
             <h5><b>Where:</b> {{ csp.address }}</h5>
-            <h5><b>When:</b> {{ csp.date_start }} - {{ csp.date_end }}</h5>
+            <h5 v-if="csp.date_start !== csp.date_end">
+              <b>When:</b> {{ csp.date_start }} - {{ csp.date_end }}
+            </h5>
+            <h5 v-else><b>When:</b> {{ csp.date_start }}</h5>
             <h5 class="d2-last">
               <b>Est. No of Hours:</b> {{ csp.csp_hours }}h
             </h5>
@@ -357,6 +360,7 @@ export default {
               const currTime =
                 avail_DateTime.value.dates_avail[date][timeIndex];
               if (
+                avail_DateTime.value.applicants != null &&
                 avail_DateTime.value.applicants[date] != null &&
                 avail_DateTime.value.applicants[date][currTime] != null
               ) {

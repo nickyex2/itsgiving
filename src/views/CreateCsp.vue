@@ -86,7 +86,9 @@
                 </div>
               </div>
               <div class="field">
-                <button class="firstNext next">Next</button>
+                <button class="firstNext next" v-show="showFirstNext">
+                  Next
+                </button>
               </div>
             </div>
           </div>
@@ -134,7 +136,7 @@
             </div>
             <div class="field btns">
               <button class="prev-1 prev">Previous</button>
-              <button class="next-1 next">Next</button>
+              <button class="next-1 next" v-show="showSecondNext">Next</button>
             </div>
           </div>
           <div class="page">
@@ -189,7 +191,7 @@
             </div>
             <div class="field btns">
               <button class="prev-2 prev">Previous</button>
-              <button class="next-2 next">Next</button>
+              <button class="next-2 next" v-show="showThirdNext">Next</button>
             </div>
           </div>
           <div class="page">
@@ -219,12 +221,10 @@
                 type="submit"
                 class="btn btn-primary mt-2 w-100"
                 @click.prevent="handleCreate"
+                v-show="showListBtn"
               >
                 List It!
               </button>
-              <!-- <button class="submit" @click.prevent="handleSetup">
-                Submit
-              </button> -->
             </div>
           </div>
         </form>
@@ -235,20 +235,29 @@
 
 <script>
 import { ref, onMounted, computed } from "vue";
-import { getDatabase, ref as dbRefe, onValue, get } from "firebase/database";
+import {
+  getDatabase,
+  ref as dbRefe,
+  onValue,
+  get,
+  set,
+  update,
+} from "firebase/database";
 import { useStore } from "vuex";
-// import { useRouter, useRoute } from "vue-router";
+import {
+  getStorage,
+  ref as stRefe,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const db = getDatabase();
     const store = useStore();
+    const router = useRouter();
     const user = computed(() => store.getters.user);
-    // const router = useRouter();
-    // const route = useRoute();
-    // if (route.query.edit != "true") {
-    //   router.push("");
-    // }
     const createCsp = ref({
       name: "",
       csp_hours: "",
@@ -264,6 +273,10 @@ export default {
       owner: "",
       owner_email: "",
       owner_uid: "",
+    });
+    const selected_img = ref({
+      cover_image: null,
+      photos: [],
     });
     const cid = ref("");
     const location = ref({
@@ -286,15 +299,16 @@ export default {
       }
     });
     const handleCoverImg = (e) => {
-      createCsp.value.cover_image = e.target.files[0];
+      selected_img.value.cover_image = e.target.files[0];
     };
     const handlePhotos = (e) => {
-      createCsp.value.photos = e.target.files;
+      selected_img.value.photos = e.target.files;
     };
     const handleCreate = async () => {
+      // things to improve on this function
+      // 1. need to check if date created and start date of csp and end date of csp is valid (aka start and end date cannot be before created date)
       // gets today's date and store in date_created
       const today = new Date().toJSON().slice(0, 10);
-      console.log(today);
       createCsp.value.date_created = today;
       // create link with cid and store in link
       const dbRef = dbRefe(db, "csp/");
@@ -313,15 +327,62 @@ export default {
       createCsp.value.owner_uid = user.value.uid;
       // add location object to createCsp
       createCsp.value.location = location.value;
-      console.log(createCsp.value.location);
       // TODO
       // store images into firebase and get the url and store in createCsp
+      const storage = getStorage();
+      const coverImgRef = stRefe(
+        storage,
+        `csp/${cid.value}/${selected_img.value.cover_image.name}`
+      );
+      await uploadBytes(coverImgRef, selected_img.value.cover_image);
+      await getDownloadURL(coverImgRef).then((url) => {
+        createCsp.value.cover_image = url;
+      });
+      for (let i = 0; i < selected_img.value.photos.length; i++) {
+        const photoRef = stRefe(
+          storage,
+          `csp/${cid.value}/${selected_img.value.photos[i].name}`
+        );
+        await uploadBytes(photoRef, selected_img.value.photos[i]);
+        await getDownloadURL(photoRef).then((url) => {
+          createCsp.value.photos.push(url);
+        });
+      }
       // create the date stuff for availability
+      const date_avail = {};
+      const date_start = new Date(interviews.value.startDate);
+      while (date_start <= new Date(interviews.value.endDate)) {
+        const timing = [];
+        const start_hr = parseInt(interviews.value.startTime.slice(0, 2));
+        const end_hr = parseInt(interviews.value.endTime.slice(0, 2));
+        const start_end_min = interviews.value.startTime.slice(3, 5);
+        for (let i = start_hr; i < end_hr; i++) {
+          timing.push(`${i}${start_end_min}hrs`);
+        }
+        date_avail[date_start.toJSON().slice(0, 10)] = timing;
+        date_start.setDate(date_start.getDate() + 1);
+      }
       // store createCsp into csp table of firebase
+      const cspRef = dbRefe(db, `csp/${cid.value}`);
+      await set(cspRef, createCsp.value);
       // store availability into availability table of firebase
+      const availRef = dbRefe(db, `availability/${cid.value}/dates_avail`);
+      await set(availRef, date_avail);
       // store cid into user's table (projectLead) of firebase and update the store
+      const userRef = dbRefe(db, `users/${user.value.uid}/projectLead`);
+      await get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          data.push(cid.value);
+          update(userRef, Object.assign({}, data));
+        } else {
+          const data = [cid.value];
+          set(userRef, Object.assign({}, data));
+        }
+      });
+      await store.dispatch("setUserAddInfo", user.value.uid);
       // redirect to csp page
-      console.log(createCsp.value);
+      router.push(`/csp/${cid.value}`);
     };
     onMounted(() => {
       const autocomplete = new window.google.maps.places.Autocomplete(
@@ -337,33 +398,54 @@ export default {
         location.value.lat = place.geometry.location.lat();
         location.value.lng = place.geometry.location.lng();
         location.value.address = place.formatted_address;
-        console.log(location.value);
       });
     });
-    // const showThirdNext = computed(() => {
-    //   if (createCsp.value.interest.length > 0) {
-    //     return "d-none";
-    //   } else {
-    //     return "";
-    //   }
-    // });
-    // const showFirstNext = computed(() => {
-    //   if (createCsp.value.name != "" && createCsp.value.description != "") {
-    //     return "d-none";
-    //   } else {
-    //     return "";
-    //   }
-    // });
-    // const showSecondNext = computed(() => {
-    //   if (
-    //     createCsp.value.phoneNo != "" &&
-    //     createCsp.value.telegramHandle != "@"
-    //   ) {
-    //     return "d-none";
-    //   } else {
-    //     return "";
-    //   }
-    // });
+    const showFirstNext = computed(() => {
+      if (
+        createCsp.value.name != "" &&
+        createCsp.value.description != "" &&
+        createCsp.value.interest.length > 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const showSecondNext = computed(() => {
+      if (
+        location.value.address != "" &&
+        createCsp.value.csp_hours != "" &&
+        createCsp.value.date_start != "" &&
+        createCsp.value.date_end != ""
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const showThirdNext = computed(() => {
+      if (
+        createCsp.value.no_of_interviews_per_hour != "" &&
+        interviews.value.startDate != "" &&
+        interviews.value.endDate != "" &&
+        interviews.value.startTime != "" &&
+        interviews.value.endTime != ""
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const showListBtn = computed(() => {
+      if (
+        selected_img.value.cover_image != null &&
+        selected_img.value.photos.length > 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
     return {
       location,
       interest_tags,
@@ -372,9 +454,11 @@ export default {
       handleCoverImg,
       handlePhotos,
       interviews,
-      // showFirstNext,
-      // showSecondNext,
-      // showThirdNext,
+      selected_img,
+      showFirstNext,
+      showSecondNext,
+      showThirdNext,
+      showListBtn,
     };
   },
   mounted() {
