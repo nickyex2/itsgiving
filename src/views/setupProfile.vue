@@ -2,7 +2,7 @@
   <video autoplay muted loop id="loginvid" style="position: fixed">
     <source src="../assets/signup.mp4" type="video/mp4" />
   </video>
-  <div class="container-fluid d-flex justify-content-center py-5">
+  <div class="container-fluid d-flex justify-content-center setup">
     <div class="container-prof">
       <header>More about yourself...</header>
       <div class="progress-bar">
