@@ -588,6 +588,11 @@ a {
     opacity: 1;
 }
 
+.login-error-message {
+    color: red;
+    font-weight: bold;
+}
+
 .signup-text {
     color: #333;
     font-size: 18px;
@@ -665,6 +670,11 @@ a {
     background: #e7ad5b9a;
     color: #fff;
     opacity: 1;
+}
+
+.signup-error-message {
+    color: red;
+    font-weight: bold;
 }
 
 .cc{

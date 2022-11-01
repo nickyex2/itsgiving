@@ -40,6 +40,9 @@
             <i id="showPassword" @click="showPassword">Show</i>
           </span>
         </div>
+        <div class="row login-error">
+          <p v-if="err.length" class="login-error-message">{{ err }}</p>
+        </div>
         <div class="row login-form-group w-50 mx-auto">
           <button
             type="submit"
@@ -93,15 +96,10 @@ export default {
   methods: {
     showPassword() {
       var loginPassword = document.getElementById("loginPassword");
-      var showPassword = document.getElementById("showPassword");
       if (loginPassword.type === "password") {
         loginPassword.type = "text";
-        showPassword.classList.remove("bi-eye-slash");
-        showPassword.classList.add("bi-eye");
       } else {
         loginPassword.type = "password";
-        showPassword.classList.remove("bi-eye");
-        showPassword.classList.add("bi-eye-slash");
       }
     },
   },

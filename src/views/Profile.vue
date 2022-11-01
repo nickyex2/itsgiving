@@ -92,92 +92,13 @@
                 </div>
               </div>
               <div class="col-4 profile-hours">
-                <h5>45</h5>
-                <p>Hours Completed</p>
+                <h5>{{ userAddInfo.hours }}</h5>
+                <p>Projected Hours Completed</p>
               </div>
             </div>
           </div>
-          <!-- <div class="profile-all card mb-4">
-            <div class="profile-cards card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Display Name</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ user.displayName }}</p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Full Name</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">
-                    {{ `${userAddInfo.firstName} ${userAddInfo.lastName}` }}
-                  </p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Email</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ user.email }}</p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Phone</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ userAddInfo.phoneNo }}</p>
-                </div>
-              </div>
-              <hr /> -->
-          <!-- <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Mobile</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">(098) 765-4321</p>
-                </div>
-              </div>
-              <hr /> -->
-          <!-- <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Telegram</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">
-                    {{ userAddInfo.telegramHandle }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
-
-      <!-- <div class="profile-all card mb-4">
-            <div class="profile-cards card-body text-center">
-              <img
-                :src="user.photoURL"
-                alt="avatar"
-                class="rounded-circle img-fluid"
-                style="width: 150px"
-              />
-              <h5 class="my-3">{{ user.displayName }}</h5>
-              <p class="text-muted mb-4">
-                Volunteer<span v-if="userAddInfo.projectLead"
-                  >/Project Lead</span
-                >
-              </p>
-              <button class="btn btn-primary" @click="editProfile">Edit</button>
-            </div>
-          </div> -->
       <div class="row">
         <div class="col-md-4 col-12">
           <div class="profile-all card mb-4 mb-lg-0">
@@ -290,6 +211,8 @@ export default {
         interestImg.value = snapshot.val();
       });
     });
+    // for projected hours
+    // 1. get all the approved csp the user has (cid, hours)
     return { user, editProfile, userAddInfo, interestImg };
   },
 };

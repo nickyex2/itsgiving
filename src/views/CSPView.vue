@@ -489,7 +489,7 @@ export default {
     };
     // owner edit csp button
     const handleEditCSP = () => {
-      console.log("edit csp");
+      router.push(`/editcsp/${route.params.id}?edit=true`);
     };
     // things that are done before mounting the DOM
     onBeforeMount(() => {
