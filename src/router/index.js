@@ -5,8 +5,6 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
 import EditProfile from "../views/EditProfile.vue";
-import SearchView from "../views/SearchView.vue";
-import SearchTest from "../views/SearchTest.vue";
 import SearchResults from "../views/SearchResults.vue";
 import PageNotFound from "../views/PageNotFound.vue";
 import setupProfile from "../views/setupProfile.vue";
@@ -49,16 +47,6 @@ const routes = [
     path: "/profile/edit",
     name: "editprofile",
     component: EditProfile,
-  },
-  {
-    path: "/searchresults",
-    name: "searchresults",
-    component: SearchView,
-  },
-  {
-    path: "/testsearch",
-    name: "testsearch",
-    component: SearchTest,
   },
   {
     path: "/search",

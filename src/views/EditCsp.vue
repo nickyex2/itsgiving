@@ -135,12 +135,20 @@
 
 <script>
 import { useRouter, useRoute } from "vue-router";
-import { getDatabase, ref as dbRefe, get } from "firebase/database";
+import { getDatabase, ref as dbRefe, get, update } from "firebase/database";
 import { onBeforeMount, ref, onMounted } from "vue";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref as stRefe,
+  uploadBytes,
+} from "firebase/storage";
 export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const storage = getStorage();
     const db = getDatabase();
     if (route.query.edit != "true") {
       router.push(`/csp/${route.params.id}`);
@@ -170,6 +178,58 @@ export default {
     // TODO the logic for the button pressed
     const handleEditCsp = async () => {
       console.log(editedCsp.value);
+      // update cover image if got changes (delete current cover image first)
+      if (updatedImg.value.cover_image != null) {
+        const curr_cover_url = editedCsp.value.cover_image;
+        const deleteRef = stRefe(storage, curr_cover_url);
+        await deleteObject(deleteRef);
+        console.log("deleted cover image");
+        const addImgRef = stRefe(
+          storage,
+          `csp/${route.params.id}/${updatedImg.value.cover_image.name}`
+        );
+        await uploadBytes(addImgRef, updatedImg.value.cover_image);
+        editedCsp.value.cover_image = await getDownloadURL(addImgRef);
+      }
+      // add additional photos into db and storage if have
+      if (updatedImg.value.photos.length != 0) {
+        const addPhotosRef = stRefe(storage, `csp/${route.params.id}`);
+        for (let i = 0; i < updatedImg.value.photos.length; i++) {
+          const photoRef = stRefe(
+            addPhotosRef,
+            updatedImg.value.photos[i].name
+          );
+          await uploadBytes(photoRef, updatedImg.value.photos[i]);
+          editedCsp.value.photos.push(await getDownloadURL(photoRef));
+        }
+      }
+      // increase the amount of dates for availability
+      const date_avail = {};
+      const date_start = new Date(interviewTimings.value.startDate);
+      while (date_start <= new Date(interviewTimings.value.endDate)) {
+        const timing = [];
+        const start_hr = parseInt(interviewTimings.value.startTime.slice(0, 2));
+        const end_hr = parseInt(interviewTimings.value.endTime.slice(0, 2));
+        const start_end_min = interviewTimings.value.startTime.slice(3, 5);
+        for (let i = start_hr; i < end_hr; i++) {
+          timing.push(`${i}${start_end_min}hrs`);
+        }
+        date_avail[date_start.toJSON().slice(0, 10)] = timing;
+        date_start.setDate(date_start.getDate() + 1);
+      }
+      // store editedCSP into db (update)
+      const cspRef = dbRefe(db, `csp/${route.params.id}`);
+      await update(cspRef, editedCsp.value);
+      console.log("updated csp", editedCsp.value);
+      // store availability into db (update)
+      const availRef = dbRefe(
+        db,
+        `availability/${route.params.id}/dates_avail`
+      );
+      await update(availRef, date_avail);
+      console.log("updated availability", date_avail);
+      // route back to csp page
+      router.push(`/csp/${route.params.id}`);
     };
     // before mount
     onBeforeMount(async () => {
@@ -181,7 +241,6 @@ export default {
           console.log("No data available");
         }
       });
-      console.log(editedCsp.value);
       address.value = editedCsp.value.location.address;
       const interestRef = dbRefe(db, "interest-tags/");
       await get(interestRef).then((snapshot) => {

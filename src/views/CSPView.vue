@@ -168,7 +168,7 @@
     </div>
   </div>
   <!-- card carousel -->
-  <div class="cc container text-center">
+  <div class="cc container text-center" v-if="!editAccess">
     <h1 class="explore-title">Related CSPs</h1>
     <div class="row mx-auto my-auto justify-content-center">
       <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -283,6 +283,7 @@
       </div>
     </div>
   </div>
+  <ApprovalCsp v-else :cspID="cID"></ApprovalCsp>
   <!-- end -->
 </template>
 
@@ -297,8 +298,12 @@ import {
   update,
 } from "firebase/database";
 import { useStore } from "vuex";
+import ApprovalCsp from "../components/ApprovalCsp.vue";
 
 export default {
+  components: {
+    ApprovalCsp,
+  },
   mounted() {
     let items = document.querySelectorAll(".unique");
     items.forEach((el) => {
@@ -324,6 +329,7 @@ export default {
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const editAccess = ref(false);
     const db = getDatabase();
+    const cID = route.params.id;
     const interestImg = ref({});
     const csp = ref({
       name: "",
@@ -533,6 +539,7 @@ export default {
     });
     return {
       csp,
+      cID,
       editAccess,
       handleEditCSP,
       avail_DateTime,
