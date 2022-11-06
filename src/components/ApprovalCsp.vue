@@ -11,8 +11,32 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <tr v-for="(applicant, id) in applicants" :key="id">
+          <td>{{ applicant.full_name }}</td>
+          <td>{{ applicant.email }}</td>
+          <td>{{ applicant.datetime }}</td>
+          <td>{{ applicant.status }}</td>
+          <td>
+            <button
+              class="btn btn-success me-2"
+              @click="approve(id, applicant.status)"
+              v-if="applicant.status == 'pending'"
+            >
+              Approve
+            </button>
+            <button
+              class="btn btn-danger"
+              @click="reject(id, applicant.status)"
+              v-if="applicant.status == 'pending'"
+            >
+              Reject
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
+    <h2 v-else>No data available</h2>
   </div>
 </template>
 
@@ -25,6 +49,12 @@ export default {
   setup(props) {
     const db = getDatabase();
     const applicants = ref({}); //need to merge the nested objects into one big object
+    const approve = (id, status) => {
+      console.log("approve", id, status);
+    };
+    const reject = (id, status) => {
+      console.log("reject", id, status);
+    };
     onBeforeMount(async () => {
       const applicantsRef = dbRefe(
         db,
@@ -34,7 +64,12 @@ export default {
         if (snapshot.exists()) {
           // applicants.value = snapshot.val();
           for (const [date, time] of Object.entries(snapshot.val())) {
-            applicants.value[date] = time;
+            for (const [timing, applicant] of Object.entries(time)) {
+              for (const [key, value] of Object.entries(applicant)) {
+                value["datetime"] = `${date} ${timing}`;
+                applicants.value[key] = value;
+              }
+            }
           }
           console.log(applicants.value);
         } else {
@@ -42,7 +77,7 @@ export default {
         }
       });
     });
-    return { applicants };
+    return { applicants, approve, reject };
   },
 };
 </script>
