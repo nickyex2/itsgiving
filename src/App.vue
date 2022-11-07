@@ -1,5 +1,5 @@
 <template>
-  <Navbar v-if="$route.name !== 'setupprofile' && $route.name !== 'create'" />
+  <Navbar v-if="$route.name !== 'setupprofile'" />
   <router-view />
   <div
     v-if="

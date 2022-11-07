@@ -71,8 +71,8 @@
       data-aos="fade-in"
       data-aos-duration="1500"
     >
-      <div class="row row-col-sm-1">
-        <div class="counter col-6" id="csp">
+      <div class="row">
+        <div class="counter col-12 col-sm-6" id="csp">
           <img src="../assets/help.png" alt="csp" />
           <div class="counter-container">
             <div class="counter-ani" data-target="10"></div>
@@ -80,7 +80,7 @@
           <p>Community Service Projects</p>
         </div>
 
-        <div class="counter col-6" id="vol">
+        <div class="counter col-12 col-sm-6" id="vol">
           <img src="../assets/clock.png" alt="vol" />
           <div class="counter-container">
             <div class="counter-ani" data-target="80"></div>

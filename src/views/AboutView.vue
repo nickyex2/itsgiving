@@ -19,13 +19,13 @@
                 eaque praesentium saepe libero nihil perferendis.
               </p>
               <div class="numbers row">
-                <div class="col-md-6">
+                <div class="col-6">
                   <div class="counter-container">
                     <div class="counter-ani-abt" data-target="100"></div>
                   </div>
                   <p>CSPs listed</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                   <div class="counter-container">
                     <div class="counter-ani-abt" data-target="200"></div>
                   </div>
@@ -42,8 +42,8 @@
     <!-- what we do/how it works -->
     <div class="hiw container" data-aos="fade-in" data-aos-duration="1500">
       <h1>How it works</h1>
-      <div class="how-it-works row row-cols-2">
-        <div class="col">
+      <div class="how-it-works row">
+        <div class="col-sm-6">
           <img src="../assets/hand-up.png" alt="search" />
           <h4>Volunteer</h4>
           <p>
@@ -53,7 +53,7 @@
             laudantium!
           </p>
         </div>
-        <div class="col">
+        <div class="col-sm-6">
           <img src="../assets/home.png" alt="search" />
           <h4>Beneficiaries</h4>
           <p>

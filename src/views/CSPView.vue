@@ -2,11 +2,11 @@
   <div class="container-fluid mt-5 justify-content-center">
     <div class="cspContent container py-3">
       <div class="row justify-content-center my-5">
-        <div class="col-md-7 col-12">
+        <div class="col-md-7 col-12 order-md-first order-last">
           <!-- dummy carousel -->
           <div
             id="carouselExampleControls"
-            class="carousel slide mx-auto csp-view-carousel"
+            class="carousel slide mx-auto csp-view-carousel carou-gone"
             data-bs-ride="carousel"
             data-bs-interval="5000"
           >
@@ -81,6 +81,52 @@
         </div>
 
         <div class="col-md-5 col-12">
+          <!-- dummy carousel -->
+          <div
+            id="carouselExampleControls"
+            class="carousel slide mx-auto csp-view-carousel carou-appear"
+            data-bs-ride="carousel"
+            data-bs-interval="5000"
+          >
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img :src="csp.cover_image" class="d-block w-100" alt="..." />
+              </div>
+              <div
+                class="carousel-item"
+                v-for="photo in csp.photos"
+                :key="photo"
+              >
+                <img :src="photo" class="d-block w-100" alt="..." />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <!-- end of dummy carousel -->
+
           <div class="csp-deets mb-3">
             <h2 class="d-inline">{{ csp.name }}</h2>
             <span class="float-end">

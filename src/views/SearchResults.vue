@@ -1,9 +1,12 @@
 <template>
   <div class="container search-container">
-    <div class="row row-cols-2 overall">
+    <div class="row overall">
       <div
-        class="container-fluid col filter-nav py-2"
-        :style="showMap ? 'width: 40%' : 'width: 20%'"
+        :class="
+          showMap
+            ? 'container-fluid col-md-5 filter-nav py-2'
+            : 'container-fluid col-md-3 filter-nav py-2'
+        "
       >
         <div class="row">
           <div
@@ -74,9 +77,7 @@
               v-model="selectedRadius"
               @change="replotRadius"
             >
-              <option value="0" selected disabled hidden>
-                --Plot A Radius Circle--
-              </option>
+              <option value="0" selected disabled hidden>Plot Radius</option>
               <option value="1000">1km</option>
               <option value="2000">2km</option>
               <option value="3000">3km</option>
@@ -235,7 +236,7 @@
                               />
                             </svg>
                           </div>
-                          <span class="d-none d-sm-block">More Details</span>
+                          <!-- <span class="d-none d-sm-block">More Details</span> -->
                         </button>
                       </div>
                     </span>
@@ -288,8 +289,11 @@
       </div>
 
       <div
-        class="row py-2 col cards-all"
-        :style="showMap ? 'width: 60%' : 'width: 80%'"
+        :class="
+          showMap
+            ? 'row py-2 col-md-7 cards-all mapres'
+            : 'row py-2 col cards-all'
+        "
       >
         <div :class="showMap ? gone : dontBreak">
           <div class="album">

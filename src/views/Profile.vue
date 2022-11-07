@@ -2,7 +2,7 @@
   <section class="py-4">
     <div class="profile-container container">
       <div class="row">
-        <div class="col-md-5 col-12">
+        <div class="col-lg-5 col-12">
           <img
             :src="user.photoURL"
             alt="avatar"
@@ -10,10 +10,10 @@
             style="width: 200px"
           />
         </div>
-        <div class="col-md-7 col-12">
+        <div class="col-lg-7 col-12">
           <div class="card mb-4 new-profile-card">
             <div class="row m-4 p-3">
-              <div class="col text-start">
+              <div class="col-10 text-start">
                 <h1 class="profile-name">{{ user.displayName }}</h1>
                 <p class="text-muted mb-4 role">
                   Volunteer<span v-if="userAddInfo.projectLead"
@@ -21,7 +21,7 @@
                   >
                 </p>
               </div>
-              <div class="col text-end">
+              <div class="col-2 text-end d-inline">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
