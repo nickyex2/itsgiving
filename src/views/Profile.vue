@@ -20,6 +20,7 @@
                     >/Project Lead</span
                   >
                 </p>
+                <UpdatePassword></UpdatePassword>
               </div>
               <div class="col-2 text-end d-inline">
                 <svg
@@ -190,10 +191,12 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed, onBeforeMount, ref } from "vue";
 import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
-
+import UpdatePassword from "../components/UpdatePassword.vue";
 export default {
   name: "ProfileView",
-  components: {},
+  components: {
+    UpdatePassword,
+  },
   setup() {
     const router = useRouter();
     const store = useStore();
