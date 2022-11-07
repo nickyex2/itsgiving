@@ -19,14 +19,14 @@
           <td>
             <button
               class="btn btn-success me-2"
-              @click="approve(id, applicant.status)"
+              @click="approve(id, applicant.status, applicant.datetime)"
               v-if="applicant.status == 'pending'"
             >
               Approve
             </button>
             <button
               class="btn btn-danger"
-              @click="reject(id, applicant.status)"
+              @click="reject(id, applicant.status, applicant.datetime)"
               v-if="applicant.status == 'pending'"
             >
               Reject
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
+import { getDatabase, ref as dbRefe, onValue, update } from "firebase/database";
 import { onBeforeMount, ref } from "vue";
 export default {
   name: "ApprovalCsp-component",
@@ -48,16 +48,18 @@ export default {
   setup(props) {
     const db = getDatabase();
     const applicants = ref({}); //need to merge the nested objects into one big object
-    const approve = async (id, status) => {
+    const approve = async (id, status, datetime) => {
       console.log("approve", id, status);
       const userRef = dbRefe(db, `users/${id}`);
       const data = ref({});
       const pending_csp = ref([]);
       const approved_csp = ref([]);
+      const hours = ref(0);
       onValue(userRef, (snapshot) => {
         if (snapshot.val()) {
           data.value = snapshot.val();
           pending_csp.value = data.value.pending_csp;
+          hours.value = data.value.hours;
           if (data.value.approved_csp) {
             approved_csp.value = data.value.approved_csp;
           }
@@ -73,22 +75,25 @@ export default {
       console.log("pending_csp", pending_csp.value);
       console.log("approved_csp", approved_csp.value);
       // update the user's data
-      // await update(userRef, {
-      //   pending_csp: pending_csp.value,
-      //   approved_csp: approved_csp.value,
-      //   hours: data.value.hours + props.cspHours,
-      // });
+      console.log("updating user's data");
+      await update(userRef, {
+        pending_csp: pending_csp.value,
+        approved_csp: approved_csp.value,
+        hours: hours.value + props.cspHours,
+      });
       // update the availability data for the csp
-      const availRef = dbRefe(db, `availability/${props.cspID}`);
-      const availData = ref({});
-      onValue(availRef, (snapshot) => {
-        if (snapshot.val()) {
-          availData.value = snapshot.val();
-        }
+      var date_time_arr = datetime.split(" "); // date_time_arr = ["2021-10-10", "1000hrs"]
+      const availRef = dbRefe(
+        db,
+        `availability/${props.cspID}/applicants/${date_time_arr[0]}/${date_time_arr[1]}/${id}`
+      );
+      console.log("updating availability data");
+      await update(availRef, {
+        status: "approved",
       });
       // change the applicant status to approved from the availability data
     };
-    const reject = (id, status) => {
+    const reject = (id, status, datetime) => {
       console.log("reject", id, status);
       const userRef = dbRefe(db, `users/${id}`);
       const data = ref({});
@@ -108,17 +113,26 @@ export default {
       if (pending_csp.value.length == 0) {
         pending_csp.value = false;
       }
-      // add cspid to approved_csp
+      // add cspid to rejected_csp
       rejected_csp.value.push(props.cspID);
       console.log("pending_csp", pending_csp.value);
       console.log("rejected_csp", rejected_csp.value);
       // update the user's data
-      // await update(userRef, {
-      //   pending_csp: pending_csp.value,
-      //   approved_csp: approved_csp.value,
-      //   hours: data.value.hours + props.cspHours,
-      // });
+      console.log("updating user's data");
+      await update(userRef, {
+        pending_csp: pending_csp.value,
+        rejected_csp: rejected_csp.value,
+      });
       // update the availability data for the csp
+      var date_time_arr = datetime.split(" "); // date_time_arr = ["2021-10-10", "1000hrs"]
+      const availRef = dbRefe(
+        db,
+        `availability/${props.cspID}/applicants/${date_time_arr[0]}/${date_time_arr[1]}/${id}`
+      );
+      console.log("updating availability data");
+      await update(availRef, {
+        status: "rejected",
+      });
     };
     onBeforeMount(async () => {
       const applicantsRef = dbRefe(

@@ -403,12 +403,11 @@ export default {
       appliedDateTime.value = e.target.value;
       applyButtonBool.value = true;
     };
-    // logic wonky but does the job
     const applyButtonToggle = computed(() => {
       if (applyButtonBool.value) {
-        return "d-none";
+        return true;
       } else {
-        return "";
+        return false;
       }
     });
     // applying for csp button
