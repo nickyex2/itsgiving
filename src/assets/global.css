@@ -86,7 +86,7 @@ button:hover{
 }
 
 .home-2{
-    color: black;
+    color: #2c3e50;
 }
 
 .home-2 img{
@@ -200,6 +200,9 @@ button:hover{
     height: 50px;
 }
 
+.explore-link {
+    color: #2c3e50;
+}
 /* NAVBAR */
 nav {
     padding: 30px;

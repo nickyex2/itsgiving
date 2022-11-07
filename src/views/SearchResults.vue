@@ -590,6 +590,7 @@
 // receive searched result from searchtest page
 import MOCK_DATA from "../../places.json";
 import axios from "axios";
+import { useRoute } from "vue-router";
 export default {
   // props: ["search"]
   data() {
@@ -810,6 +811,12 @@ export default {
         );
       });
     },
+  },
+  created() {
+    const route = useRoute();
+    if (route.query.cat) {
+      this.cat = route.query.cat;
+    }
   },
   mounted() {
     const autocompleteaddress = new window.google.maps.places.Autocomplete(

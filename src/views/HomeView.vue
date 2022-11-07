@@ -242,88 +242,158 @@
       <h1 class="explore-title">Explore</h1>
       <div class="explore-row row">
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/animal.png" alt="#" /></i>
-            <p>Animal Welfare</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Animal Welfare' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/animal.png" alt="#" /></i>
+              <p>Animal Welfare</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/protect.png" alt="#" /></i>
-            <p>Arts & Heritage</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Arts & Heritage' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/protect.png" alt="#" /></i>
+              <p>Arts & Heritage</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/children.png" alt="#" /></i>
-            <p>Children & Youth</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Children & Youth' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/children.png" alt="#" /></i>
+              <p>Children & Youth</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/community.png" alt="#" /></i>
-            <p>Community</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Community' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/community.png" alt="#" /></i>
+              <p>Community</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/love.png" alt="#" /></i>
-            <p>Disability</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Disability' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/love.png" alt="#" /></i>
+              <p>Disability</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/graduate-cap.png" alt="#" /></i>
-            <p>Education</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Education' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/graduate-cap.png" alt="#" /></i>
+              <p>Education</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/couple.png" alt="#" /></i>
-            <p>Elderly</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Elderly' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/couple.png" alt="#" /></i>
+              <p>Elderly</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/save-the-planet.png" alt="#" /></i>
-            <p>Envrironment</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Environment' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/save-the-planet.png" alt="#" /></i>
+              <p>Environment</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/family.png" alt="#" /></i>
-            <p>Families</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Families' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/family.png" alt="#" /></i>
+              <p>Families</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/healthcare.png" alt="#" /></i>
-            <p>Health</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Health' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/healthcare.png" alt="#" /></i>
+              <p>Health</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/aid.png" alt="#" /></i>
-            <p>Humanitarian</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Humanitarian' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/aid.png" alt="#" /></i>
+              <p>Humanitarian</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/public-service.png" alt="#" /></i>
-            <p>Social Services</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Social Services' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/public-service.png" alt="#" /></i>
+              <p>Social Services</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/sports.png" alt="#" /></i>
-            <p>Sports</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Sports' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/sports.png" alt="#" /></i>
+              <p>Sports</p>
+            </div>
+          </router-link>
         </div>
         <div class="explore-item col-lg-2 col-md-4">
-          <div class="words">
-            <i><img src="../assets/female.png" alt="#" /></i>
-            <p>Women & Girls</p>
-          </div>
+          <router-link
+            :to="{ path: '/search', query: { cat: 'Women & Girls' } }"
+            class="explore-link"
+          >
+            <div class="words">
+              <i><img src="../assets/female.png" alt="#" /></i>
+              <p>Women & Girls</p>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
