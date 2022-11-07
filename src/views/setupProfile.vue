@@ -1,5 +1,8 @@
 <template>
-  <div class="container-fluid d-flex justify-content-center py-5">
+  <video autoplay muted loop id="loginvid" style="position: fixed">
+    <source src="../assets/signup.mp4" type="video/mp4" />
+  </video>
+  <div class="container-fluid d-flex justify-content-center setup">
     <div class="container-prof">
       <header>More about yourself...</header>
       <div class="progress-bar">
@@ -157,21 +160,14 @@ export default {
       pending_csp: false,
       rejected_csp: false,
     });
-    const showThirdNext = computed(() => {
-      if (userAddInfo.value.interest.length > 0) {
-        return "d-none";
-      } else {
-        return "";
-      }
-    });
     const showFirstNext = computed(() => {
       if (
         userAddInfo.value.firstName != "" &&
         userAddInfo.value.lastName != ""
       ) {
-        return "d-none";
+        return true;
       } else {
-        return "";
+        return false;
       }
     });
     const showSecondNext = computed(() => {
@@ -179,9 +175,16 @@ export default {
         userAddInfo.value.phoneNo != "" &&
         userAddInfo.value.telegramHandle != "@"
       ) {
-        return "d-none";
+        return true;
       } else {
-        return "";
+        return false;
+      }
+    });
+    const showThirdNext = computed(() => {
+      if (userAddInfo.value.interest.length > 0) {
+        return true;
+      } else {
+        return false;
       }
     });
     const handleSetup = async () => {

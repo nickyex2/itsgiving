@@ -119,7 +119,7 @@ if (cookieEnabled) {
       editProfileBool({ commit }, payload) {
         commit("setEditUserBool", payload);
       },
-      // for login
+      // for login, applycsp, createcsp
       setUserAddInfo({ commit }, payload) {
         const db = getDatabase();
         const dbRef = dbRefe(db, `users/${payload}`);

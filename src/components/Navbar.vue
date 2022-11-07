@@ -5,7 +5,10 @@
   >
     <!-- can edit this is just the base line -->
     <div class="navhead container-fluid">
-      <router-link class="navbar-brand" :to="'/'">ItsGiving</router-link>
+      <router-link class="navbar-brand" :to="'/'">
+        <img src="../assets/its-giving-logo.png" alt="logo" />
+        ItsGiving</router-link
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -26,10 +29,12 @@
             <router-link :to="'/search'" class="nav-link"> Search </router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="'/create'" class="nav-link"> Create </router-link>
-          </li>
-          <li class="nav-item">
             <router-link :to="'/about'" class="nav-link"> About </router-link>
+          </li>
+          <li class="nav-item" v-if="user">
+            <router-link :to="'/create'" class="nav-link"
+              >Create CSP</router-link
+            >
           </li>
         </ul>
 
@@ -46,18 +51,23 @@
 
         <div v-else class="d-flex justify-content-end mt-1">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <img
+            <!-- <img
               :src="user.photoURL"
               alt=""
               style="width: 45px; height: 45px"
-            />
-            <li class="nav-item">
+            /> -->
+            <li class="nav-item" v-if="userAddInfo">
               <router-link class="nav-link" :to="'/profile'"
-                >Profile: {{ user.email }}</router-link
+                >Welcome, {{ user.displayName }}</router-link
+              >
+            </li>
+            <li class="nav-item" v-else>
+              <router-link class="nav-link" :to="'/setup?edit=true'"
+                >Setup Profile</router-link
               >
             </li>
             <li class="nav-item">
-              <button class="nav-link btn" @click="logout">Logout</button>
+              <a class="nav-link" href="#" @click="logout">Logout</a>
             </li>
           </ul>
         </div>
@@ -76,13 +86,14 @@ export default {
   components: {},
   setup() {
     const store = useStore();
-    const user = computed(() => store.state.user);
+    const user = computed(() => store.getters.user);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
     const router = useRouter();
     const logout = async () => {
       await router.push("/");
       store.dispatch("logout");
     };
-    return { user, logout };
+    return { user, logout, userAddInfo };
   },
   data: function () {
     return {

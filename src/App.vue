@@ -1,5 +1,5 @@
 <template>
-  <Navbar v-if="$route.name !== 'setupprofile'" />
+  <Navbar v-if="$route.name !== 'setupprofile' && $route.name !== 'create'" />
   <router-view />
   <div
     v-if="
@@ -8,7 +8,7 @@
       $route.name !== 'setupprofile'
     "
   >
-    <Footer />
+    <Footer v-if="$route.name !== 'setupprofile' && $route.name !== 'create'" />
   </div>
 </template>
 
@@ -16,10 +16,14 @@
 // @ is an alias to /src
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import AOS from "aos";
 
 export default {
   components: { Navbar, Footer },
   setup() {},
+  mounted() {
+    AOS.init();
+  },
 };
 </script>
 

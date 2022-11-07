@@ -619,6 +619,7 @@ export default {
       selectedRadius: 0,
       circle: null,
       cat: "",
+      googlemap: null,
     };
   },
   methods: {
@@ -691,6 +692,7 @@ export default {
         center: new window.google.maps.LatLng(this.lat, this.lng),
         mapTypeId: window.google.maps.MapTypeId.ROADMAP,
       });
+      this.googlemap = map;
       this.circle = new window.google.maps.Circle({
         strokeColor: "#FF0000",
         strokeOpacity: 0.8,
@@ -753,7 +755,10 @@ export default {
     showInfoWindow(index) {
       this.activeIndex = index;
       new window.google.maps.event.trigger(this.markers[index], "click");
-      console.log(this.markers);
+      this.googlemap.setCenter({
+        lat: this.places[index].location.lat,
+        lng: this.places[index].location.lng,
+      });
     },
     monthsDiff(date1) {
       var d1 = new Date(date1);
