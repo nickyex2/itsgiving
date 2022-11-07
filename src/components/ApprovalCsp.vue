@@ -93,7 +93,7 @@ export default {
       });
       // change the applicant status to approved from the availability data
     };
-    const reject = (id, status, datetime) => {
+    const reject = async (id, status, datetime) => {
       console.log("reject", id, status);
       const userRef = dbRefe(db, `users/${id}`);
       const data = ref({});

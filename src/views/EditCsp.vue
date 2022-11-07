@@ -1,135 +1,219 @@
 <template>
-  <div class="container-fluid mt-5 mb-5">
-    <h1>this is edit csp page</h1>
-    <div class="row mb-2">
-      <div class="col-6">
-        <label for="name" class="form-label">Name of CSP:</label>
-        <input type="text" class="form-control" v-model="editedCsp.name" />
-      </div>
-      <div class="col-6">
-        <label for="name" class="form-label">Address of CSP:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="cspLocation"
-          v-model="address"
-        />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-6">
-        <label for="description" class="form-label">Project Description:</label>
-        <textarea
-          rows="4"
-          class="form-control"
-          v-model="editedCsp.description"
-        ></textarea>
-      </div>
-      <div class="col-6">
-        <div class="row">
-          <label for="interest" class="form-label">Project Category:</label>
-        </div>
-        <div
-          v-for="interest_tag in interest_tags"
-          :key="interest_tag"
-          class="align-items-left form-check form-check-inline small mb-2"
+  <div class="container px-4 pb-4 col-8 editcsp">
+    <div>
+      <div class="nav nav-tabs py-2" id="nav-tab" role="tablist">
+        <button
+          class="editcsptab active"
+          id="nav-home-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-home"
+          type="button"
+          role="tab"
+          aria-controls="nav-home"
+          aria-selected="true"
         >
-          <label :for="interest_tag" class="form-check-label small mb-1"
-            >{{ interest_tag }}
-          </label>
-          <input
-            type="checkbox"
-            :id="interest_tag"
-            class="form-check-input"
-            :value="interest_tag"
-            v-model="editedCsp.interest"
-          />
-        </div>
+          1. CSP Info
+        </button>
+        <button
+          class="editcsptab"
+          id="nav-profile-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-profile"
+          type="button"
+          role="tab"
+          aria-controls="nav-profile"
+          aria-selected="false"
+        >
+          2. Interview Details
+        </button>
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <label for="hours" class="form-label">No of Hours:</label>
-        <input
-          type="number"
-          class="form-control"
-          v-model="editedCsp.csp_hours"
-        />
+    <div class="tab-content" id="nav-tabContent">
+      <div
+        class="tab-pane fade show active"
+        id="nav-home"
+        role="tabpanel"
+        aria-labelledby="nav-home-tab"
+      >
+        <div class="my-3 edit-title">
+          <label for="name" class="form-label">Name of CSP:</label>
+          <input type="text" class="form-control" v-model="editedCsp.name" />
+        </div>
+
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3 edit-title">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label for="name" class="form-label">Address of CSP:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cspLocation"
+              v-model="address"
+            />
+          </div>
+          <!-- Form Group (last name)-->
+          <div class="col-md-6">
+            <label for="hours" class="form-label">No of Hours:</label>
+            <input
+              type="number"
+              class="form-control"
+              v-model="editedCsp.csp_hours"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 edit-title">
+          <label for="description" class="form-label"
+            >Project Description:</label
+          >
+          <textarea
+            rows="4"
+            class="form-control"
+            v-model="editedCsp.description"
+          ></textarea>
+        </div>
+
+        <div class="mb-3 edit-title">
+          <div class="row">
+            <label for="interest" class="form-label">Project Category:</label>
+          </div>
+          <div
+            v-for="interest_tag in interest_tags"
+            :key="interest_tag"
+            class="align-items-left form-check form-check-inline small mb-2"
+          >
+            <label :for="interest_tag" class="form-check-label small try mb-1"
+              >{{ interest_tag }}
+            </label>
+            <input
+              type="checkbox"
+              :id="interest_tag"
+              class="form-check-input"
+              :value="interest_tag"
+              v-model="editedCsp.interest"
+            />
+          </div>
+        </div>
+
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3 edit-title">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label for="dateStart" class="form-label">CSP Start Date:</label>
+            <input
+              type="date"
+              class="form-control"
+              v-model="editedCsp.date_start"
+            />
+          </div>
+          <!-- Form Group (last name)-->
+          <div class="col-md-6">
+            <label for="dateEnd" class="form-label">CSP End Date:</label>
+            <input
+              type="date"
+              class="form-control"
+              v-model="editedCsp.date_end"
+            />
+          </div>
+        </div>
+
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3 edit-title">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label for="coverimg" class="form-label">Update Cover Image:</label>
+            <input type="file" class="form-control" @change="handleCoverImg" />
+          </div>
+          <!-- Form Group (last name)-->
+          <div class="col-md-6">
+            <label for="addonphoto" class="form-label">Add More Photos:</label>
+            <input type="file" class="form-control" @change="handlePhotos" />
+          </div>
+        </div>
       </div>
-      <div class="col-4">
-        <label for="dateStart" class="form-label">CSP Start Date:</label>
-        <input
-          type="date"
-          class="form-control"
-          v-model="editedCsp.date_start"
-        />
-      </div>
-      <div class="col-4">
-        <label for="dateEnd" class="form-label">CSP End Date:</label>
-        <input type="date" class="form-control" v-model="editedCsp.date_end" />
+
+      <div
+        class="tab-pane fade"
+        id="nav-profile"
+        role="tabpanel"
+        aria-labelledby="nav-profile-tab"
+      >
+        <!-- Form Row-->
+        <div class="row gx-3 my-3 edit-title">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label for="interviewStartDate" class="form-label"
+              >Interview Start Date:</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              v-model="interviewTimings.startDate"
+              disabled
+            />
+          </div>
+          <!-- Form Group (last name)-->
+          <div class="col-md-6">
+            <label for="interviewEndDate" class="form-label"
+              >Interview End Date:</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              v-model="interviewTimings.endDate"
+            />
+          </div>
+        </div>
+
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3 edit-title">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label for="interviewStartTime" class="form-label"
+              >Interview Start Time:</label
+            >
+            <input
+              type="time"
+              class="form-control"
+              v-model="interviewTimings.startTime"
+              disabled
+            />
+          </div>
+          <!-- Form Group (last name)-->
+          <div class="col-md-6">
+            <label for="interviewEndTime" class="form-label"
+              >Interview End Time:</label
+            >
+            <input
+              type="time"
+              class="form-control"
+              v-model="interviewTimings.endTime"
+              disabled
+            />
+          </div>
+        </div>
+
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3 edit-title">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label for="interviewSlotsPerHour" class="form-label"
+              >No of person per interview timeslot:</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              v-model="editedCsp.no_of_interviews_per_hour"
+              disabled
+            />
+          </div>
+        </div>
+        <button class="btn btn-primary" @click="handleEditCsp">
+          Submit Edits
+        </button>
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col-6">
-        <label for="coverimg" class="form-label">Update Cover Image:</label>
-        <input type="file" class="form-control" @change="handleCoverImg" />
-      </div>
-      <div class="col-6">
-        <label for="addonphoto" class="form-label">Add More Photos:</label>
-        <input type="file" class="form-control" @change="handlePhotos" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <label for="interview">Add More Dates for Interviews</label>
-      <div class="col-6">
-        <div class="row">
-          <label for="interviewStartDate" class="form-label"
-            >Interview Start Date:</label
-          >
-          <input
-            type="date"
-            class="form-control"
-            v-model="interviewTimings.startDate"
-            disabled
-          />
-        </div>
-        <div class="row">
-          <label for="interviewEndDate" class="form-label"
-            >Interview End Date:</label
-          >
-          <input
-            type="date"
-            class="form-control"
-            v-model="interviewTimings.endDate"
-          />
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="row">
-          <label for="interviewStartTime" class="form-label"
-            >Interview Start Time:</label
-          >
-          <input
-            type="time"
-            class="form-control"
-            v-model="interviewTimings.startTime"
-            disabled
-          />
-        </div>
-        <div class="row">
-          <label for="interviewEndTime" class="form-label"
-            >Interview End Time:</label
-          >
-          <input
-            type="time"
-            class="form-control"
-            v-model="interviewTimings.endTime"
-            disabled
-          />
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-primary" @click="handleEditCsp">Submit Edits</button>
   </div>
 </template>
 
