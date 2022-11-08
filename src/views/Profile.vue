@@ -101,7 +101,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="profile-all card mb-4 mb-lg-0">
             <p class="mb-0 fw-bold i-i-title">Indicated Interests</p>
             <div class="profile-cards card-body p-0 i-i">
@@ -119,13 +119,24 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="profile-all card mb-4 mb-md-0 profileh">
             <div class="profile-cards card-body">
               <p class="i-i-title-2 fw-bold">Completed / Ongoing CSPs</p>
               <hr />
-              <p class="mb-1" style="font-size: 0.77rem">CSP A</p>
-              <div class="progress rounded" style="height: 5px">
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="approv_csp in userAddInfo.approved_csp"
+                :key="approv_csp"
+              >
+                {{
+                  `${Object.keys(approv_csp)[0]} : ${
+                    approv_csp[Object.keys(approv_csp)[0]]
+                  } hours`
+                }}
+              </p>
+              <!-- <div class="progress rounded" style="height: 5px">
                 <div
                   class="progress-bar"
                   role="progressbar"
@@ -134,29 +145,25 @@
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: 0.77rem">CSP B</p>
-              <div class="progress rounded" style="height: 5px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 72%"
-                  aria-valuenow="72"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
 
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="profile-all card mb-4 mb-md-0 profileh">
             <div class="profile-cards card-body">
-              <p class="i-i-title-2 fw-bold">Applications</p>
+              <p class="i-i-title-2 fw-bold">Leading Projects</p>
               <hr />
-              <p class="mb-1" style="font-size: 0.77rem">CSP A</p>
-              <div class="progress rounded" style="height: 5px">
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="proj_lead in userAddInfo.projectLead"
+                :key="proj_lead"
+              >
+                {{ proj_lead }}
+              </p>
+              <!-- <div class="progress rounded" style="height: 5px">
                 <div
                   class="progress-bar"
                   role="progressbar"
@@ -165,18 +172,38 @@
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: 0.77rem">CSP B</p>
-              <div class="progress rounded" style="height: 5px">
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-12">
+          <div class="profile-all card mb-4 mb-md-0 profileh">
+            <div class="profile-cards card-body">
+              <p class="i-i-title-2 fw-bold">Applications</p>
+              <hr />
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="pend_csp in userAddInfo.pending_csp"
+                :key="pend_csp"
+              >
+                {{
+                  `${Object.keys(pend_csp)[0]} : ${
+                    pend_csp[Object.keys(pend_csp)[0]]
+                  }`
+                }}
+              </p>
+              <!-- <div class="progress rounded" style="height: 5px">
                 <div
                   class="progress-bar"
                   role="progressbar"
-                  style="width: 72%"
-                  aria-valuenow="72"
+                  style="width: 100%"
+                  aria-valuenow="80"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

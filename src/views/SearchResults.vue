@@ -322,7 +322,11 @@
                   :key="csp.id"
                 >
                   <div class="col">
-                    <div class="card-csp" style="border-radius: 12px">
+                    <div
+                      class="card-csp"
+                      style="border-radius: 12px"
+                      @click="handleClickDetails(csp.id)"
+                    >
                       <div class="img_align">
                         <img
                           class="w-100 p-0"
@@ -597,7 +601,7 @@ export default {
         window.google.maps.event.addListener(marker, "click", () => {
           const place = this.places[i];
           infoWindow.setContent(
-            `<img src="${place.cover_image}"><div class="ui header">${place.name}</div>
+            `<img src="${place.cover_image}" style="width:300px; height:200px;"><div class="ui header">${place.name}</div>
                     ${place.interest} <br>
                     ${place.csp_hours} Hours</a>
                     

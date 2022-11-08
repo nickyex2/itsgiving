@@ -40,7 +40,13 @@
 </template>
 
 <script>
-import { getDatabase, ref as dbRefe, onValue, update } from "firebase/database";
+import {
+  getDatabase,
+  ref as dbRefe,
+  onValue,
+  update,
+  get,
+} from "firebase/database";
 import { onBeforeMount, ref } from "vue";
 export default {
   name: "ApprovalCsp-component",
@@ -55,8 +61,8 @@ export default {
       const pending_csp = ref([]);
       const approved_csp = ref([]);
       const hours = ref(0);
-      onValue(userRef, (snapshot) => {
-        if (snapshot.val()) {
+      await get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
           data.value = snapshot.val();
           pending_csp.value = data.value.pending_csp;
           hours.value = data.value.hours;
@@ -66,12 +72,18 @@ export default {
         }
       });
       // remove cspid from pending_csp
-      pending_csp.value = pending_csp.value.filter((csp) => csp != props.cspID);
+      pending_csp.value = pending_csp.value.filter(function (csp) {
+        const key1 = Object.keys(csp)[0];
+        return key1 != props.cspID;
+      });
       if (pending_csp.value.length == 0) {
         pending_csp.value = false;
       }
+      // storing the props into an object with cspID as key and cspHours as value
+      const csp = {};
+      csp[props.cspID] = props.cspHours;
       // add cspid to approved_csp
-      approved_csp.value.push(props.cspID);
+      approved_csp.value.push(csp);
       console.log("pending_csp", pending_csp.value);
       console.log("approved_csp", approved_csp.value);
       // update the user's data
@@ -99,17 +111,21 @@ export default {
       const data = ref({});
       const pending_csp = ref([]);
       const rejected_csp = ref([]);
-      onValue(userRef, (snapshot) => {
-        if (snapshot.val()) {
+      await get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
           data.value = snapshot.val();
           pending_csp.value = data.value.pending_csp;
-          if (data.value.approved_csp) {
+          if (data.value.rejected_csp) {
             rejected_csp.value = data.value.rejected_csp;
           }
         }
       });
-      // remove cspid from pending_csp
-      pending_csp.value = pending_csp.value.filter((csp) => csp != props.cspID);
+      // remove cspid from pending_csp by filtering out the cspid in pending_csp array of objects
+
+      pending_csp.value = pending_csp.value.filter(function (csp) {
+        const key1 = Object.keys(csp)[0];
+        return key1 != props.cspID;
+      });
       if (pending_csp.value.length == 0) {
         pending_csp.value = false;
       }
