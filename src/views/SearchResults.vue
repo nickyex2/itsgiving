@@ -172,7 +172,7 @@
                           >&nbsp;&nbsp;Estimated: {{ csp.csp_hours }} Hours
                         </p>
                         <p
-                          style="text-align: left; max-width: 200px"
+                          style="text-align: left"
                           class="text-truncate d-none d-sm-block csp-deets"
                         >
                           <svg
