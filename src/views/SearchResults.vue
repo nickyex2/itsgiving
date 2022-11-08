@@ -114,7 +114,6 @@
                 <div
                   :class="{ active: activeIndex === index }"
                   v-for="(csp, index) in filteredList"
-                  @click="showInfoWindow(index)"
                   :key="csp.id"
                   style="border-radius: 12px"
                 >
@@ -124,11 +123,16 @@
                     style="height: 250px; width: 100%"
                   >
                     <span
-                      class="d-flex align-left h-100 position-relative img_align list-item"
+                      class="d-flex flex-column align-left h-100 position-relative img_align list-item"
                     >
                       <div
                         class="d-block ps-3"
-                        style="margin-top: auto; margin-bottom: auto"
+                        style="
+                          margin-top: auto;
+                          margin-bottom: auto;
+                          width: 80%;
+                          height: 100%;
+                        "
                       >
                         <h2 style="text-align: left">{{ csp.name }}</h2>
                         <div
@@ -140,13 +144,14 @@
                         </div>
                         <div class="parent">
                           <span
-                            clas="child"
-                            v-for="tag in csp.interest"
+                            class="child"
+                            v-for="(tag, count) in csp.interest"
                             :key="tag"
                           >
                             <span
                               class="badge rounded-pill bg-secondary mb-2"
                               style="font-size: 10px"
+                              v-if="count < 4"
                               >{{ tag }}</span
                             >
                           </span>
@@ -167,7 +172,7 @@
                           >&nbsp;&nbsp;Estimated: {{ csp.csp_hours }} Hours
                         </p>
                         <p
-                          style="text-align: left"
+                          style="text-align: left; max-width: 200px"
                           class="text-truncate d-none d-sm-block csp-deets"
                         >
                           <svg
@@ -206,6 +211,9 @@
                           </svg>
                           &nbsp;{{ csp.description }}
                         </p>
+                        <button @click="showInfoWindow(index)">
+                          Show On Map
+                        </button>
                       </div>
                       <div
                         class="btn-group"
@@ -237,7 +245,7 @@
                               />
                             </svg>
                           </div>
-                          <!-- <span class="d-none d-sm-block">More Details</span> -->
+                          <span class="d-none d-sm-block">More Details</span>
                         </button>
                       </div>
                     </span>
@@ -311,7 +319,6 @@
                 <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
                 <div
                   v-for="(csp, index) in filteredList"
-                  @click="showInfoWindow(index)"
                   :class="{ active: activeIndex === index }"
                   :key="csp.id"
                 >
@@ -427,7 +434,7 @@
         <div
           class="col-12 test"
           ref="map"
-          :class="showMap ? mapDisplay : test"
+          :class="showMap ? mapDisplay2 : test"
         ></div>
       </div>
     </div>
@@ -468,6 +475,7 @@ export default {
       gone: "d-none",
 
       mapDisplay: "container px-0 overflow-auto",
+      mapDisplay2: "container px-0",
       selectedRadius: 0,
       circle: null,
       cat: "",
@@ -586,10 +594,6 @@ export default {
           icon: pinIcon,
         });
         this.markers.push(marker);
-        new window.markerClusterer.MarkerClusterer({
-          map,
-          markers: this.markers,
-        });
         window.google.maps.event.addListener(marker, "click", () => {
           const place = this.places[i];
           infoWindow.setContent(
