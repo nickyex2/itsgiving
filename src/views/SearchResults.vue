@@ -119,14 +119,14 @@
                 >
                   <a
                     href="#"
-                    class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2"
-                    style="height: 250px; width: 100%"
+                    class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 overflow-wrap"
+                    style="height: 200%; width: 100%"
                   >
                     <span
                       class="d-flex flex-column align-left h-100 position-relative img_align list-item"
                     >
                       <div
-                        class="d-block ps-3"
+                        class="d-block ps-3 py-3"
                         style="
                           margin-top: auto;
                           margin-bottom: auto;
@@ -134,7 +134,7 @@
                           height: 100%;
                         "
                       >
-                        <h2 style="text-align: left">{{ csp.name }}</h2>
+                        <h3 style="text-align: left">{{ csp.name }}</h3>
                         <div
                           v-if="autocompleteaddress != ''"
                           style="text-align: left"
@@ -151,7 +151,7 @@
                             <span
                               class="badge rounded-pill bg-secondary mb-2"
                               style="font-size: 10px"
-                              v-if="count < 4"
+                              v-if="count < 5"
                               >{{ tag }}</span
                             >
                           </span>
@@ -211,7 +211,7 @@
                           </svg>
                           &nbsp;{{ csp.description }}
                         </p>
-                        <button @click="showInfoWindow(index)">
+                        <button class="w-100" @click="showInfoWindow(index)">
                           Show On Map
                         </button>
                       </div>
@@ -245,7 +245,6 @@
                               />
                             </svg>
                           </div>
-                          <span class="d-none d-sm-block">More Details</span>
                         </button>
                       </div>
                     </span>
@@ -353,12 +352,13 @@
                         <div class="parent">
                           <span
                             clas="child"
-                            v-for="tag in csp.interest"
+                            v-for="(tag, count) in csp.interest"
                             :key="tag"
                           >
                             <span
                               class="badge rounded-pill bg-secondary"
                               style="font-size: 0.7rem"
+                              v-if="count < 5"
                               >{{ tag }}</span
                             >
                           </span>
@@ -410,7 +410,7 @@
                               d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
                             />
                           </svg>
-                          &nbsp;{{ csp.description }}
+                          &nbsp;{{ shortenAddress(csp.description) }}
                         </p>
                         <div class="d-flex justify-content-center">
                           <div class="btn-group">
