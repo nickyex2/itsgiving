@@ -603,9 +603,13 @@ export default {
               <div class="h3">${place.name}</div>
                       ${int}
                       <br>
-                      <div class="d-flex text-left"><span class="fw-bold">Estimated Hours: </span> ${place.csp_hours} Hours</div>
+                      <div class="d-flex text-left"><span class="fw-bold">Estimated Hours: </span> ${
+                        place.csp_hours
+                      } Hours</div>
                       <br>
-                      <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(place.location.address)}</div>
+                      <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(
+                        place.location.address
+                      )}</div>
                     </div>`
           );
           infoWindow.open(map, marker);
