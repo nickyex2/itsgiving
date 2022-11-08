@@ -322,7 +322,11 @@
                   :key="csp.id"
                 >
                   <div class="col">
-                    <div class="card-csp" style="border-radius: 12px">
+                    <div
+                      class="card-csp"
+                      style="border-radius: 12px"
+                      @click="handleClickDetails(csp.id)"
+                    >
                       <div class="img_align">
                         <img
                           class="w-100 p-0"
@@ -610,8 +614,7 @@ export default {
                       <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(
                         place.location.address
                       )}</div>
-                    </div>`
-          );
+                    </div>`        );
           infoWindow.open(map, marker);
         });
       }

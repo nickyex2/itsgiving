@@ -527,13 +527,16 @@ export default {
             applyMessage.value = error.message;
           }
         }
+        const cspApplication = ref({});
+        cspApplication.value[route.params.id] = appliedDateTime.value;
         if (userAddInfoData) {
           // update userAddInfo with csp data
           console.log("updating userAddInfo db");
           const nextKey = userAddInfoData.length;
+          console.log(cspApplication.value);
           try {
             await update(userAddInfoRef, {
-              [nextKey]: route.params.id,
+              [nextKey]: cspApplication.value,
             });
           } catch (error) {
             applyMessage.value = error.message;
@@ -541,7 +544,7 @@ export default {
         } else {
           // set userAddInfo with csp data
           try {
-            await set(userAddInfoRef, [route.params.id]);
+            await set(userAddInfoRef, [cspApplication.value]);
           } catch (error) {
             applyMessage.value = error.message;
           }
