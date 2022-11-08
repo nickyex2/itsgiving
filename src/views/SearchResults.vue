@@ -596,13 +596,17 @@ export default {
         this.markers.push(marker);
         window.google.maps.event.addListener(marker, "click", () => {
           const place = this.places[i];
+          let int = this.processInterest(place.interest);
           infoWindow.setContent(
-            `<img src="${place.cover_image}"><div class="ui header">${place.name}</div>
-                    ${place.interest} <br>
-                    ${place.csp_hours} Hours</a>
-                    
-                    
-                    `
+            `<div>
+              <img src="${place.cover_image}" class="w-100">
+              <div class="h3">${place.name}</div>
+                      ${int}
+                      <br>
+                      <div class="d-flex text-left"><span class="fw-bold">Estimated Hours: </span> ${place.csp_hours} Hours</div>
+                      <br>
+                      <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(place.location.address)}</div>
+                    </div>`
           );
           infoWindow.open(map, marker);
         });
@@ -673,6 +677,22 @@ export default {
     },
     handleClickDetails(id) {
       this.$router.push(`/csp/${id}`);
+    },
+    processInterest(interest) {
+      var result = `<div class="d-flex justify-content-center" style="height:25px;">`;
+      for (let key in interest) {
+        if (key <= 4) {
+          result += `
+        <span
+                              class="badge rounded-pill bg-secondary mb-2"
+                              style="font-size: 10px"
+                              >${interest[key]}</span
+                            >   
+        `;
+        }
+      }
+      result += `</div>`;
+      return result;
     },
   },
   computed: {
