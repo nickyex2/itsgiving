@@ -380,6 +380,7 @@ export default {
     });
   },
   setup() {
+    // include the related csp with the card carousel item component *improvements*
     const route = useRoute();
     const router = useRouter();
     const store = useStore();

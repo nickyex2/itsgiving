@@ -101,120 +101,12 @@
       <div class="row mx-auto my-auto justify-content-center">
         <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <div class="col-md-3">
-                <div class="card">
-                  <img
-                    src="../assets/logo.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-md-3">
-                <div class="card">
-                  <img
-                    src="../assets/logo.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-md-3">
-                <div class="card">
-                  <img
-                    src="../assets/logo.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-md-3">
-                <div class="card">
-                  <img
-                    src="../assets/logo.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-md-3">
-                <div class="card">
-                  <img
-                    src="../assets/logo.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-md-3">
-                <div class="card">
-                  <img
-                    src="../assets/logo.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CardCarouselItem
+              v-for="(value, id) in just_ListCsps"
+              :key="id"
+              :csp="value"
+              :id="id"
+            ></CardCarouselItem>
           </div>
           <a
             class="carousel-control-prev bg-transparent w-aut"
@@ -405,41 +297,36 @@
 </template>
 
 <script>
+import { onBeforeMount, ref } from "vue";
+import { getDatabase, ref as dbRefe, get } from "firebase/database";
+import CardCarouselItem from "../components/CardCarouselItem.vue";
 // @ is an alias to /src
 export default {
   name: "HomeView",
-  components: {},
-  mounted() {
-    let items = document.querySelectorAll(".carousel-item");
-
-    items.forEach((el) => {
-      const minPerSlide = 4;
-      let next = el.nextElementSibling;
-      for (var i = 1; i < minPerSlide; i++) {
-        if (!next) {
-          // wrap carousel by using first child
-          next = items[0];
+  components: {
+    CardCarouselItem,
+  },
+  setup() {
+    const db = getDatabase();
+    const just_ListCsps = ref([]);
+    onBeforeMount(async () => {
+      const dbRef = dbRefe(db, "/csp");
+      await get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          // for loop for object length
+          for (
+            let i = Object.keys(snapshot.val()).length;
+            i > Object.keys(snapshot.val()).length - 6;
+            i--
+          ) {
+            just_ListCsps.value.push(snapshot.val()[`csp${i}`]);
+          }
         }
-        let cloneChild = next.cloneNode(true);
-        el.appendChild(cloneChild.children[0]);
-        next = next.nextElementSibling;
-      }
+      });
     });
-
-    const counters = document.querySelectorAll(".counter-ani");
-    counters.forEach((counter) => {
-      counter.innerText = "0";
-      const updateCounter = () => {
-        const target = +counter.getAttribute("data-target");
-        const count = +counter.innerText;
-        const increment = target / 200;
-        if (count < target) {
-          counter.innerText = `${Math.ceil(count + increment)}`;
-          setTimeout(updateCounter, 50);
-        } else counter.innerText = target;
-      };
-      updateCounter();
-    });
+    return {
+      just_ListCsps,
+    };
   },
 };
 </script>

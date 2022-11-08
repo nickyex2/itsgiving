@@ -261,6 +261,12 @@ export default {
     const store = useStore();
     const router = useRouter();
     const user = computed(() => store.getters.user);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
+    if (!user.value) {
+      router.push("/login");
+    } else if (!userAddInfo.value) {
+      router.push("/setup?edit=true");
+    }
     const err = ref("");
     const errBool = ref(false);
     const createCsp = ref({
