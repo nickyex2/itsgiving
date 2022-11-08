@@ -614,7 +614,8 @@ export default {
                       <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(
                         place.location.address
                       )}</div>
-                    </div>`        );
+                    </div>`
+          );
           infoWindow.open(map, marker);
         });
       }
