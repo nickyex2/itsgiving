@@ -49,7 +49,7 @@
           </div>
           <!-- end of dummy carousel -->
 
-          <div class="apply-csp my-4" v-if="!editAccess">
+          <div class="apply-csp my-4" v-if="!editAccess && beforeInterview">
             <div class="mt-2 text-center">
               <h5>Interview Timeslots available:</h5>
             </div>
@@ -63,7 +63,7 @@
                 <button
                   :value="`${date} ${time}`"
                   @click="handleAppliedDateTime"
-                  class="my-1"
+                  class="my-1 interviewbtn"
                 >
                   {{ time }}
                 </button>
@@ -76,6 +76,17 @@
               <span class="fw-bold ps-3 my-auto" id="apply-text">
                 {{ applyMessage }}
               </span>
+            </div>
+          </div>
+          <div
+            class="apply-csp my-4"
+            v-else-if="!editAccess && !beforeInterview"
+          >
+            <div class="mt-2 text-center">
+              <h5>
+                Interviews are over! Stay tuned for other iterations of this
+                event!
+              </h5>
             </div>
           </div>
         </div>
@@ -232,96 +243,12 @@
     <div class="row mx-auto my-auto justify-content-center">
       <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner unique-inner" role="listbox">
-          <div class="carousel-item unique active">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <CspViewCard
+            v-for="(value, id) in randomRelatedCSP"
+            :key="id"
+            :csp="value"
+            :id="id"
+          ></CspViewCard>
         </div>
         <a
           class="carousel-control-prev bg-transparent w-aut"
@@ -347,7 +274,7 @@
 </template>
 
 <script>
-import { onBeforeMount, ref, computed } from "vue";
+import { onBeforeMount, onMounted, ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   getDatabase,
@@ -355,29 +282,16 @@ import {
   onValue,
   set,
   update,
+  get,
 } from "firebase/database";
 import { useStore } from "vuex";
 import ApprovalCsp from "../components/ApprovalCsp.vue";
+import CspViewCard from "../components/CspViewCard.vue";
 
 export default {
   components: {
     ApprovalCsp,
-  },
-  mounted() {
-    let items = document.querySelectorAll(".unique");
-    items.forEach((el) => {
-      const minPerSlide = 4;
-      let next = el.nextElementSibling;
-      for (var i = 1; i < minPerSlide; i++) {
-        if (!next) {
-          // wrap carousel by using first child
-          next = items[0];
-        }
-        let cloneChild = next.cloneNode(true);
-        el.appendChild(cloneChild.children[0]);
-        next = next.nextElementSibling;
-      }
-    });
+    CspViewCard,
   },
   setup() {
     // include the related csp with the card carousel item component *improvements*
@@ -391,6 +305,8 @@ export default {
     const db = getDatabase();
     const cID = route.params.id;
     const interestImg = ref({});
+    const beforeInterview = ref(true);
+    const randomRelatedCSP = ref([]);
     const csp = ref({
       name: "",
       owner: "",
@@ -415,26 +331,40 @@ export default {
       const applyRef = dbRefe(db, "availability/" + route.params.id);
       onValue(applyRef, (snapshot) => {
         if (snapshot.val()) {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           avail_DateTime.value = snapshot.val();
-          for (let date in avail_DateTime.value.dates_avail) {
-            for (
-              var timeIndex = avail_DateTime.value.dates_avail[date].length - 1;
-              timeIndex >= 0;
-              timeIndex--
-            ) {
-              const currTime =
-                avail_DateTime.value.dates_avail[date][timeIndex];
-              if (
-                avail_DateTime.value.applicants != null &&
-                avail_DateTime.value.applicants[date] != null &&
-                avail_DateTime.value.applicants[date][currTime] != null
+          // if current date is after the end date of interviews, set beforeInterview to false
+          if (
+            new Date() >
+            new Date(
+              Object.keys(avail_DateTime.value.dates_avail)[
+                Object.keys(avail_DateTime.value.dates_avail).length - 1
+              ]
+            )
+          ) {
+            beforeInterview.value = false;
+          } else {
+            for (let date in avail_DateTime.value.dates_avail) {
+              //if date after current date dont store at all (WIP)
+              for (
+                var timeIndex =
+                  avail_DateTime.value.dates_avail[date].length - 1;
+                timeIndex >= 0;
+                timeIndex--
               ) {
+                const currTime =
+                  avail_DateTime.value.dates_avail[date][timeIndex];
                 if (
-                  Object.keys(avail_DateTime.value.applicants[date][currTime])
-                    .length >= csp.value.no_of_interviews_per_hour
+                  avail_DateTime.value.applicants != null &&
+                  avail_DateTime.value.applicants[date] != null &&
+                  avail_DateTime.value.applicants[date][currTime] != null
                 ) {
-                  avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                  if (
+                    Object.keys(avail_DateTime.value.applicants[date][currTime])
+                      .length >= csp.value.no_of_interviews_per_hour
+                  ) {
+                    avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                  }
                 }
               }
             }
@@ -599,9 +529,47 @@ export default {
         interestImg.value = snapshot.val();
       });
     });
+    onMounted(async () => {
+      // get 6 related csps
+      const relatedCSP = ref([]);
+      const cspdbRef = dbRefe(db, "/csp");
+      await get(cspdbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const cspData = snapshot.val();
+          const cspKeys = Object.keys(cspData);
+          for (let interestTag of csp.value.interest) {
+            for (let i = 0; i < cspKeys.length; i++) {
+              if (cspData[cspKeys[i]].interest.includes(interestTag)) {
+                if (
+                  !relatedCSP.value.includes(cspData[cspKeys[i]]) &&
+                  cspKeys[i] != route.params.id
+                ) {
+                  relatedCSP.value.push(cspData[cspKeys[i]]);
+                }
+                // relatedCSP.value.push(cspData[cspKeys[i]]);
+              }
+            }
+          }
+        }
+        console.log(relatedCSP.value);
+        // get 6 random csps from related csps
+        for (let i = 0; i < 6; i++) {
+          if (relatedCSP.value.length > 0) {
+            const randomIndex = Math.floor(
+              Math.random() * relatedCSP.value.length
+            );
+            randomRelatedCSP.value.push(relatedCSP.value[randomIndex]);
+            relatedCSP.value.splice(randomIndex, 1);
+          }
+        }
+        console.log(randomRelatedCSP.value);
+      });
+    });
     return {
       csp,
       cID,
+      randomRelatedCSP,
+      beforeInterview,
       editAccess,
       handleEditCSP,
       avail_DateTime,

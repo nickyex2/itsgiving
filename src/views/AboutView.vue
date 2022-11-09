@@ -21,13 +21,16 @@
               <div class="numbers row">
                 <div class="col-6">
                   <div class="counter-container">
-                    <div class="counter-ani-abt" data-target="100"></div>
+                    <div class="counter-ani-abt" :data-target="totalCsps"></div>
                   </div>
                   <p>CSPs listed</p>
                 </div>
                 <div class="col-6">
                   <div class="counter-container">
-                    <div class="counter-ani-abt" data-target="200"></div>
+                    <div
+                      class="counter-ani-abt"
+                      :data-target="totalApplicants"
+                    ></div>
                   </div>
                   <p>Sign Ups</p>
                 </div>
@@ -142,24 +145,58 @@
 </template>
 
 <script>
+import { onMounted, ref } from "vue";
+import { getDatabase, get, ref as dbRefe } from "firebase/database";
 export default {
   name: "AboutView",
-  setup() {},
-  mounted() {
-    const counters = document.querySelectorAll(".counter-ani-abt");
-    counters.forEach((counter) => {
-      counter.innerText = "0";
-      const updateCounter = () => {
-        const target = +counter.getAttribute("data-target");
-        const count = +counter.innerText;
-        const increment = target / 200;
-        if (count < target) {
-          counter.innerText = `${Math.ceil(count + increment)}`;
-          setTimeout(updateCounter, 10);
-        } else counter.innerText = target;
-      };
-      updateCounter();
+  setup() {
+    const totalCsps = ref(0);
+    const totalApplicants = ref(0);
+    const db = getDatabase();
+    onMounted(async () => {
+      const cspRef = dbRefe(db, "/csp");
+      await get(cspRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          // for loop for object length
+          totalCsps.value = Object.keys(snapshot.val()).length;
+        }
+      });
+      const applyRef = dbRefe(db, "/availability");
+      await get(applyRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          // for loop for object length
+          for (let csp in snapshot.val()) {
+            if (snapshot.val()[csp]["applicants"] !== undefined) {
+              for (let date in snapshot.val()[csp]["applicants"]) {
+                for (let time in snapshot.val()[csp]["applicants"][date]) {
+                  totalApplicants.value += Object.keys(
+                    snapshot.val()[csp]["applicants"][date][time]
+                  ).length;
+                }
+              }
+            }
+          }
+        }
+      });
+      const counters = document.querySelectorAll(".counter-ani-abt");
+      counters.forEach((counter) => {
+        counter.innerText = "0";
+        const updateCounter = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const increment = target / 200;
+          if (count < target) {
+            counter.innerText = `${Math.ceil(count + increment)}`;
+            setTimeout(updateCounter, 10);
+          } else counter.innerText = target;
+        };
+        updateCounter();
+      });
     });
+    return {
+      totalCsps,
+      totalApplicants,
+    };
   },
 };
 </script>

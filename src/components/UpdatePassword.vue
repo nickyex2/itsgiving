@@ -10,7 +10,7 @@
 
   <!-- Modal -->
   <div
-    class="modal fade"
+    class="modal fade updatepw"
     id="exampleModal"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"

@@ -21,6 +21,7 @@
                   >
                 </p>
                 <UpdatePassword></UpdatePassword>
+                <button></button>
               </div>
               <div class="col-2 text-end d-inline">
                 <svg
@@ -88,7 +89,14 @@
                         d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"
                       />
                     </svg>
-                    <span class="text-muted">{{ user.email }}</span>
+                    <span class="text-muted">{{ user.email }}</span
+                    ><img
+                      src="../assets/verified.png"
+                      alt="verifiedpic"
+                      width="40"
+                      height="40"
+                      class="p-1"
+                    />
                   </div>
                 </div>
               </div>
@@ -130,11 +138,13 @@
                 v-for="approv_csp in userAddInfo.approved_csp"
                 :key="approv_csp"
               >
-                {{
-                  `${Object.keys(approv_csp)[0]} : ${
-                    approv_csp[Object.keys(approv_csp)[0]]
-                  } hours`
-                }}
+                <router-link :to="`/csp/${Object.keys(approv_csp)[0]}`">
+                  {{
+                    `${Object.keys(approv_csp)[0]} : ${
+                      approv_csp[Object.keys(approv_csp)[0]]
+                    } hours`
+                  }}
+                </router-link>
               </p>
               <!-- <div class="progress rounded" style="height: 5px">
                 <div
@@ -161,7 +171,9 @@
                 v-for="proj_lead in userAddInfo.projectLead"
                 :key="proj_lead"
               >
-                {{ proj_lead }}
+                <router-link :to="`/csp/${proj_lead}`">{{
+                  proj_lead
+                }}</router-link>
               </p>
               <!-- <div class="progress rounded" style="height: 5px">
                 <div
@@ -188,11 +200,13 @@
                 v-for="pend_csp in userAddInfo.pending_csp"
                 :key="pend_csp"
               >
-                {{
-                  `${Object.keys(pend_csp)[0]} : ${
-                    pend_csp[Object.keys(pend_csp)[0]]
-                  }`
-                }}
+                <router-link :to="`/csp/${Object.keys(pend_csp)[0]}`">
+                  {{
+                    `${Object.keys(pend_csp)[0]} : ${
+                      pend_csp[Object.keys(pend_csp)[0]]
+                    }`
+                  }}
+                </router-link>
               </p>
               <!-- <div class="progress rounded" style="height: 5px">
                 <div

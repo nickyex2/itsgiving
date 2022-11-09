@@ -23,7 +23,11 @@
           <p class="mb-0" data-aos="fade-in" data-aos-duration="1500">
             POVERTY
           </p>
-          <button data-aos="fade-in" data-aos-duration="1500">
+          <button
+            data-aos="fade-in"
+            data-aos-duration="1500"
+            @click="handleLearnMore"
+          >
             Learn More
           </button>
         </div>
@@ -70,12 +74,13 @@
       id="counters"
       data-aos="fade-in"
       data-aos-duration="1500"
+      v-if="user"
     >
       <div class="row">
         <div class="counter col-12 col-sm-6" id="csp">
           <img src="../assets/help.png" alt="csp" />
           <div class="counter-container">
-            <div class="counter-ani" data-target="10"></div>
+            <div class="counter-ani" :data-target="totalCsps"></div>
           </div>
           <p>Community Service Projects</p>
         </div>
@@ -83,7 +88,7 @@
         <div class="counter col-12 col-sm-6" id="vol">
           <img src="../assets/clock.png" alt="vol" />
           <div class="counter-container">
-            <div class="counter-ani" data-target="80"></div>
+            <div class="counter-ani" :data-target="totalCspHours"></div>
           </div>
           <p>Hours</p>
         </div>
@@ -297,9 +302,11 @@
 </template>
 
 <script>
-import { onBeforeMount, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { getDatabase, ref as dbRefe, get } from "firebase/database";
 import CardCarouselItem from "../components/CardCarouselItem.vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 // @ is an alias to /src
 export default {
   name: "HomeView",
@@ -309,23 +316,62 @@ export default {
   setup() {
     const db = getDatabase();
     const just_ListCsps = ref([]);
-    onBeforeMount(async () => {
+    const store = useStore();
+    const user = computed(() => store.getters.user);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
+    const router = useRouter();
+    const totalCspHours = computed(() => {
+      if (userAddInfo.value) {
+        return userAddInfo.value.hours;
+      } else {
+        return 0;
+      }
+    });
+    const totalCsps = computed(() => {
+      if (userAddInfo.value) {
+        return (
+          Object.keys(userAddInfo.value.approved_csp).length +
+          Object.keys(userAddInfo.value.projectLead).length
+        );
+      } else {
+        return 0;
+      }
+    });
+    const handleLearnMore = () => {
+      router.push("/about");
+    };
+    onMounted(async () => {
       const dbRef = dbRefe(db, "/csp");
       await get(dbRef).then((snapshot) => {
         if (snapshot.exists()) {
           // for loop for object length
-          for (
-            let i = Object.keys(snapshot.val()).length;
-            i > Object.keys(snapshot.val()).length - 6;
-            i--
-          ) {
+          const dbCsps = Object.keys(snapshot.val()).length;
+          for (let i = dbCsps; i > dbCsps - 6; i--) {
             just_ListCsps.value.push(snapshot.val()[`csp${i}`]);
           }
         }
       });
+      const counters = document.querySelectorAll(".counter-ani");
+      counters.forEach((counter) => {
+        counter.innerText = "0";
+        const updateCounter = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const increment = target / 200;
+          if (count < target) {
+            counter.innerText = `${Math.ceil(count + increment)}`;
+            setTimeout(updateCounter, 50);
+          } else counter.innerText = target;
+        };
+        updateCounter();
+      });
     });
     return {
+      user,
       just_ListCsps,
+      handleLearnMore,
+      totalCsps,
+      totalCspHours,
     };
   },
 };

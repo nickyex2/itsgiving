@@ -20,6 +20,7 @@
               placeholder="Enter A Project Title"
               ref=""
               @keyup="showPlacesOnMap"
+              style="font-size: 13px"
             />
           </div>
           <div
@@ -33,11 +34,12 @@
               placeholder="Enter A Category"
               ref=""
               @keyup="showPlacesOnMap"
+              style="font-size: 13px"
             />
           </div>
         </div>
 
-        <div :class="showMap ? mapDisplay : test" class="row row-col-2 pb-1">
+        <div :class="showMap ? mapDisplay : test" class="row row-col-2 pb-3">
           <div
             class="rcol d-flex justify-content-left"
             :style="showMap ? 'width: 70%' : ''"
@@ -47,13 +49,12 @@
               v-model="autocompleteaddress"
               placeholder="Enter A Location"
               ref="autocompleteaddress"
-              style="width: 85%"
+              style="width: 85%; font-size: 13px"
             />
             <button
               type="button"
               class="btn btn-danger py-0"
               @click="locatorButtonPressed"
-              style="width: 15%"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +77,7 @@
               class="form-select"
               v-model="selectedRadius"
               @change="replotRadius"
+              style="height: 41px; color: grey; font-size: 13px"
             >
               <option value="0" selected disabled hidden>Plot Radius</option>
               <option value="1000">1km</option>
@@ -85,20 +87,23 @@
           </div>
         </div>
 
-        <div class="col form-check form-switch py-2">
-          <label class="form-check-label show-map" for="flexSwitchCheckChecked"
-            >Show Map</label
-          >
+        <div class="col form-check form-switch py-1">
           <span @change="showPlacesOnMap">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="flexSwitchCheckChecked"
-              v-model="checked"
-              @change="toggleMap"
-              @click="gridLayout = !gridLayout"
-            />
+            <label class="switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="flexSwitchCheckChecked"
+                v-model="checked"
+                @change="toggleMap"
+                @click="gridLayout = !gridLayout"
+              />
+              <span class="slider round"></span>
+            </label>
           </span>
+          <span style="position: absolute; font-size: 13px; margin-top: 0.2%"
+            >Show Map</span
+          >
         </div>
 
         <div class="album">
@@ -149,7 +154,7 @@
                             :key="tag"
                           >
                             <span
-                              class="badge rounded-pill bg-secondary mb-2"
+                              class="badge rounded-pill mb-2 cspbadge"
                               style="font-size: 10px"
                               v-if="count < 5"
                               >{{ tag }}</span
@@ -211,7 +216,10 @@
                           </svg>
                           &nbsp;{{ csp.description }}
                         </p>
-                        <button class="w-100" @click="showInfoWindow(index)">
+                        <button
+                          class="w-100 showonmap"
+                          @click="showInfoWindow(index)"
+                        >
                           Show On Map
                         </button>
                       </div>
@@ -299,7 +307,7 @@
       <div
         :class="
           showMap
-            ? 'row py-2 col-md-7 cards-all mapres'
+            ? 'row py-2 col-md-7 cards-all mapres order-first order-md-last'
             : 'row py-2 col cards-all'
         "
       >
@@ -360,7 +368,7 @@
                             :key="tag"
                           >
                             <span
-                              class="badge rounded-pill bg-secondary"
+                              class="badge rounded-pill cspbadge"
                               style="font-size: 0.7rem"
                               v-if="count < 5"
                               >{{ tag }}</span
@@ -692,7 +700,7 @@ export default {
         if (key <= 4) {
           result += `
         <span
-                              class="badge rounded-pill bg-secondary mb-2"
+                              class="badge rounded-pill cspbadge mb-2"
                               style="font-size: 10px"
                               >${interest[key]}</span
                             >   
@@ -719,7 +727,6 @@ export default {
       this.cat = route.query.cat;
     }
     this.getCsps();
-    console.log(this.csps);
   },
   mounted() {
     const autocompleteaddress = new window.google.maps.places.Autocomplete(
