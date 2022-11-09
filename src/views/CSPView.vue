@@ -406,9 +406,13 @@ export default {
         alert("Please login to apply for this CSP");
       } else if (
         (userAddInfo.value.approved_csp &&
-          userAddInfo.value.approved_csp.includes(route.params.id)) ||
+          userAddInfo.value.approved_csp.filter(
+            (c) => Object.keys(c)[0] === route.params.id
+          ).length > 0) ||
         (userAddInfo.value.pending_csp &&
-          userAddInfo.value.pending_csp.includes(route.params.id)) ||
+          userAddInfo.value.pending_csp.filter(
+            (c) => Object.keys(c)[0] === route.params.id
+          ).length > 0) ||
         (userAddInfo.value.rejected_csp &&
           userAddInfo.value.rejected_csp.includes(route.params.id))
       ) {
