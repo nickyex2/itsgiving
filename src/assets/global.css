@@ -385,6 +385,14 @@ a {
     padding: 1.5vw;
 }
 
+.home .card img, .home .card-body{
+    padding: 1.5vw;
+    height: 200px;
+    width: auto;
+    object-fit: cover;
+    text-align: left;
+}
+
 .card{
     background-color:#D9D9D9;
     border: none;
@@ -393,6 +401,19 @@ a {
 
 .card-body p{
     font-size: small;
+}
+
+@media (max-width: 767px){
+    .home .carousel-inner .carousel-item > div:first-child {
+        display: block;
+        width: -webkit-fill-available;
+    }
+}
+
+.home .card-body a{
+    position: absolute;
+    bottom: 1.5vw;
+
 }
 
 .mtt .col{
