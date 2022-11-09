@@ -24,17 +24,17 @@
         <div class="row" v-if="message != ''">
           <p :style="msgStyle">{{ message }}</p>
         </div>
-        <div class="row login-form-group mx-auto">
+        <div class="row login-form-group mx-auto justify-content-between">
           <button
             type="submit"
-            class="col-6 login-form-button btn btn-primary px-4"
+            class="col-5 login-form-button btn btn-primary px-4"
             @click.prevent="$emit('back')"
           >
             Go Back
           </button>
           <button
             type="submit"
-            class="col-6 login-form-button btn btn-primary px-4"
+            class="col-5 login-form-button btn btn-primary px-4"
             @click.prevent="handleSendEmail"
           >
             Send Email

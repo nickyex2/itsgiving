@@ -5,7 +5,7 @@
         <div class="col-md-7 col-12 order-md-first order-last">
           <!-- dummy carousel -->
           <div
-            id="carouselExampleControls"
+            id="carouselExampleControls1"
             class="carousel slide mx-auto csp-view-carousel carou-gone"
             data-bs-ride="carousel"
             data-bs-interval="5000"
@@ -25,7 +25,7 @@
             <button
               class="carousel-control-prev"
               type="button"
-              data-bs-target="#carouselExampleControls"
+              data-bs-target="#carouselExampleControls1"
               data-bs-slide="prev"
             >
               <span
@@ -37,7 +37,7 @@
             <button
               class="carousel-control-next"
               type="button"
-              data-bs-target="#carouselExampleControls"
+              data-bs-target="#carouselExampleControls1"
               data-bs-slide="next"
             >
               <span
@@ -53,22 +53,28 @@
             <div class="mt-2 text-center">
               <h5>Interview Timeslots available:</h5>
             </div>
+
             <div
               v-for="(times, date) in avail_DateTime.dates_avail"
               :key="date"
-              class="justify-content-left py-2"
+              class="justify-content-left py-2 row"
             >
-              <b class="pe-4 my-auto">{{ date }}</b>
-              <span v-for="time in times" :key="time" class="mx-2">
-                <button
-                  :value="`${date} ${time}`"
-                  @click="handleAppliedDateTime"
-                  class="my-1 interviewbtn"
-                >
-                  {{ time }}
-                </button>
-              </span>
+              <div class="col-3 py-2 text-center">
+                <b class="pe-4 my-auto">{{ date }}</b>
+              </div>
+              <div class="col-9">
+                <span v-for="time in times" :key="time" class="mx-2">
+                  <button
+                    :value="`${date} ${time}`"
+                    @click="handleAppliedDateTime"
+                    class="my-1 interviewbtn"
+                  >
+                    {{ time }}
+                  </button>
+                </span>
+              </div>
             </div>
+
             <div class="d-flex justify-content-center mt-2">
               <button v-show="applyButtonToggle" @click="handleApply">
                 Apply Now
@@ -171,8 +177,10 @@
             </h5>
           </div>
 
-          <div class="row">
-            <div class="col csp-deets3 mb-4 mx-3">
+          <div class="row justify-content-between">
+            <div
+              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets3 mb-4 mx-3"
+            >
               <h4><b>Supported Causes:</b></h4>
               <ul>
                 <li v-for="interest in csp.interest" :key="interest">
@@ -186,7 +194,9 @@
               </ul>
             </div>
 
-            <div class="col csp-deets4 mb-4 mx-3">
+            <div
+              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets4 mb-4 mx-3"
+            >
               <h4><b>Contact Us:</b></h4>
               <p>
                 <svg

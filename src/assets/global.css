@@ -385,7 +385,7 @@ a {
     padding: 1.5vw;
 }
 
-.home .card img, .home .card-body{
+.home .card img, .home .card-body, .cc .card img, .cc .card-body{
     padding: 1.5vw;
     height: 200px;
     width: auto;
@@ -402,6 +402,9 @@ a {
 .card-body p{
     font-size: small;
 }
+.cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+    height: 300px
+}
 
 @media (max-width: 767px){
     .home .carousel-inner .carousel-item > div:first-child {
@@ -410,7 +413,25 @@ a {
     }
 }
 
-.home .card-body a{
+@media (max-width: 991px){
+    .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+        height: 250px;
+    }
+}
+
+@media (min-width: 1190px){
+    .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+        height: 460px;
+    }
+}
+
+@media (max-width: 376px){
+    .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+        height: 200px;
+    }
+}
+
+.home .card-body a,.cc .card-body a{
     position: absolute;
     bottom: 1.5vw;
 
@@ -1264,6 +1285,8 @@ ul {
     border-radius: 10px;
     padding-bottom: 5px;
     padding-top: 5px;
+    max-height: 220px;
+    overflow-y: scroll;
 }
 
 .csp-deets3 h4{
@@ -1677,3 +1700,5 @@ input{
     background-color: white !important;
     color: #d9d9d9;
   }
+
+    

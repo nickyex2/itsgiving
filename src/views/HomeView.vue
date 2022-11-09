@@ -330,13 +330,16 @@ export default {
     const totalCsps = computed(() => {
       if (
         userAddInfo.value &&
-        userAddInfo.value.approved_csp &&
-        userAddInfo.value.projectLead
+        (userAddInfo.value.approved_csp || userAddInfo.value.projectLead)
       ) {
-        return (
-          Object.keys(userAddInfo.value.approved_csp).length +
-          Object.keys(userAddInfo.value.projectLead).length
-        );
+        var total = 0;
+        if (userAddInfo.value.approved_csp) {
+          total += Object.keys(userAddInfo.value.approved_csp).length;
+        }
+        if (userAddInfo.value.projectLead) {
+          total += Object.keys(userAddInfo.value.approved_csp).length;
+        }
+        return total;
       } else {
         return 0;
       }
