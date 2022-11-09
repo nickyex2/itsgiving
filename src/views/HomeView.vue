@@ -337,7 +337,7 @@ export default {
           total += Object.keys(userAddInfo.value.approved_csp).length;
         }
         if (userAddInfo.value.projectLead) {
-          total += Object.keys(userAddInfo.value.approved_csp).length;
+          total += Object.keys(userAddInfo.value.projectLead).length;
         }
         return total;
       } else {

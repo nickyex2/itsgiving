@@ -1,6 +1,6 @@
 <template>
   <Navbar v-if="$route.name !== 'setupprofile'" />
-  <router-view />
+  <router-view :key="$route.fullPath" />
   <div
     v-if="
       $route.name !== 'login' &&
