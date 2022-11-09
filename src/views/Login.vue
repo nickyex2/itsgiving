@@ -5,6 +5,7 @@
   <div
     class="container col-md-6 col-lg-4 col-xl-3"
     style="overflow: hidden; position: relative; margin-top: 200px"
+    v-if="!resetPassword"
   >
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
@@ -56,21 +57,28 @@
 
       <p class="signup-text w-100 text-center">
         Do not have an account?
-        <a class="signup-link" href="https://its-giving.netlify.app/signup">
-          Sign Up
+        <router-link class="signup-link" :to="'/signup'"> Sign Up </router-link>
+      </p>
+      <p class="signup-text w-100 text-center">
+        <a href="#" class="signup-link" @click="forgetPassword">
+          Forget Password
         </a>
       </p>
     </div>
   </div>
+  <ForgetPassword @back="handleBack" v-else></ForgetPassword>
 </template>
 
 <script>
 import { useRouter } from "vue-router";
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
+import ForgetPassword from "../components/ForgetPassword.vue";
 export default {
   name: "Login-view",
-  components: {},
+  components: {
+    ForgetPassword,
+  },
   setup() {
     const email = ref("");
     const password = ref("");
@@ -78,6 +86,13 @@ export default {
     const store = useStore();
     const router = useRouter();
     const user = computed(() => store.getters.user);
+    const resetPassword = ref(false);
+    const forgetPassword = () => {
+      resetPassword.value = true;
+    };
+    const handleBack = () => {
+      resetPassword.value = false;
+    };
     const handleLogin = async () => {
       // console.log("clicked");
       try {
@@ -91,7 +106,15 @@ export default {
         err.value = "Invalid email or password";
       }
     };
-    return { handleLogin, email, password, err };
+    return {
+      handleLogin,
+      forgetPassword,
+      email,
+      password,
+      err,
+      resetPassword,
+      handleBack,
+    };
   },
   methods: {
     showPassword() {
