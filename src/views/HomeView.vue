@@ -328,7 +328,11 @@ export default {
       }
     });
     const totalCsps = computed(() => {
-      if (userAddInfo.value) {
+      if (
+        userAddInfo.value &&
+        userAddInfo.value.approved_csp &&
+        userAddInfo.value.projectLead
+      ) {
         return (
           Object.keys(userAddInfo.value.approved_csp).length +
           Object.keys(userAddInfo.value.projectLead).length

@@ -14,14 +14,40 @@
           <div class="card mb-4 new-profile-card">
             <div class="row m-4 p-3">
               <div class="col-10 text-start">
-                <h1 class="profile-name">{{ user.displayName }}</h1>
+                <h1 class="profile-name">
+                  {{ user.displayName
+                  }}<img
+                    src="../assets/verified.png"
+                    alt="verifiedpic"
+                    width="40"
+                    height="40"
+                    class="p-1"
+                    v-if="userVerifiedBool"
+                  /><img
+                    src="../assets/unverified.png"
+                    alt="verifiedpic"
+                    width="40"
+                    height="40"
+                    class="p-1"
+                    v-else
+                  />
+                </h1>
                 <p class="text-muted mb-4 role">
                   Volunteer<span v-if="userAddInfo.projectLead"
                     >/Project Lead</span
                   >
                 </p>
+                <button
+                  class="btn btn-primary me-2"
+                  v-if="!userVerifiedBool"
+                  @click="handleVerifyEmail"
+                >
+                  Verify Email
+                </button>
                 <UpdatePassword></UpdatePassword>
-                <button></button>
+                <p class="pt-2" :style="verifyStyle" v-if="verifyMessage">
+                  {{ verifyMessage }}
+                </p>
               </div>
               <div class="col-2 text-end d-inline">
                 <svg
@@ -89,14 +115,7 @@
                         d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"
                       />
                     </svg>
-                    <span class="text-muted">{{ user.email }}</span
-                    ><img
-                      src="../assets/verified.png"
-                      alt="verifiedpic"
-                      width="40"
-                      height="40"
-                      class="p-1"
-                    />
+                    <span class="text-muted">{{ user.email }}</span>
                   </div>
                 </div>
               </div>
@@ -190,9 +209,9 @@
         </div>
 
         <div class="col-md-3 col-12">
-          <div class="profile-all card mb-4 mb-md-0 profileh">
+          <div class="profile-all card mb-4 mb-md-0">
             <div class="profile-cards card-body">
-              <p class="i-i-title-2 fw-bold">Applications</p>
+              <p class="i-i-title-2 fw-bold">Pending Applications</p>
               <hr />
               <p
                 class="mb-1"
@@ -208,16 +227,20 @@
                   }}
                 </router-link>
               </p>
-              <!-- <div class="progress rounded" style="height: 5px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 100%"
-                  aria-valuenow="80"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div> -->
+            </div>
+            <div class="profile-cards card-body">
+              <p class="i-i-title-2 fw-bold">Rejected Applications</p>
+              <hr />
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="rej_csp in userAddInfo.rejected_csp"
+                :key="rej_csp"
+              >
+                <router-link :to="`/csp/${rej_csp}`">
+                  {{ rej_csp }}
+                </router-link>
+              </p>
             </div>
           </div>
         </div>
@@ -233,6 +256,7 @@ import { useRouter } from "vue-router";
 import { computed, onBeforeMount, ref } from "vue";
 import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
 import UpdatePassword from "../components/UpdatePassword.vue";
+import { sendEmailVerification } from "firebase/auth";
 export default {
   name: "ProfileView",
   components: {
@@ -245,6 +269,30 @@ export default {
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const interestImg = ref({});
+    const verifyMessage = ref("");
+    const verifyStyle = ref("");
+    const userVerifiedBool = computed(() => {
+      if (user.value.emailVerified) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const handleVerifyEmail = () => {
+      sendEmailVerification(user.value)
+        .then(() => {
+          verifyMessage.value =
+            "Verification email sent. Please check your inbox or spam for the email! Once verified, please refresh the page.";
+          verifyStyle.value = "color: green; font-weight: bold";
+        })
+        .catch((error) => {
+          if (error) {
+            verifyMessage.value =
+              "Error sending verification email! Please wait awhile and try again.";
+            verifyStyle.value = "color: red; font-weight: bold";
+          }
+        });
+    };
     const editProfile = () => {
       store.dispatch("editProfileBool", true);
       router.push("/profile/edit");
@@ -257,7 +305,16 @@ export default {
     });
     // for projected hours
     // 1. get all the approved csp the user has (cid, hours)
-    return { user, editProfile, userAddInfo, interestImg };
+    return {
+      user,
+      editProfile,
+      userAddInfo,
+      interestImg,
+      userVerifiedBool,
+      handleVerifyEmail,
+      verifyMessage,
+      verifyStyle,
+    };
   },
 };
 </script>

@@ -60,7 +60,8 @@ export default {
       console.log(email.value);
       await sendPasswordResetEmail(auth, email.value)
         .then(() => {
-          message.value = "Email sent successfully";
+          message.value =
+            "Email sent successfully! Please check your inbox or spam.";
           msgStyle.value = "color: green; font-weight: bold";
         })
         .catch((error) => {
