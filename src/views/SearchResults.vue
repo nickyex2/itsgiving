@@ -126,6 +126,7 @@
                     href="#"
                     class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 overflow-wrap"
                     style="height: 200%; width: 100%"
+                    @click="handleClickDetails(csp.id)"
                   >
                     <span
                       class="d-flex flex-column align-left h-100 position-relative img_align list-item"
@@ -218,7 +219,7 @@
                         </p>
                         <button
                           class="w-100 showonmap"
-                          @click="showInfoWindow(index)"
+                          @click.stop="showInfoWindow(index)"
                         >
                           Show On Map
                         </button>
