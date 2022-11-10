@@ -683,7 +683,9 @@ export default {
               csp.id = key;
               csp.location.lat = parseFloat(csp.location.lat);
               csp.location.lng = parseFloat(csp.location.lng);
-              this.csps.push(csp);
+              if (new Date(csp.date_end).getTime() > new Date().getTime()) {
+                this.csps.push(csp);
+              }
             }
           }
         })

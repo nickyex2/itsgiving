@@ -79,17 +79,17 @@
               <button v-show="applyButtonToggle" @click="handleApply">
                 Apply Now
               </button>
-              <span class="fw-bold ps-3 my-auto" id="apply-text">
+              <span class="fw-bold ps-2 my-auto" id="apply-text">
                 {{ applyMessage }}
               </span>
-              <span v-if="calendarButtonToggle">
-                <AddToCalendar
-                  :cspTitle="csp.name"
-                  :dateTime="appliedDateTime"
-                  :intLocation="`TBC`"
-                ></AddToCalendar>
-              </span>
             </div>
+            <span class="mt-2 text-center" v-if="calendarButtonToggle">
+              <AddToCalendar
+                :cspTitle="csp.name"
+                :dateTime="appliedDateTime"
+                :intLocation="`TBC`"
+              ></AddToCalendar>
+            </span>
           </div>
           <div
             class="apply-csp my-4"
@@ -316,7 +316,6 @@ export default {
     AddToCalendar,
   },
   setup() {
-    // include the related csp with the card carousel item component *improvements*
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
