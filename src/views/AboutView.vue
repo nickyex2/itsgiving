@@ -14,9 +14,11 @@
             <div class="full">
               <h4 class="about-title">Who are we?</h4>
               <p class="about-desc">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
-                unde placeat impedit officia, alias commodi optio reiciendis
-                eaque praesentium saepe libero nihil perferendis.
+                Its Giving is a centralised platform to streamline the process
+                of recruiting, searching and applying for Community Service
+                Projects. We aim to encourage more people to volunteer by making
+                it convenient and easy for them to find and list projects that
+                they are interested in.
               </p>
               <div class="numbers row">
                 <div class="col-6">
