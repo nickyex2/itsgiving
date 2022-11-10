@@ -179,7 +179,7 @@
 
           <div class="row justify-content-between">
             <div
-              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets3 mb-4 mx-3"
+              class="col-lg-5 col-md-11 col-sm-5 col-11 csp-deets3 mb-4 mx-3"
             >
               <h4><b>Supported Causes:</b></h4>
               <ul>
@@ -195,7 +195,7 @@
             </div>
 
             <div
-              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets4 mb-4 mx-3"
+              class="col-lg-5 col-md-11 col-sm-5 col-11 csp-deets4 mb-4 mx-3"
             >
               <h4><b>Contact Us:</b></h4>
               <p>
@@ -251,7 +251,11 @@
   <div class="cc container text-center" v-if="!editAccess">
     <h1 class="explore-title">Related CSPs</h1>
     <div class="row mx-auto my-auto justify-content-center">
-      <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div
+        id="recipeCarousel"
+        class="carousel slide carousel-dark"
+        data-bs-ride="carousel"
+      >
         <div class="carousel-inner unique-inner" role="listbox">
           <CspViewCard
             v-for="(value, id) in randomRelatedCSP"
@@ -356,26 +360,34 @@ export default {
           } else {
             for (let date in avail_DateTime.value.dates_avail) {
               //if date after current date dont store at all (WIP)
-              for (
-                var timeIndex =
-                  avail_DateTime.value.dates_avail[date].length - 1;
-                timeIndex >= 0;
-                timeIndex--
-              ) {
-                const currTime =
-                  avail_DateTime.value.dates_avail[date][timeIndex];
-                if (
-                  avail_DateTime.value.applicants != null &&
-                  avail_DateTime.value.applicants[date] != null &&
-                  avail_DateTime.value.applicants[date][currTime] != null
+              if (new Date(date).getTime() >= new Date().getTime()) {
+                for (
+                  var timeIndex =
+                    avail_DateTime.value.dates_avail[date].length - 1;
+                  timeIndex >= 0;
+                  timeIndex--
                 ) {
+                  const currTime =
+                    avail_DateTime.value.dates_avail[date][timeIndex];
                   if (
-                    Object.keys(avail_DateTime.value.applicants[date][currTime])
-                      .length >= csp.value.no_of_interviews_per_hour
+                    avail_DateTime.value.applicants != null &&
+                    avail_DateTime.value.applicants[date] != null &&
+                    avail_DateTime.value.applicants[date][currTime] != null
                   ) {
-                    avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                    if (
+                      Object.keys(
+                        avail_DateTime.value.applicants[date][currTime]
+                      ).length >= csp.value.no_of_interviews_per_hour
+                    ) {
+                      avail_DateTime.value.dates_avail[date].splice(
+                        timeIndex,
+                        1
+                      );
+                    }
                   }
                 }
+              } else {
+                delete avail_DateTime.value.dates_avail[date];
               }
             }
           }

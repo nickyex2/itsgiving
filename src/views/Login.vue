@@ -17,7 +17,7 @@
     </div>
     <div class="row justify-content-center login-box">
       <form action="#">
-        <div class="row login-form-group">
+        <div class="row login-form-group mx-2">
           <input
             type="email"
             class="login-form-input"
@@ -28,7 +28,7 @@
             required
           />
         </div>
-        <div class="row login-form-group">
+        <div class="row login-form-group mx-2">
           <input
             type="password"
             class="login-form-input"
@@ -38,7 +38,12 @@
             required
           />
           <span class="show-password d-flex justify-content-end px-0 mt-2">
-            <i id="showPassword" @click="showPassword">Show</i>
+            <i
+              id="showPassword"
+              @click="showPassword"
+              style="right: 45%; position: absolute"
+              >Show</i
+            >
           </span>
         </div>
         <div class="row login-error">

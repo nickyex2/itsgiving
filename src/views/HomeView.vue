@@ -104,7 +104,11 @@
     >
       <h1 class="explore-title">Just Listed</h1>
       <div class="row mx-auto my-auto justify-content-center">
-        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div
+          id="recipeCarousel"
+          class="carousel slide carousel-dark"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner" role="listbox">
             <CardCarouselItem
               v-for="(value, id) in just_ListCsps"
@@ -338,6 +342,9 @@ export default {
         }
         if (userAddInfo.value.projectLead) {
           total += Object.keys(userAddInfo.value.projectLead).length;
+        }
+        if (total > 9999) {
+          return 9999;
         }
         return total;
       } else {
