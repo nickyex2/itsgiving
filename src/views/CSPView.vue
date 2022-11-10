@@ -360,26 +360,34 @@ export default {
           } else {
             for (let date in avail_DateTime.value.dates_avail) {
               //if date after current date dont store at all (WIP)
-              for (
-                var timeIndex =
-                  avail_DateTime.value.dates_avail[date].length - 1;
-                timeIndex >= 0;
-                timeIndex--
-              ) {
-                const currTime =
-                  avail_DateTime.value.dates_avail[date][timeIndex];
-                if (
-                  avail_DateTime.value.applicants != null &&
-                  avail_DateTime.value.applicants[date] != null &&
-                  avail_DateTime.value.applicants[date][currTime] != null
+              if (new Date(date).getTime() >= new Date().getTime()) {
+                for (
+                  var timeIndex =
+                    avail_DateTime.value.dates_avail[date].length - 1;
+                  timeIndex >= 0;
+                  timeIndex--
                 ) {
+                  const currTime =
+                    avail_DateTime.value.dates_avail[date][timeIndex];
                   if (
-                    Object.keys(avail_DateTime.value.applicants[date][currTime])
-                      .length >= csp.value.no_of_interviews_per_hour
+                    avail_DateTime.value.applicants != null &&
+                    avail_DateTime.value.applicants[date] != null &&
+                    avail_DateTime.value.applicants[date][currTime] != null
                   ) {
-                    avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                    if (
+                      Object.keys(
+                        avail_DateTime.value.applicants[date][currTime]
+                      ).length >= csp.value.no_of_interviews_per_hour
+                    ) {
+                      avail_DateTime.value.dates_avail[date].splice(
+                        timeIndex,
+                        1
+                      );
+                    }
                   }
                 }
+              } else {
+                delete avail_DateTime.value.dates_avail[date];
               }
             }
           }

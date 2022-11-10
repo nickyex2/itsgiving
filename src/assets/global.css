@@ -872,6 +872,13 @@ a {
 .profilephoto:hover{
     transform: scale(1.1);
 }
+
+.profilecsplink {
+    color: black;
+}
+.profilecsplink:hover {
+    color: blue;
+}
 /* change img size when screen small */
 @media (max-width: 767px) {
     .i-i img{

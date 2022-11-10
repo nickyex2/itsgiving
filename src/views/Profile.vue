@@ -167,7 +167,10 @@
                 v-for="approv_csp in userAddInfo.approved_csp"
                 :key="approv_csp"
               >
-                <router-link :to="`/csp/${Object.keys(approv_csp)[0]}`">
+                <router-link
+                  class="profilecsplink"
+                  :to="`/csp/${Object.keys(approv_csp)[0]}`"
+                >
                   {{
                     `${Object.keys(approv_csp)[0]} : ${
                       approv_csp[Object.keys(approv_csp)[0]]
@@ -200,7 +203,7 @@
                 v-for="proj_lead in userAddInfo.projectLead"
                 :key="proj_lead"
               >
-                <router-link :to="`/csp/${proj_lead}`">{{
+                <router-link class="profilecsplink" :to="`/csp/${proj_lead}`">{{
                   proj_lead
                 }}</router-link>
               </p>
@@ -232,7 +235,10 @@
                 v-for="pend_csp in userAddInfo.pending_csp"
                 :key="pend_csp"
               >
-                <router-link :to="`/csp/${Object.keys(pend_csp)[0]}`">
+                <router-link
+                  class="profilecsplink"
+                  :to="`/csp/${Object.keys(pend_csp)[0]}`"
+                >
                   {{
                     `${Object.keys(pend_csp)[0]} : ${
                       pend_csp[Object.keys(pend_csp)[0]]
@@ -255,7 +261,7 @@
                 v-for="rej_csp in userAddInfo.rejected_csp"
                 :key="rej_csp"
               >
-                <router-link :to="`/csp/${rej_csp}`">
+                <router-link class="profilecsplink" :to="`/csp/${rej_csp}`">
                   {{ rej_csp }}
                 </router-link>
               </p>
