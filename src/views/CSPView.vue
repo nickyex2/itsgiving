@@ -82,6 +82,13 @@
               <span class="fw-bold ps-3 my-auto" id="apply-text">
                 {{ applyMessage }}
               </span>
+              <span v-if="calendarButtonToggle">
+                <AddToCalendar
+                  :cspTitle="csp.name"
+                  :dateTime="appliedDateTime"
+                  :intLocation="`TBC`"
+                ></AddToCalendar>
+              </span>
             </div>
           </div>
           <div
@@ -301,11 +308,12 @@ import {
 import { useStore } from "vuex";
 import ApprovalCsp from "../components/ApprovalCsp.vue";
 import CspViewCard from "../components/CspViewCard.vue";
-
+import AddToCalendar from "../components/AddToCalendar.vue";
 export default {
   components: {
     ApprovalCsp,
     CspViewCard,
+    AddToCalendar,
   },
   setup() {
     // include the related csp with the card carousel item component *improvements*
@@ -409,6 +417,15 @@ export default {
         return false;
       }
     });
+    const calendarButtonBool = ref(false);
+    const calendarButtonToggle = computed(() => {
+      if (calendarButtonBool.value) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(calendarButtonToggle.value);
     // applying for csp button
     const handleApply = async () => {
       const dateTimeSplit = appliedDateTime.value.split(" ");
@@ -507,6 +524,7 @@ export default {
         }
         await store.dispatch("setUserAddInfo", user.value.uid);
         applyMessage.value = "You have successfully applied for this CSP";
+        calendarButtonBool.value = true;
         document.getElementById("apply-text").classList.add("text-success");
         console.log("user application storing to db done");
       }
@@ -606,6 +624,7 @@ export default {
       handleAppliedDateTime,
       applyButtonToggle,
       applyMessage,
+      calendarButtonToggle,
     };
   },
 };
