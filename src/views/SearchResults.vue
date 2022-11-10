@@ -583,7 +583,9 @@ export default {
         animation: window.google.maps.Animation.DROP,
         icon: boxicon,
       });
-      const infoWindow = new window.google.maps.InfoWindow();
+      const infoWindow = new window.google.maps.InfoWindow({
+        maxWidth: 350,
+      });
       console.log(this.places);
       for (let i = 0; i < this.places.length; i++) {
         const lat = this.places[i].location.lat;
