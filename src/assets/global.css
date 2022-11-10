@@ -1702,3 +1702,15 @@ input{
 .updatepw input{
     margin-bottom: 10px;
 }
+
+.carousel-dark .carousel-control-next{
+    width: 5%;
+    right: -3%;
+    color: black;
+}
+
+.carousel-dark .carousel-control-prev{
+    width: 5%;
+    left: -3%;
+    color: black;
+}

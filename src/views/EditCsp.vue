@@ -205,7 +205,6 @@
               type="number"
               class="form-control"
               v-model="editedCsp.no_of_interviews_per_hour"
-              disabled
             />
           </div>
         </div>

@@ -251,7 +251,11 @@
   <div class="cc container text-center" v-if="!editAccess">
     <h1 class="explore-title">Related CSPs</h1>
     <div class="row mx-auto my-auto justify-content-center">
-      <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div
+        id="recipeCarousel"
+        class="carousel slide carousel-dark"
+        data-bs-ride="carousel"
+      >
         <div class="carousel-inner unique-inner" role="listbox">
           <CspViewCard
             v-for="(value, id) in randomRelatedCSP"

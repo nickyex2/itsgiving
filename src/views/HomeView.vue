@@ -104,7 +104,11 @@
     >
       <h1 class="explore-title">Just Listed</h1>
       <div class="row mx-auto my-auto justify-content-center">
-        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div
+          id="recipeCarousel"
+          class="carousel slide carousel-dark"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner" role="listbox">
             <CardCarouselItem
               v-for="(value, id) in just_ListCsps"

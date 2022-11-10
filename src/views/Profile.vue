@@ -127,9 +127,6 @@
                 </div>
                 <div style="width: unset; display: inline-block">
                   <UpdatePassword></UpdatePassword>
-                  <p class="pt-2" :style="verifyStyle" v-if="verifyMessage">
-                    {{ verifyMessage }}
-                  </p>
                 </div>
               </div>
               <div class="col-4 profile-hours">
@@ -290,8 +287,6 @@ export default {
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const interestImg = ref({});
-    const verifyMessage = ref("");
-    const verifyStyle = ref("");
     const userVerifiedBool = computed(() => {
       if (user.value.emailVerified) {
         return true;
@@ -302,15 +297,13 @@ export default {
     const handleVerifyEmail = () => {
       sendEmailVerification(user.value)
         .then(() => {
-          verifyMessage.value =
-            "Verification email sent. Please check your inbox or spam for the email! Once verified, please refresh the page.";
-          verifyStyle.value = "color: green; font-weight: bold";
+          alert(
+            "Verification email sent. Please check your inbox or spam for the email! Once verified, please refresh the page."
+          );
         })
         .catch((error) => {
           if (error) {
-            verifyMessage.value =
-              "Error sending verification email! Please wait awhile and try again.";
-            verifyStyle.value = "color: red; font-weight: bold";
+            alert("Error sending verification email. Please try again later.");
           }
         });
     };
@@ -333,8 +326,6 @@ export default {
       interestImg,
       userVerifiedBool,
       handleVerifyEmail,
-      verifyMessage,
-      verifyStyle,
     };
   },
 };
