@@ -91,7 +91,7 @@
           <br />and when inspiration strikes, <br />we’re the platform to kick
           off your giving dreams and projects!
         </p>
-        <button>Sign Up Now</button>
+        <button @click="handleSignUpNow">Sign Up Now</button>
       </div>
     </div>
 
@@ -145,14 +145,26 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { getDatabase, get, ref as dbRefe } from "firebase/database";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   name: "AboutView",
   setup() {
+    const store = useStore();
+    const router = useRouter();
+    const user = computed(() => store.getters.user);
     const totalCsps = ref(0);
     const totalApplicants = ref(0);
     const db = getDatabase();
+    const handleSignUpNow = () => {
+      if (user.value) {
+        router.push("/search");
+      } else {
+        router.push("/signup");
+      }
+    };
     onMounted(async () => {
       const cspRef = dbRefe(db, "/csp");
       await get(cspRef).then((snapshot) => {
@@ -196,6 +208,7 @@ export default {
     return {
       totalCsps,
       totalApplicants,
+      handleSignUpNow,
     };
   },
 };

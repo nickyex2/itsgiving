@@ -41,23 +41,23 @@
                 </p>
                 <div class="row">
                   <div class="col-12">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
                       class="bi bi-telephone-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
+                      viewBox="0 0 16 16"
+                    >
+                      <path
                         fill-rule="evenodd"
                         d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"
-                  />
-                </svg>
+                      />
+                    </svg>
                     <span class="text-muted" style="margin-left: 10px">{{
                       userAddInfo.phoneNo
                     }}</span>
-              </div>
+                  </div>
                   <div class="col-12">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -95,19 +95,19 @@
                 </div>
               </div>
               <div class="col-2 text-end d-inline">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
                   class="bi bi-pencil-fill pencil-edit"
-                      viewBox="0 0 16 16"
+                  viewBox="0 0 16 16"
                   @click="editProfile"
-                    >
-                      <path
+                >
+                  <path
                     d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
-                      />
-                    </svg>
+                  />
+                </svg>
               </div>
             </div>
 
@@ -124,7 +124,7 @@
                   >
                     Verify Email
                   </button>
-                  </div>
+                </div>
                 <div style="width: unset; display: inline-block">
                   <UpdatePassword></UpdatePassword>
                   <p class="pt-2" :style="verifyStyle" v-if="verifyMessage">
