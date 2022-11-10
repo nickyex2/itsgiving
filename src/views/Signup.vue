@@ -107,15 +107,10 @@ export default {
   methods: {
     showPassword() {
       var signupPassword = document.getElementById("signupPassword");
-      var showPassword = document.getElementById("showPassword");
       if (signupPassword.type === "password") {
         signupPassword.type = "text";
-        showPassword.classList.remove("bi-eye-slash");
-        showPassword.classList.add("bi-eye");
       } else {
         signupPassword.type = "password";
-        showPassword.classList.remove("bi-eye");
-        showPassword.classList.add("bi-eye-slash");
       }
     },
   },

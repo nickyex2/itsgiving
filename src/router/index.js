@@ -5,13 +5,12 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
 import EditProfile from "../views/EditProfile.vue";
-import SearchView from "../views/SearchView.vue";
-import SearchTest from "../views/SearchTest.vue";
 import SearchResults from "../views/SearchResults.vue";
 import PageNotFound from "../views/PageNotFound.vue";
 import setupProfile from "../views/setupProfile.vue";
 import CreateCsp from "../views/CreateCsp.vue";
 import CSPView from "../views/CSPView.vue";
+import EditCsp from "../views/EditCsp.vue";
 
 const routes = [
   {
@@ -50,16 +49,6 @@ const routes = [
     component: EditProfile,
   },
   {
-    path: "/searchresults",
-    name: "searchresults",
-    component: SearchView,
-  },
-  {
-    path: "/testsearch",
-    name: "testsearch",
-    component: SearchTest,
-  },
-  {
     path: "/search",
     name: "search",
     component: SearchResults,
@@ -73,6 +62,11 @@ const routes = [
     path: "/csp/:id",
     name: "csp",
     component: CSPView,
+  },
+  {
+    path: "/editcsp/:id",
+    name: "editcsp",
+    component: EditCsp,
   },
   {
     path: "/:catchAll(.*)",

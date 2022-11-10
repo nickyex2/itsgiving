@@ -86,7 +86,7 @@ button:hover{
 }
 
 .home-2{
-    color: black;
+    color: #2c3e50;
 }
 
 .home-2 img{
@@ -101,12 +101,31 @@ button:hover{
     font-weight: bold;
 }
 
+@media (max-width: 768px) {
+    .home-2 span{
+        font-size: 20px;
+    }
+    .home-2 p{
+        font-size: 15px;
+    }
+    .counter .counter-ani{
+        font-size: 40px;
+    }
+    .counter p{
+        font-size: 26px !important;
+    }
+    .explore-title{
+        font-size: 45px !important;
+        text-align: center !important;
+        padding-top: 35px;
+    }
+}
+
 .box_text:hover{
     transform: scale(1.05);
 }
 
 #counters{
-    margin-top: 4vw;
     margin-bottom: 8vw;
     padding-left: 5vw;
     padding-right: 5vw;
@@ -181,6 +200,9 @@ button:hover{
     height: 50px;
 }
 
+.explore-link {
+    color: #2c3e50;
+}
 /* NAVBAR */
 nav {
     padding: 30px;
@@ -288,10 +310,11 @@ a {
 }
 
 .abouttop img{
-    height: 400px;
-    width: 400px;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
     opacity: 0.85;
     text-align: left;
+    padding: 20px;
 }
 
 .about-title{
@@ -323,6 +346,18 @@ a {
     margin: 0;
 }
 
+@media (max-width: 983px) {
+    .numbers p{
+        font-size: 15px;
+    }
+    .about-desc{
+        font-size: 15px;
+    }
+    .abouttop img{
+        padding-top: 50px;
+    }
+}
+
 .counter-ani-abt{
     font-size: 45px;
     font-weight: bolder;
@@ -350,6 +385,14 @@ a {
     padding: 1.5vw;
 }
 
+.home .card img, .home .card-body, .cc .card img, .cc .card-body{
+    padding: 1.5vw;
+    height: 200px;
+    width: auto;
+    object-fit: cover;
+    text-align: left;
+}
+
 .card{
     background-color:#D9D9D9;
     border: none;
@@ -358,6 +401,40 @@ a {
 
 .card-body p{
     font-size: small;
+}
+.cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+    height: 300px
+}
+
+@media (max-width: 767px){
+    .home .carousel-inner .carousel-item > div:first-child {
+        display: block;
+        width: -webkit-fill-available;
+    }
+}
+
+@media (max-width: 991px){
+    .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+        height: 250px;
+    }
+}
+
+@media (min-width: 1190px){
+    .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+        height: 460px;
+    }
+}
+
+@media (max-width: 376px){
+    .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
+        height: 200px;
+    }
+}
+
+.home .card-body a,.cc .card-body a{
+    position: absolute;
+    bottom: 1.5vw;
+
 }
 
 .mtt .col{
@@ -434,14 +511,25 @@ a {
 
 .aboutvid button{
     position: absolute;
-    transform: translate(-50%, -50%);
     top: 65%;
-    left: 12.5%;
+    left: 7.5%;
     text-align: left;
     font-weight: bold;
     color: white;
     z-index: 1;
     margin: 0;
+}
+
+@media (max-width: 537px) {
+    .aboutvid p{
+        font-size: 20px;
+    }
+    .aboutvid button{
+        top: 60%;
+    }
+    .mtt .card-title{
+        font-size: 15px;
+    }
 }
 
 /* FOOTER */
@@ -760,6 +848,7 @@ a {
 
 .profile-deets{
     padding-right: 0px!important;
+    vertical-align: bottom;
 }
 
 .profile-deets span{
@@ -787,6 +876,25 @@ a {
     .i-i img{
         width: 50px;
         height: 100%;
+    }
+    .profile-name{
+        font-size: 45px;
+    }
+}
+
+@media(max-width: 575px){
+    .profile-name{
+        font-size: 35px;
+    }
+    .role{
+        font-size: 15px !important;
+    }
+    .profile-deets span{
+        font-size: 12px;
+    }
+
+    .profile-hours p{
+        font-size: 12px;
     }
 }
 
@@ -1121,6 +1229,17 @@ input#flexSwitchCheckChecked {
     float: left;
 }
 
+@media (max-width: 767px){
+    .mapres{
+        height: 500px;
+        width: -webkit-fill-available;
+        margin: 3px;
+    }
+    .search-container .form-control, .search-container .form-select{
+        font-size: 13px;
+    }
+}
+
 /* CSP VIEW */
 
 ul {
@@ -1149,6 +1268,10 @@ ul {
     font-size: 15px;
 }
 
+.csp-deets span{
+    margin-top: 10px;
+}
+
 .d2-last{
     padding-bottom: 20px;
 }
@@ -1162,6 +1285,8 @@ ul {
     border-radius: 10px;
     padding-bottom: 5px;
     padding-top: 5px;
+    max-height: 220px;
+    overflow-y: scroll;
 }
 
 .csp-deets3 h4{
@@ -1229,6 +1354,23 @@ ul {
 
 .cspContent .carousel-item{
     transition: 1s;
+}
+
+.carou-appear{
+    display: none;
+}
+
+@media (max-width: 767px){
+    .apply-csp{
+        width: auto;
+    }
+    .carou-gone{
+        display: none;
+    }
+    .carou-appear{
+        display: block;
+        margin-bottom: 35px;
+    }
 }
 
 
@@ -1394,3 +1536,169 @@ input{
         font-size: 15px !important;
     }
 }
+
+/* EDIT CSP */
+.try{
+    font-weight: 400;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.editcsp{
+    background-color: #D9D9D9;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.editcsptab{
+    color: black;
+    transition: 0.3s;
+}
+
+.editcsptab:hover{
+    color: black;
+}
+
+.editcsptab.active{
+    background-color: #fee48d;
+}
+
+/*  APPROVAL CSP */
+
+.approvalcsp td{
+    font-size: 15px;
+}
+
+.tabled{
+    padding-top: 25px !important;
+}
+
+.approvalcsp button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.approvalcsp th{
+    font-size: 17px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.approvalcsp .table{
+    background-color: #D9D9D9;
+    border-radius: 10px;
+
+}
+
+.approvalcsp .tbody{
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.table>:not(caption)>*>* {
+    border-bottom-width: 0.5px;
+}
+.table>:not(:last-child)>:last-child>* {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/* UPDATE PASSWORD */
+.updatepw input{
+    margin-bottom: 10px;
+}
+
+
+/* daryls updates */
+.interviewbtn:focus{
+    color: black;
+    background-color: #fee48d;
+}
+
+.cspbadge{
+    background-color: whitesmoke;
+    color: dimgrey;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    height: 26px;
+    width: 45px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .form-switch{
+    padding: 0px;
+    text-align: left;
+  }
+
+  .showonmap:hover{
+    color: #d9d9d9;
+  }
+
+  .showonmap:focus{
+    background-color: white !important;
+    color: #d9d9d9;
+  }
+
+    

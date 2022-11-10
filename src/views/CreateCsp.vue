@@ -215,6 +215,9 @@
                 @change="handlePhotos"
               />
             </div>
+            <div class="field text-center">
+              <p class="fw-bold text-danger" v-if="errBool">{{ err }}</p>
+            </div>
             <div class="field btns">
               <button class="prev-3 prev">Previous</button>
               <button
@@ -258,6 +261,14 @@ export default {
     const store = useStore();
     const router = useRouter();
     const user = computed(() => store.getters.user);
+    const userAddInfo = computed(() => store.getters.userAddInfo);
+    if (!user.value) {
+      router.push("/login");
+    } else if (!userAddInfo.value) {
+      router.push("/setup?edit=true");
+    }
+    const err = ref("");
+    const errBool = ref(false);
     const createCsp = ref({
       name: "",
       csp_hours: "",
@@ -305,84 +316,99 @@ export default {
       selected_img.value.photos = e.target.files;
     };
     const handleCreate = async () => {
-      // things to improve on this function
-      // 1. need to check if date created and start date of csp and end date of csp is valid (aka start and end date cannot be before created date)
       // gets today's date and store in date_created
       const today = new Date().toJSON().slice(0, 10);
-      createCsp.value.date_created = today;
-      // create link with cid and store in link
-      const dbRef = dbRefe(db, "csp/");
-      await get(dbRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          cid.value = `csp${snapshot.size + 1}`;
-          createCsp.value.link = `https://its-giving.netlify.app/csp/${cid.value}`;
-        } else {
-          cid.value = `csp1`;
-          createCsp.value.link = `https://its-giving.netlify.app/csp/${cid.value}`;
-        }
-      });
-      // get values from user and assign to createCsp
-      createCsp.value.owner = user.value.displayName;
-      createCsp.value.owner_email = user.value.email;
-      createCsp.value.owner_uid = user.value.uid;
-      // add location object to createCsp
-      createCsp.value.location = location.value;
-      // TODO
-      // store images into firebase and get the url and store in createCsp
-      const storage = getStorage();
-      const coverImgRef = stRefe(
-        storage,
-        `csp/${cid.value}/${selected_img.value.cover_image.name}`
-      );
-      await uploadBytes(coverImgRef, selected_img.value.cover_image);
-      await getDownloadURL(coverImgRef).then((url) => {
-        createCsp.value.cover_image = url;
-      });
-      for (let i = 0; i < selected_img.value.photos.length; i++) {
-        const photoRef = stRefe(
-          storage,
-          `csp/${cid.value}/${selected_img.value.photos[i].name}`
-        );
-        await uploadBytes(photoRef, selected_img.value.photos[i]);
-        await getDownloadURL(photoRef).then((url) => {
-          createCsp.value.photos.push(url);
+      if (
+        new Date(createCsp.value.date_start).getTime() <=
+          new Date(today).getTime() ||
+        new Date(createCsp.value.date_end).getTime() <=
+          new Date(today).getTime()
+      ) {
+        err.value = "Error: Start/End date cannot be before today's date";
+        errBool.value = true;
+      } else {
+        createCsp.value.date_created = today;
+        // create link with cid and store in link
+        const dbRef = dbRefe(db, "csp/");
+        await get(dbRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            cid.value = `csp${snapshot.size + 1}`;
+            createCsp.value.link = `https://its-giving.netlify.app/csp/${cid.value}`;
+          } else {
+            cid.value = `csp1`;
+            createCsp.value.link = `https://its-giving.netlify.app/csp/${cid.value}`;
+          }
         });
-      }
-      // create the date stuff for availability
-      const date_avail = {};
-      const date_start = new Date(interviews.value.startDate);
-      while (date_start <= new Date(interviews.value.endDate)) {
-        const timing = [];
-        const start_hr = parseInt(interviews.value.startTime.slice(0, 2));
-        const end_hr = parseInt(interviews.value.endTime.slice(0, 2));
-        const start_end_min = interviews.value.startTime.slice(3, 5);
-        for (let i = start_hr; i < end_hr; i++) {
-          timing.push(`${i}${start_end_min}hrs`);
+        // get values from user and assign to createCsp
+        createCsp.value.owner = user.value.displayName;
+        createCsp.value.owner_email = user.value.email;
+        createCsp.value.owner_uid = user.value.uid;
+        // add location object to createCsp
+        createCsp.value.location = location.value;
+        // TODO
+        // store images into firebase and get the url and store in createCsp
+        const storage = getStorage();
+        const coverImgRef = stRefe(
+          storage,
+          `csp/${cid.value}/${selected_img.value.cover_image.name}`
+        );
+        await uploadBytes(coverImgRef, selected_img.value.cover_image);
+        await getDownloadURL(coverImgRef).then((url) => {
+          createCsp.value.cover_image = url;
+        });
+        for (let i = 0; i < selected_img.value.photos.length; i++) {
+          const photoRef = stRefe(
+            storage,
+            `csp/${cid.value}/${selected_img.value.photos[i].name}`
+          );
+          await uploadBytes(photoRef, selected_img.value.photos[i]);
+          await getDownloadURL(photoRef).then((url) => {
+            createCsp.value.photos.push(url);
+          });
         }
-        date_avail[date_start.toJSON().slice(0, 10)] = timing;
-        date_start.setDate(date_start.getDate() + 1);
-      }
-      // store createCsp into csp table of firebase
-      const cspRef = dbRefe(db, `csp/${cid.value}`);
-      await set(cspRef, createCsp.value);
-      // store availability into availability table of firebase
-      const availRef = dbRefe(db, `availability/${cid.value}/dates_avail`);
-      await set(availRef, date_avail);
-      // store cid into user's table (projectLead) of firebase and update the store
-      const userRef = dbRefe(db, `users/${user.value.uid}/projectLead`);
-      await get(userRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          data.push(cid.value);
-          update(userRef, Object.assign({}, data));
-        } else {
-          const data = [cid.value];
-          set(userRef, Object.assign({}, data));
+        // create the date stuff for availability
+        const date_avail = {};
+        const date_start = new Date(interviews.value.startDate);
+        while (date_start <= new Date(interviews.value.endDate)) {
+          const timing = [];
+          const start_hr = parseInt(interviews.value.startTime.slice(0, 2));
+          const end_hr = parseInt(interviews.value.endTime.slice(0, 2));
+          const start_end_min = interviews.value.startTime.slice(3, 5);
+          for (let i = start_hr; i < end_hr; i++) {
+            if (i < 10) {
+              timing.push(`0${i}${start_end_min}hrs`);
+            } else {
+              timing.push(`${i}${start_end_min}hrs`);
+            }
+          }
+          date_avail[date_start.toJSON().slice(0, 10)] = timing;
+          date_start.setDate(date_start.getDate() + 1);
         }
-      });
-      await store.dispatch("setUserAddInfo", user.value.uid);
-      // redirect to csp page
-      router.push(`/csp/${cid.value}`);
+        // store createCsp into csp table of firebase
+        const cspRef = dbRefe(db, `csp/${cid.value}`);
+        await set(cspRef, createCsp.value);
+        // store availability into availability table of firebase
+        const availRef = dbRefe(db, `availability/${cid.value}/dates_avail`);
+        await set(availRef, date_avail);
+        const data = ref({});
+        const userRef = dbRefe(db, `users/${user.value.uid}`);
+        await get(userRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            data.value = snapshot.val();
+            if (data.value.projectLead) {
+              data.value.projectLead.push(cid.value);
+            } else {
+              data.value.projectLead = [cid.value];
+            }
+            data.value.hours += parseInt(createCsp.value.csp_hours);
+            console.log(data.value);
+            update(userRef, data.value);
+          }
+        });
+        await store.dispatch("setUserAddInfo", user.value.uid);
+        // redirect to csp page
+        router.push(`/csp/${cid.value}`);
+      }
     };
     onMounted(() => {
       const autocomplete = new window.google.maps.places.Autocomplete(
@@ -450,6 +476,8 @@ export default {
       location,
       interest_tags,
       createCsp,
+      err,
+      errBool,
       handleCreate,
       handleCoverImg,
       handlePhotos,

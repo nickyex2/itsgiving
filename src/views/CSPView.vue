@@ -1,15 +1,107 @@
 <template>
-  <div class="container-fluid my-5 justify-content-center">
-    <div v-if="editAccess" class="row w-25 ms-auto me-2">
-      <button class="btn btn-warning mt-3" @click="handleEditCSP">edit</button>
-    </div>
+  <div class="container-fluid mt-5 justify-content-center">
     <div class="cspContent container py-3">
       <div class="row justify-content-center my-5">
-        <div class="col-md-7 col-12">
+        <div class="col-md-7 col-12 order-md-first order-last">
+          <!-- dummy carousel -->
+          <div
+            id="carouselExampleControls1"
+            class="carousel slide mx-auto csp-view-carousel carou-gone"
+            data-bs-ride="carousel"
+            data-bs-interval="5000"
+          >
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img :src="csp.cover_image" class="d-block w-100" alt="..." />
+              </div>
+              <div
+                class="carousel-item"
+                v-for="photo in csp.photos"
+                :key="photo"
+              >
+                <img :src="photo" class="d-block w-100" alt="..." />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleControls1"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleControls1"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <!-- end of dummy carousel -->
+
+          <div class="apply-csp my-4" v-if="!editAccess && beforeInterview">
+            <div class="mt-2 text-center">
+              <h5>Interview Timeslots available:</h5>
+            </div>
+
+            <div
+              v-for="(times, date) in avail_DateTime.dates_avail"
+              :key="date"
+              class="justify-content-left py-2 row"
+            >
+              <div class="col-3 py-2 text-center">
+                <b class="pe-4 my-auto">{{ date }}</b>
+              </div>
+              <div class="col-9">
+                <span v-for="time in times" :key="time" class="mx-2">
+                  <button
+                    :value="`${date} ${time}`"
+                    @click="handleAppliedDateTime"
+                    class="my-1 interviewbtn"
+                  >
+                    {{ time }}
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-2">
+              <button v-show="applyButtonToggle" @click="handleApply">
+                Apply Now
+              </button>
+              <span class="fw-bold ps-3 my-auto" id="apply-text">
+                {{ applyMessage }}
+              </span>
+            </div>
+          </div>
+          <div
+            class="apply-csp my-4"
+            v-else-if="!editAccess && !beforeInterview"
+          >
+            <div class="mt-2 text-center">
+              <h5>
+                Interviews are over! Stay tuned for other iterations of this
+                event!
+              </h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 col-12">
           <!-- dummy carousel -->
           <div
             id="carouselExampleControls"
-            class="carousel slide mx-auto csp-view-carousel"
+            class="carousel slide mx-auto csp-view-carousel carou-appear"
             data-bs-ride="carousel"
             data-bs-interval="5000"
           >
@@ -52,40 +144,24 @@
           </div>
           <!-- end of dummy carousel -->
 
-          <div class="apply-csp my-4">
-            <div class="mt-2 text-center">
-              <h5>Interview Timeslots available:</h5>
-            </div>
-            <div
-              v-for="(times, date) in avail_DateTime.dates_avail"
-              :key="date"
-              class="justify-content-left py-2"
-            >
-              <b class="pe-4 my-auto">{{ date }}</b>
-              <span v-for="time in times" :key="time" class="mx-2">
-                <button
-                  :value="`${date} ${time}`"
-                  @click="handleAppliedDateTime"
-                  class="my-1"
-                >
-                  {{ time }}
-                </button>
-              </span>
-            </div>
-            <div class="d-flex justify-content-center mt-2">
-              <button v-show="applyButtonToggle" @click="handleApply">
-                Apply Now
-              </button>
-              <span class="fw-bold ps-3 my-auto" id="apply-text">
-                {{ applyMessage }}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-5 col-12">
           <div class="csp-deets mb-3">
-            <h2>{{ csp.name }}</h2>
+            <h2 class="d-inline">{{ csp.name }}</h2>
+            <span class="float-end">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-fill pencil-edit"
+                v-if="editAccess"
+                viewBox="0 0 16 16"
+                @click="handleEditCSP"
+              >
+                <path
+                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                />
+              </svg>
+            </span>
             <h5>by {{ csp.owner }}</h5>
             <p>{{ csp.description }}</p>
           </div>
@@ -101,8 +177,10 @@
             </h5>
           </div>
 
-          <div class="row">
-            <div class="col csp-deets3 mb-4 mx-3">
+          <div class="row justify-content-between">
+            <div
+              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets3 mb-4 mx-3"
+            >
               <h4><b>Supported Causes:</b></h4>
               <ul>
                 <li v-for="interest in csp.interest" :key="interest">
@@ -116,7 +194,9 @@
               </ul>
             </div>
 
-            <div class="col csp-deets4 mb-4 mx-3">
+            <div
+              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets4 mb-4 mx-3"
+            >
               <h4><b>Contact Us:</b></h4>
               <p>
                 <svg
@@ -168,101 +248,17 @@
     </div>
   </div>
   <!-- card carousel -->
-  <div class="cc container text-center">
+  <div class="cc container text-center" v-if="!editAccess">
     <h1 class="explore-title">Related CSPs</h1>
     <div class="row mx-auto my-auto justify-content-center">
       <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner unique-inner" role="listbox">
-          <div class="carousel-item unique active">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item unique">
-            <div class="col-md-3">
-              <div class="card">
-                <img src="../assets/logo.png" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <CspViewCard
+            v-for="(value, id) in randomRelatedCSP"
+            :key="id"
+            :csp="value"
+            :id="id"
+          ></CspViewCard>
         </div>
         <a
           class="carousel-control-prev bg-transparent w-aut"
@@ -283,11 +279,12 @@
       </div>
     </div>
   </div>
+  <ApprovalCsp v-else :cspID="cID" :cspHours="csp.csp_hours"></ApprovalCsp>
   <!-- end -->
 </template>
 
 <script>
-import { onBeforeMount, ref, computed } from "vue";
+import { onBeforeMount, onMounted, ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   getDatabase,
@@ -295,27 +292,19 @@ import {
   onValue,
   set,
   update,
+  get,
 } from "firebase/database";
 import { useStore } from "vuex";
+import ApprovalCsp from "../components/ApprovalCsp.vue";
+import CspViewCard from "../components/CspViewCard.vue";
 
 export default {
-  mounted() {
-    let items = document.querySelectorAll(".unique");
-    items.forEach((el) => {
-      const minPerSlide = 4;
-      let next = el.nextElementSibling;
-      for (var i = 1; i < minPerSlide; i++) {
-        if (!next) {
-          // wrap carousel by using first child
-          next = items[0];
-        }
-        let cloneChild = next.cloneNode(true);
-        el.appendChild(cloneChild.children[0]);
-        next = next.nextElementSibling;
-      }
-    });
+  components: {
+    ApprovalCsp,
+    CspViewCard,
   },
   setup() {
+    // include the related csp with the card carousel item component *improvements*
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -324,7 +313,10 @@ export default {
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const editAccess = ref(false);
     const db = getDatabase();
+    const cID = route.params.id;
     const interestImg = ref({});
+    const beforeInterview = ref(true);
+    const randomRelatedCSP = ref([]);
     const csp = ref({
       name: "",
       owner: "",
@@ -349,26 +341,40 @@ export default {
       const applyRef = dbRefe(db, "availability/" + route.params.id);
       onValue(applyRef, (snapshot) => {
         if (snapshot.val()) {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           avail_DateTime.value = snapshot.val();
-          for (let date in avail_DateTime.value.dates_avail) {
-            for (
-              var timeIndex = avail_DateTime.value.dates_avail[date].length - 1;
-              timeIndex >= 0;
-              timeIndex--
-            ) {
-              const currTime =
-                avail_DateTime.value.dates_avail[date][timeIndex];
-              if (
-                avail_DateTime.value.applicants != null &&
-                avail_DateTime.value.applicants[date] != null &&
-                avail_DateTime.value.applicants[date][currTime] != null
+          // if current date is after the end date of interviews, set beforeInterview to false
+          if (
+            new Date() >
+            new Date(
+              Object.keys(avail_DateTime.value.dates_avail)[
+                Object.keys(avail_DateTime.value.dates_avail).length - 1
+              ]
+            )
+          ) {
+            beforeInterview.value = false;
+          } else {
+            for (let date in avail_DateTime.value.dates_avail) {
+              //if date after current date dont store at all (WIP)
+              for (
+                var timeIndex =
+                  avail_DateTime.value.dates_avail[date].length - 1;
+                timeIndex >= 0;
+                timeIndex--
               ) {
+                const currTime =
+                  avail_DateTime.value.dates_avail[date][timeIndex];
                 if (
-                  Object.keys(avail_DateTime.value.applicants[date][currTime])
-                    .length >= csp.value.no_of_interviews_per_hour
+                  avail_DateTime.value.applicants != null &&
+                  avail_DateTime.value.applicants[date] != null &&
+                  avail_DateTime.value.applicants[date][currTime] != null
                 ) {
-                  avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                  if (
+                    Object.keys(avail_DateTime.value.applicants[date][currTime])
+                      .length >= csp.value.no_of_interviews_per_hour
+                  ) {
+                    avail_DateTime.value.dates_avail[date].splice(timeIndex, 1);
+                  }
                 }
               }
             }
@@ -384,12 +390,11 @@ export default {
       appliedDateTime.value = e.target.value;
       applyButtonBool.value = true;
     };
-    // logic wonky but does the job
     const applyButtonToggle = computed(() => {
       if (applyButtonBool.value) {
-        return "d-none";
+        return true;
       } else {
-        return "";
+        return false;
       }
     });
     // applying for csp button
@@ -401,9 +406,13 @@ export default {
         alert("Please login to apply for this CSP");
       } else if (
         (userAddInfo.value.approved_csp &&
-          userAddInfo.value.approved_csp.includes(route.params.id)) ||
+          userAddInfo.value.approved_csp.filter(
+            (c) => Object.keys(c)[0] === route.params.id
+          ).length > 0) ||
         (userAddInfo.value.pending_csp &&
-          userAddInfo.value.pending_csp.includes(route.params.id)) ||
+          userAddInfo.value.pending_csp.filter(
+            (c) => Object.keys(c)[0] === route.params.id
+          ).length > 0) ||
         (userAddInfo.value.rejected_csp &&
           userAddInfo.value.rejected_csp.includes(route.params.id))
       ) {
@@ -462,13 +471,16 @@ export default {
             applyMessage.value = error.message;
           }
         }
+        const cspApplication = ref({});
+        cspApplication.value[route.params.id] = appliedDateTime.value;
         if (userAddInfoData) {
           // update userAddInfo with csp data
           console.log("updating userAddInfo db");
           const nextKey = userAddInfoData.length;
+          console.log(cspApplication.value);
           try {
             await update(userAddInfoRef, {
-              [nextKey]: route.params.id,
+              [nextKey]: cspApplication.value,
             });
           } catch (error) {
             applyMessage.value = error.message;
@@ -476,7 +488,7 @@ export default {
         } else {
           // set userAddInfo with csp data
           try {
-            await set(userAddInfoRef, [route.params.id]);
+            await set(userAddInfoRef, [cspApplication.value]);
           } catch (error) {
             applyMessage.value = error.message;
           }
@@ -489,7 +501,7 @@ export default {
     };
     // owner edit csp button
     const handleEditCSP = () => {
-      console.log("edit csp");
+      router.push(`/editcsp/${route.params.id}?edit=true`);
     };
     // things that are done before mounting the DOM
     onBeforeMount(() => {
@@ -531,8 +543,47 @@ export default {
         interestImg.value = snapshot.val();
       });
     });
+    onMounted(async () => {
+      // get 6 related csps
+      const relatedCSP = ref([]);
+      const cspdbRef = dbRefe(db, "/csp");
+      await get(cspdbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const cspData = snapshot.val();
+          const cspKeys = Object.keys(cspData);
+          for (let interestTag of csp.value.interest) {
+            for (let i = 0; i < cspKeys.length; i++) {
+              if (cspData[cspKeys[i]].interest.includes(interestTag)) {
+                if (
+                  !relatedCSP.value.includes(cspData[cspKeys[i]]) &&
+                  cspKeys[i] != route.params.id
+                ) {
+                  relatedCSP.value.push(cspData[cspKeys[i]]);
+                }
+                // relatedCSP.value.push(cspData[cspKeys[i]]);
+              }
+            }
+          }
+        }
+        console.log(relatedCSP.value);
+        // get 6 random csps from related csps
+        for (let i = 0; i < 6; i++) {
+          if (relatedCSP.value.length > 0) {
+            const randomIndex = Math.floor(
+              Math.random() * relatedCSP.value.length
+            );
+            randomRelatedCSP.value.push(relatedCSP.value[randomIndex]);
+            relatedCSP.value.splice(randomIndex, 1);
+          }
+        }
+        console.log(randomRelatedCSP.value);
+      });
+    });
     return {
       csp,
+      cID,
+      randomRelatedCSP,
+      beforeInterview,
       editAccess,
       handleEditCSP,
       avail_DateTime,

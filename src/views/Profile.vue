@@ -2,7 +2,7 @@
   <section class="py-4">
     <div class="profile-container container">
       <div class="row">
-        <div class="col-md-5 col-12">
+        <div class="col-lg-5 col-12">
           <img
             :src="user.photoURL"
             alt="avatar"
@@ -10,18 +10,46 @@
             style="width: 200px"
           />
         </div>
-        <div class="col-md-7 col-12">
+        <div class="col-lg-7 col-12">
           <div class="card mb-4 new-profile-card">
             <div class="row m-4 p-3">
-              <div class="col text-start">
-                <h1 class="profile-name">{{ user.displayName }}</h1>
+              <div class="col-10 text-start">
+                <h1 class="profile-name">
+                  {{ user.displayName
+                  }}<img
+                    src="../assets/verified.png"
+                    alt="verifiedpic"
+                    width="40"
+                    height="40"
+                    class="p-1"
+                    v-if="userVerifiedBool"
+                  /><img
+                    src="../assets/unverified.png"
+                    alt="verifiedpic"
+                    width="40"
+                    height="40"
+                    class="p-1"
+                    v-else
+                  />
+                </h1>
                 <p class="text-muted mb-4 role">
                   Volunteer<span v-if="userAddInfo.projectLead"
                     >/Project Lead</span
                   >
                 </p>
+                <button
+                  class="btn btn-primary me-2"
+                  v-if="!userVerifiedBool"
+                  @click="handleVerifyEmail"
+                >
+                  Verify Email
+                </button>
+                <UpdatePassword></UpdatePassword>
+                <p class="pt-2" :style="verifyStyle" v-if="verifyMessage">
+                  {{ verifyMessage }}
+                </p>
               </div>
-              <div class="col text-end">
+              <div class="col-2 text-end d-inline">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -92,94 +120,15 @@
                 </div>
               </div>
               <div class="col-4 profile-hours">
-                <h5>45</h5>
-                <p>Hours Completed</p>
+                <h5>{{ userAddInfo.hours }}</h5>
+                <p>Projected Hours Completed</p>
               </div>
             </div>
           </div>
-          <!-- <div class="profile-all card mb-4">
-            <div class="profile-cards card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Display Name</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ user.displayName }}</p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Full Name</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">
-                    {{ `${userAddInfo.firstName} ${userAddInfo.lastName}` }}
-                  </p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Email</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ user.email }}</p>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Phone</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{ userAddInfo.phoneNo }}</p>
-                </div>
-              </div>
-              <hr /> -->
-          <!-- <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Mobile</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">(098) 765-4321</p>
-                </div>
-              </div>
-              <hr /> -->
-          <!-- <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0 fw-bold">Telegram</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">
-                    {{ userAddInfo.telegramHandle }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
-
-      <!-- <div class="profile-all card mb-4">
-            <div class="profile-cards card-body text-center">
-              <img
-                :src="user.photoURL"
-                alt="avatar"
-                class="rounded-circle img-fluid"
-                style="width: 150px"
-              />
-              <h5 class="my-3">{{ user.displayName }}</h5>
-              <p class="text-muted mb-4">
-                Volunteer<span v-if="userAddInfo.projectLead"
-                  >/Project Lead</span
-                >
-              </p>
-              <button class="btn btn-primary" @click="editProfile">Edit</button>
-            </div>
-          </div> -->
       <div class="row">
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="profile-all card mb-4 mb-lg-0">
             <p class="mb-0 fw-bold i-i-title">Indicated Interests</p>
             <div class="profile-cards card-body p-0 i-i">
@@ -197,13 +146,26 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="profile-all card mb-4 mb-md-0 profileh">
             <div class="profile-cards card-body">
               <p class="i-i-title-2 fw-bold">Completed / Ongoing CSPs</p>
               <hr />
-              <p class="mb-1" style="font-size: 0.77rem">CSP A</p>
-              <div class="progress rounded" style="height: 5px">
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="approv_csp in userAddInfo.approved_csp"
+                :key="approv_csp"
+              >
+                <router-link :to="`/csp/${Object.keys(approv_csp)[0]}`">
+                  {{
+                    `${Object.keys(approv_csp)[0]} : ${
+                      approv_csp[Object.keys(approv_csp)[0]]
+                    } hours`
+                  }}
+                </router-link>
+              </p>
+              <!-- <div class="progress rounded" style="height: 5px">
                 <div
                   class="progress-bar"
                   role="progressbar"
@@ -212,29 +174,27 @@
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: 0.77rem">CSP B</p>
-              <div class="progress rounded" style="height: 5px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 72%"
-                  aria-valuenow="72"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
 
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="profile-all card mb-4 mb-md-0 profileh">
             <div class="profile-cards card-body">
-              <p class="i-i-title-2 fw-bold">Applications</p>
+              <p class="i-i-title-2 fw-bold">Leading Projects</p>
               <hr />
-              <p class="mb-1" style="font-size: 0.77rem">CSP A</p>
-              <div class="progress rounded" style="height: 5px">
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="proj_lead in userAddInfo.projectLead"
+                :key="proj_lead"
+              >
+                <router-link :to="`/csp/${proj_lead}`">{{
+                  proj_lead
+                }}</router-link>
+              </p>
+              <!-- <div class="progress rounded" style="height: 5px">
                 <div
                   class="progress-bar"
                   role="progressbar"
@@ -243,18 +203,44 @@
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
-              </div>
-              <p class="mt-4 mb-1" style="font-size: 0.77rem">CSP B</p>
-              <div class="progress rounded" style="height: 5px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 72%"
-                  aria-valuenow="72"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-12">
+          <div class="profile-all card mb-4 mb-md-0">
+            <div class="profile-cards card-body">
+              <p class="i-i-title-2 fw-bold">Pending Applications</p>
+              <hr />
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="pend_csp in userAddInfo.pending_csp"
+                :key="pend_csp"
+              >
+                <router-link :to="`/csp/${Object.keys(pend_csp)[0]}`">
+                  {{
+                    `${Object.keys(pend_csp)[0]} : ${
+                      pend_csp[Object.keys(pend_csp)[0]]
+                    }`
+                  }}
+                </router-link>
+              </p>
+            </div>
+            <div class="profile-cards card-body">
+              <p class="i-i-title-2 fw-bold">Rejected Applications</p>
+              <hr />
+              <p
+                class="mb-1"
+                style="font-size: 0.77rem"
+                v-for="rej_csp in userAddInfo.rejected_csp"
+                :key="rej_csp"
+              >
+                <router-link :to="`/csp/${rej_csp}`">
+                  {{ rej_csp }}
+                </router-link>
+              </p>
             </div>
           </div>
         </div>
@@ -269,10 +255,13 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed, onBeforeMount, ref } from "vue";
 import { getDatabase, ref as dbRefe, onValue } from "firebase/database";
-
+import UpdatePassword from "../components/UpdatePassword.vue";
+import { sendEmailVerification } from "firebase/auth";
 export default {
   name: "ProfileView",
-  components: {},
+  components: {
+    UpdatePassword,
+  },
   setup() {
     const router = useRouter();
     const store = useStore();
@@ -280,6 +269,30 @@ export default {
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const interestImg = ref({});
+    const verifyMessage = ref("");
+    const verifyStyle = ref("");
+    const userVerifiedBool = computed(() => {
+      if (user.value.emailVerified) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const handleVerifyEmail = () => {
+      sendEmailVerification(user.value)
+        .then(() => {
+          verifyMessage.value =
+            "Verification email sent. Please check your inbox or spam for the email! Once verified, please refresh the page.";
+          verifyStyle.value = "color: green; font-weight: bold";
+        })
+        .catch((error) => {
+          if (error) {
+            verifyMessage.value =
+              "Error sending verification email! Please wait awhile and try again.";
+            verifyStyle.value = "color: red; font-weight: bold";
+          }
+        });
+    };
     const editProfile = () => {
       store.dispatch("editProfileBool", true);
       router.push("/profile/edit");
@@ -290,7 +303,18 @@ export default {
         interestImg.value = snapshot.val();
       });
     });
-    return { user, editProfile, userAddInfo, interestImg };
+    // for projected hours
+    // 1. get all the approved csp the user has (cid, hours)
+    return {
+      user,
+      editProfile,
+      userAddInfo,
+      interestImg,
+      userVerifiedBool,
+      handleVerifyEmail,
+      verifyMessage,
+      verifyStyle,
+    };
   },
 };
 </script>

@@ -1,9 +1,12 @@
 <template>
   <div class="container search-container">
-    <div class="row row-cols-2 overall">
+    <div class="row overall">
       <div
-        class="container-fluid col filter-nav py-2"
-        :style="showMap ? 'width: 40%' : 'width: 20%'"
+        :class="
+          showMap
+            ? 'container-fluid col-md-5 filter-nav py-2'
+            : 'container-fluid col-md-3 filter-nav py-2'
+        "
       >
         <div class="row">
           <div
@@ -17,6 +20,7 @@
               placeholder="Enter A Project Title"
               ref=""
               @keyup="showPlacesOnMap"
+              style="font-size: 13px"
             />
           </div>
           <div
@@ -30,11 +34,12 @@
               placeholder="Enter A Category"
               ref=""
               @keyup="showPlacesOnMap"
+              style="font-size: 13px"
             />
           </div>
         </div>
 
-        <div :class="showMap ? mapDisplay : test" class="row row-col-2 pb-1">
+        <div :class="showMap ? mapDisplay : test" class="row row-col-2 pb-3">
           <div
             class="rcol d-flex justify-content-left"
             :style="showMap ? 'width: 70%' : ''"
@@ -44,13 +49,12 @@
               v-model="autocompleteaddress"
               placeholder="Enter A Location"
               ref="autocompleteaddress"
-              style="width: 85%"
+              style="width: 85%; font-size: 13px"
             />
             <button
               type="button"
               class="btn btn-danger py-0"
               @click="locatorButtonPressed"
-              style="width: 15%"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -73,10 +77,9 @@
               class="form-select"
               v-model="selectedRadius"
               @change="replotRadius"
+              style="height: 41px; color: grey; font-size: 13px"
             >
-              <option value="0" selected disabled hidden>
-                --Plot A Radius Circle--
-              </option>
+              <option value="0" selected disabled hidden>Plot Radius</option>
               <option value="1000">1km</option>
               <option value="2000">2km</option>
               <option value="3000">3km</option>
@@ -84,20 +87,23 @@
           </div>
         </div>
 
-        <div class="col form-check form-switch py-2">
-          <label class="form-check-label show-map" for="flexSwitchCheckChecked"
-            >Show Map</label
-          >
+        <div class="col form-check form-switch py-1">
           <span @change="showPlacesOnMap">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="flexSwitchCheckChecked"
-              v-model="checked"
-              @change="toggleMap"
-              @click="gridLayout = !gridLayout"
-            />
+            <label class="switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="flexSwitchCheckChecked"
+                v-model="checked"
+                @change="toggleMap"
+                @click="gridLayout = !gridLayout"
+              />
+              <span class="slider round"></span>
+            </label>
           </span>
+          <span style="position: absolute; font-size: 13px; margin-top: 0.2%"
+            >Show Map</span
+          >
         </div>
 
         <div class="album">
@@ -113,23 +119,27 @@
                 <div
                   :class="{ active: activeIndex === index }"
                   v-for="(csp, index) in filteredList"
-                  @click="showInfoWindow(index)"
                   :key="csp.id"
                   style="border-radius: 12px"
                 >
                   <a
                     href="#"
-                    class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2"
-                    style="height: 250px; width: 100%"
+                    class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 overflow-wrap"
+                    style="height: 200%; width: 100%"
                   >
                     <span
-                      class="d-flex align-left h-100 position-relative img_align list-item"
+                      class="d-flex flex-column align-left h-100 position-relative img_align list-item"
                     >
                       <div
-                        class="d-block ps-3"
-                        style="margin-top: auto; margin-bottom: auto"
+                        class="d-block ps-3 py-3"
+                        style="
+                          margin-top: auto;
+                          margin-bottom: auto;
+                          width: 80%;
+                          height: 100%;
+                        "
                       >
-                        <h2 style="text-align: left">{{ csp.name }}</h2>
+                        <h3 style="text-align: left">{{ csp.name }}</h3>
                         <div
                           v-if="autocompleteaddress != ''"
                           style="text-align: left"
@@ -139,13 +149,14 @@
                         </div>
                         <div class="parent">
                           <span
-                            clas="child"
-                            v-for="tag in csp.interest"
+                            class="child"
+                            v-for="(tag, count) in csp.interest"
                             :key="tag"
                           >
                             <span
-                              class="badge rounded-pill bg-secondary mb-2"
+                              class="badge rounded-pill mb-2 cspbadge"
                               style="font-size: 10px"
+                              v-if="count < 5"
                               >{{ tag }}</span
                             >
                           </span>
@@ -205,6 +216,12 @@
                           </svg>
                           &nbsp;{{ csp.description }}
                         </p>
+                        <button
+                          class="w-100 showonmap"
+                          @click="showInfoWindow(index)"
+                        >
+                          Show On Map
+                        </button>
                       </div>
                       <div
                         class="btn-group"
@@ -219,6 +236,7 @@
                           type="button"
                           class="btn btn-sm my-5"
                           style="border-radius: 12px"
+                          @click="handleClickDetails(csp.id)"
                         >
                           <div>
                             <svg
@@ -235,7 +253,6 @@
                               />
                             </svg>
                           </div>
-                          <span class="d-none d-sm-block">More Details</span>
                         </button>
                       </div>
                     </span>
@@ -288,8 +305,11 @@
       </div>
 
       <div
-        class="row py-2 col cards-all"
-        :style="showMap ? 'width: 60%' : 'width: 80%'"
+        :class="
+          showMap
+            ? 'row py-2 col-md-7 cards-all mapres order-first order-md-last'
+            : 'row py-2 col cards-all'
+        "
       >
         <div :class="showMap ? gone : dontBreak">
           <div class="album">
@@ -306,17 +326,20 @@
                 <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
                 <div
                   v-for="(csp, index) in filteredList"
-                  @click="showInfoWindow(index)"
                   :class="{ active: activeIndex === index }"
                   :key="csp.id"
                 >
                   <div class="col">
-                    <div class="card-csp" style="border-radius: 12px">
+                    <div
+                      class="card-csp"
+                      style="border-radius: 12px"
+                      @click="handleClickDetails(csp.id)"
+                    >
                       <div class="img_align">
                         <img
                           class="w-100 p-0"
                           height="225"
-                          :src="csp.image"
+                          :src="csp.cover_image"
                           style="
                             border-top-left-radius: 12px;
                             border-top-right-radius: 12px;
@@ -341,12 +364,13 @@
                         <div class="parent">
                           <span
                             clas="child"
-                            v-for="tag in csp.interest"
+                            v-for="(tag, count) in csp.interest"
                             :key="tag"
                           >
                             <span
-                              class="badge rounded-pill bg-secondary"
+                              class="badge rounded-pill cspbadge"
                               style="font-size: 0.7rem"
+                              v-if="count < 5"
                               >{{ tag }}</span
                             >
                           </span>
@@ -398,13 +422,14 @@
                               d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
                             />
                           </svg>
-                          &nbsp;{{ csp.description }}
+                          &nbsp;{{ shortenAddress(csp.description) }}
                         </p>
                         <div class="d-flex justify-content-center">
                           <div class="btn-group">
                             <button
                               type="button"
                               class="btn btn-sm btn-outline-secondary"
+                              @click="handleClickDetails(csp.id)"
                             >
                               More Details
                             </button>
@@ -415,168 +440,13 @@
                   </div>
                 </div>
               </div>
-              <div v-else>
-                <!--div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"-->
-                <span class="list-group">
-                  <div
-                    :class="{ active: activeIndex === index }"
-                    v-for="(csp, index) in filteredList"
-                    @click="showInfoWindow(index)"
-                    :key="csp.id"
-                    style="border-radius: 12px"
-                  >
-                    <a
-                      href="#"
-                      class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 overflow-auto"
-                      style="height: 250px; width: 100%"
-                    >
-                      <span
-                        class="d-flex align-left h-100 position-relative img_align"
-                      >
-                        <img
-                          :src="csp.image"
-                          :class="showMap ? hideImage : showImage"
-                          style="border-radius: 12px"
-                        />
-                        <span :class="showMap ? hideImage : showImage">
-                          <div class="text_align d-flex">
-                            <span class="badge bg-light text-dark"
-                              >Posted {{ monthsDiff(csp.date_created) }} Months
-                              Ago</span
-                            >
-                          </div>
-                        </span>
-                        <div
-                          class="d-block ps-3"
-                          style="
-                            margin-top: auto;
-                            margin-bottom: auto;
-                            max-width: 60%;
-                            min-width: 60%;
-                          "
-                        >
-                          <h2 style="text-align: left">{{ csp.name }}</h2>
-                          <div
-                            v-if="autocompleteaddress != ''"
-                            style="text-align: left"
-                          >
-                            {{
-                              getDistance(csp.location.lat, csp.location.lng)
-                            }}
-                            away from you
-                          </div>
-                          <div class="parent">
-                            <span
-                              clas="child"
-                              v-for="tag in csp.interest"
-                              :key="tag"
-                            >
-                              <span
-                                class="badge rounded-pill bg-secondary mx-2 mb-2"
-                                style="font-size: 1rem"
-                                >{{ tag }}</span
-                              >
-                            </span>
-                          </div>
-                          <p style="text-align: left" class="mt-2">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              class="bi bi-clock-fill"
-                              viewBox="0 0 16 16"
-                            >
-                              <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
-                              /></svg
-                            >&nbsp;&nbsp;Estimated: {{ csp.csp_hours }} Hours
-                          </p>
-                          <p
-                            style="text-align: left"
-                            class="text-truncate d-none d-sm-block"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              class="bi bi-pin-map-fill"
-                              viewBox="0 0 16 16"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"
-                              />
-                              <path
-                                fill-rule="evenodd"
-                                d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
-                              /></svg
-                            >&nbsp; {{ csp.location.address }}
-                          </p>
-                          <p
-                            style="text-align: left"
-                            class="card-text d-none d-lg-block text-truncate"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              class="bi bi-file-earmark-text-fill"
-                              viewBox="0 0 16 16"
-                            >
-                              <path
-                                d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
-                              />
-                            </svg>
-                            &nbsp;{{ csp.description }}
-                          </p>
-                        </div>
-                        <div
-                          class="btn-group"
-                          style="
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            min-height: 100%;
-                          "
-                        >
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-secondary"
-                            style="border-radius: 12px"
-                          >
-                            <div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="2rem"
-                                height="2rem"
-                                fill="currentColor"
-                                class="bi bi-chevron-compact-right"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"
-                                />
-                              </svg>
-                            </div>
-                            <span class="d-none d-sm-block">More Details</span>
-                          </button>
-                        </div>
-                      </span>
-                    </a>
-                  </div>
-                </span>
-              </div>
             </div>
           </div>
         </div>
         <div
           class="col-12 test"
           ref="map"
-          :class="showMap ? mapDisplay : test"
+          :class="showMap ? mapDisplay2 : test"
         ></div>
       </div>
     </div>
@@ -584,13 +454,14 @@
 </template>
 <script>
 // receive searched result from searchtest page
-import MOCK_DATA from "../../places.json";
 import axios from "axios";
+import { useRoute } from "vue-router";
+import { getDatabase, ref as dbRefe, get } from "firebase/database";
 export default {
   // props: ["search"]
   data() {
     return {
-      csps: MOCK_DATA,
+      csps: [],
       gridLayout: true,
       search: "",
       checked: false,
@@ -616,6 +487,7 @@ export default {
       gone: "d-none",
 
       mapDisplay: "container px-0 overflow-auto",
+      mapDisplay2: "container px-0",
       selectedRadius: 0,
       circle: null,
       cat: "",
@@ -734,19 +606,23 @@ export default {
           icon: pinIcon,
         });
         this.markers.push(marker);
-        new window.markerClusterer.MarkerClusterer({
-          map,
-          markers: this.markers,
-        });
         window.google.maps.event.addListener(marker, "click", () => {
           const place = this.places[i];
+          let int = this.processInterest(place.interest);
           infoWindow.setContent(
-            `<img src="${place.image}"><div class="ui header">${place.name}</div>
-                    ${place.interest} <br>
-                    ${place.csp_hours} Hours</a>
-                    
-                    
-                    `
+            `<div>
+              <img src="${place.cover_image}" class="w-100">
+              <div class="h3">${place.name}</div>
+                      ${int}
+                      <br>
+                      <div class="d-flex text-left"><span class="fw-bold">Estimated Hours: </span> ${
+                        place.csp_hours
+                      } Hours</div>
+                      <br>
+                      <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(
+                        place.location.address
+                      )}</div>
+                    </div>`
           );
           infoWindow.open(map, marker);
         });
@@ -796,6 +672,44 @@ export default {
         return this.calcCrow(lat, lng, this.lat, this.lng) + " km";
       }
     },
+    async getCsps() {
+      const db = getDatabase();
+      const cspRef = dbRefe(db, "/csp");
+      await get(cspRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            for (const key in snapshot.val()) {
+              var csp = snapshot.val()[key];
+              csp.id = key;
+              csp.location.lat = parseFloat(csp.location.lat);
+              csp.location.lng = parseFloat(csp.location.lng);
+              this.csps.push(csp);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    handleClickDetails(id) {
+      this.$router.push(`/csp/${id}`);
+    },
+    processInterest(interest) {
+      var result = `<div class="d-flex justify-content-center" style="height:25px;">`;
+      for (let key in interest) {
+        if (key <= 4) {
+          result += `
+        <span
+                              class="badge rounded-pill cspbadge mb-2"
+                              style="font-size: 10px"
+                              >${interest[key]}</span
+                            >   
+        `;
+        }
+      }
+      result += `</div>`;
+      return result;
+    },
   },
   computed: {
     filteredList() {
@@ -806,6 +720,13 @@ export default {
         );
       });
     },
+  },
+  created() {
+    const route = useRoute();
+    if (route.query.cat) {
+      this.cat = route.query.cat;
+    }
+    this.getCsps();
   },
   mounted() {
     const autocompleteaddress = new window.google.maps.places.Autocomplete(
