@@ -388,7 +388,6 @@ a {
 .home .card img, .home .card-body, .cc .card img, .cc .card-body{
     padding: 1.5vw;
     height: 200px;
-    width: auto;
     object-fit: cover;
     text-align: left;
 }
@@ -668,6 +667,7 @@ a {
     border-radius: 20px;
     transition: 0.5s;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .login-form-button:hover {
@@ -683,7 +683,7 @@ a {
 
 .signup-text {
     color: #333;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
 }
 
@@ -752,6 +752,7 @@ a {
     border-radius: 20px;
     transition: 0.5s;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .signup-form-button:hover {
@@ -788,7 +789,7 @@ a {
 
 .i-i{
     max-height: 250px;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 0px;
 }
 
@@ -1229,6 +1230,20 @@ input#flexSwitchCheckChecked {
     float: left;
 }
 
+.cspbadge{
+    background-color: whitesmoke;
+    color: dimgrey;
+}
+
+  .showonmap:hover{
+    color: #d9d9d9;
+  }
+
+  .showonmap:focus{
+    background-color: white !important;
+    color: #d9d9d9;
+  }
+
 @media (max-width: 767px){
     .mapres{
         height: 500px;
@@ -1239,6 +1254,76 @@ input#flexSwitchCheckChecked {
         font-size: 13px;
     }
 }
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    height: 26px;
+    width: 45px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .form-switch{
+    padding: 0px;
+    text-align: left;
+  }
 
 /* CSP VIEW */
 
@@ -1286,7 +1371,7 @@ ul {
     padding-bottom: 5px;
     padding-top: 5px;
     max-height: 220px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .csp-deets3 h4{
@@ -1356,8 +1441,16 @@ ul {
     transition: 1s;
 }
 
+.carousel-item{
+    justify-content: center;
+}
+
 .carou-appear{
     display: none;
+}
+.interviewbtn:focus{
+    color: black;
+    background-color: #fee48d;
 }
 
 @media (max-width: 767px){
@@ -1609,96 +1702,3 @@ input{
 .updatepw input{
     margin-bottom: 10px;
 }
-
-
-/* daryls updates */
-.interviewbtn:focus{
-    color: black;
-    background-color: #fee48d;
-}
-
-.cspbadge{
-    background-color: whitesmoke;
-    color: dimgrey;
-}
-
-/* The switch - the box around the slider */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-    height: 26px;
-    width: 45px;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(18px);
-    -ms-transform: translateX(18px);
-    transform: translateX(18px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-
-  .form-switch{
-    padding: 0px;
-    text-align: left;
-  }
-
-  .showonmap:hover{
-    color: #d9d9d9;
-  }
-
-  .showonmap:focus{
-    background-color: white !important;
-    color: #d9d9d9;
-  }
-
-    

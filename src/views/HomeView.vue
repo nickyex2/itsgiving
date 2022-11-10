@@ -339,6 +339,9 @@ export default {
         if (userAddInfo.value.projectLead) {
           total += Object.keys(userAddInfo.value.projectLead).length;
         }
+        if (total > 9999) {
+          return 9999;
+        }
         return total;
       } else {
         return 0;

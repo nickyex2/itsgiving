@@ -179,7 +179,7 @@
 
           <div class="row justify-content-between">
             <div
-              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets3 mb-4 mx-3"
+              class="col-lg-5 col-md-11 col-sm-5 col-11 csp-deets3 mb-4 mx-3"
             >
               <h4><b>Supported Causes:</b></h4>
               <ul>
@@ -195,7 +195,7 @@
             </div>
 
             <div
-              class="col-lg-5 col-md-12 col-sm-5 col-11 csp-deets4 mb-4 mx-3"
+              class="col-lg-5 col-md-11 col-sm-5 col-11 csp-deets4 mb-4 mx-3"
             >
               <h4><b>Contact Us:</b></h4>
               <p>
