@@ -622,8 +622,17 @@ export default {
                       <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(
                         place.location.address
                       )}</div>
+                      <br>
+                      <button id="viewdeetsinfowindow">More Details</button>
                     </div>`
           );
+          window.google.maps.event.addListener(infoWindow, "domready", () => {
+            document
+              .getElementById("viewdeetsinfowindow")
+              .addEventListener("click", () => {
+                console.log(this.handleClickDetails(place.id));
+              });
+          });
           infoWindow.open(map, marker);
         });
       }
