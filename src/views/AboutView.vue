@@ -52,20 +52,19 @@
           <img src="../assets/hand-up.png" alt="search" />
           <h4>Volunteer</h4>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque omnis
-            quasi saepe repudiandae ad, deserunt ipsum ipsa totam esse nihil
-            explicabo est quia labore accusantium amet ducimus quidem laborum
-            laudantium!
+            As a volunteer, you can search for CSPs that you are interested in
+            and apply for them. You can also create your own CSPs and recruit
+            volunteers for them. Embrace the spirit of giving back to the
+            community!
           </p>
         </div>
         <div class="col-sm-6">
           <img src="../assets/home.png" alt="search" />
           <h4>Beneficiaries</h4>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque omnis
-            quasi saepe repudiandae ad, deserunt ipsum ipsa totam esse nihil
-            explicabo est quia labore accusantium amet ducimus quidem laborum
-            laudantium!
+            Our Beneficiaries work hand in hand with the volunteers to ensure a
+            smooth and successful project. They also pass down their knowledge
+            and experience to the volunteers.
           </p>
         </div>
         <!-- <div class="col">
