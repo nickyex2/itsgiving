@@ -6,7 +6,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ csp.name }}</h5>
           <p class="card-text">
-            {{ csp.description }}
+            {{ description }}
           </p>
           <router-link :to="`/csp/${cspID}`" class="btn btn-primary"
             >Go to CSP</router-link
@@ -22,7 +22,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ csp.name }}</h5>
           <p class="card-text">
-            {{ csp.description }}
+            {{ description }}
           </p>
           <router-link :to="`/csp/${cspID}`" class="btn btn-primary"
             >Go to CSP</router-link
@@ -34,12 +34,17 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "CardCarouselItem-component",
   props: ["id", "csp"],
   setup(props) {
     const cspID = props.csp.link.slice(35);
-    return { cspID };
+    const description = ref(props.csp.description);
+    if (props.csp.description.length > 50) {
+      description.value = props.csp.description.slice(0, 50) + "...";
+    }
+    return { cspID, description };
   },
   mounted() {
     let items = document.querySelectorAll(".carousel-item");
