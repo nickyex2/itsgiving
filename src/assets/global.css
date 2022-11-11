@@ -1,5 +1,4 @@
 /* all css code goes in here for standardisation */
-
 /* HOME */
 
 body{
@@ -7,6 +6,9 @@ body{
     background-color: #FFF6D8;
 }
 
+video {
+    pointer-events: none;
+}
 
 #myVideo {
     right: 0;
@@ -204,6 +206,22 @@ button:hover{
     color: #2c3e50;
 }
 /* NAVBAR */
+.navgone{
+    display: block;
+}
+.navappear{
+    display: none;
+}
+
+@media (max-width: 720px) {
+    .navgone{
+        display: none !important;
+    }
+    .navappear{
+        display: block;
+    }
+}
+
 nav {
     padding: 30px;
   }
@@ -213,26 +231,14 @@ font-weight: bold;
 color: white;
 }
 
-.navbar-toggler{
-    border: none !important;
-    cursor: pointer;
-    text-align: center;
-}
-
-.navbar-toggler:hover{
-    background-color: transparent !important;
-    color: white;
-}
-
-.navbar-toggler-icon{
-    color: white;
-    height: 30px;
-    width: 30px;
-    transform: rotate(90deg);
-}
-
 .navbar-toggler:focus{
+    outline: none;
     box-shadow: none;
+}
+
+.offcanvas-header{
+    display: block;
+    text-align: right !important;
 }
 
 .navbar{
@@ -904,6 +910,17 @@ a {
     .profile-hours p{
         font-size: 12px;
     }
+    .text-start button{
+        font-size: 12px;
+    }
+
+    .pdetails{
+        font-size: 12px;
+    }
+    .approvalcsp .table{
+        display: block;
+    }
+
 }
 
 .i-i li{
@@ -1670,12 +1687,13 @@ input{
 }
 
 .tabled{
-    padding-top: 25px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
 }
 
 .approvalcsp button{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     font-size: 15px;
 }
 

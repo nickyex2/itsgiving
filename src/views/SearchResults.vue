@@ -126,6 +126,7 @@
                     href="#"
                     class="list-group-item list-group-item-action flex-column align-items-start mb-2 card zoom p-2 overflow-wrap"
                     style="height: 200%; width: 100%"
+                    @click="handleClickDetails(csp.id)"
                   >
                     <span
                       class="d-flex flex-column align-left h-100 position-relative img_align list-item"
@@ -218,7 +219,7 @@
                         </p>
                         <button
                           class="w-100 showonmap"
-                          @click="showInfoWindow(index)"
+                          @click.stop="showInfoWindow(index)"
                         >
                           Show On Map
                         </button>
@@ -583,7 +584,9 @@ export default {
         animation: window.google.maps.Animation.DROP,
         icon: boxicon,
       });
-      const infoWindow = new window.google.maps.InfoWindow();
+      const infoWindow = new window.google.maps.InfoWindow({
+        maxWidth: 350,
+      });
       console.log(this.places);
       for (let i = 0; i < this.places.length; i++) {
         const lat = this.places[i].location.lat;
@@ -622,8 +625,17 @@ export default {
                       <div class="d-flex text-left"><span class="fw-bold">Location: </span> ${this.shortenAddress(
                         place.location.address
                       )}</div>
+                      <br>
+                      <button id="viewdeetsinfowindow">More Details</button>
                     </div>`
           );
+          window.google.maps.event.addListener(infoWindow, "domready", () => {
+            document
+              .getElementById("viewdeetsinfowindow")
+              .addEventListener("click", () => {
+                console.log(this.handleClickDetails(place.id));
+              });
+          });
           infoWindow.open(map, marker);
         });
       }
@@ -683,7 +695,9 @@ export default {
               csp.id = key;
               csp.location.lat = parseFloat(csp.location.lat);
               csp.location.lng = parseFloat(csp.location.lng);
-              this.csps.push(csp);
+              if (new Date(csp.date_end).getTime() > new Date().getTime()) {
+                this.csps.push(csp);
+              }
             }
           }
         })

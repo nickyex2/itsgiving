@@ -21,7 +21,7 @@
             ITS GIVING
           </h1>
           <p class="mb-0" data-aos="fade-in" data-aos-duration="1500">
-            POVERTY
+            Back To The Community
           </p>
           <button
             data-aos="fade-in"
@@ -45,8 +45,8 @@
               <i><img src="../assets/discover.png" alt="#" /></i>
               <span>Search & Apply</span>
               <p>
-                ipsum dolor sit amet, consectetur adipiscing elit,<br />
-                sed d veniam, adipiscing elit, sed d veniam
+                Search and apply for listed CSPs that align with your interests
+                or that are near you
               </p>
             </router-link>
           </div>
@@ -58,8 +58,8 @@
               <i><img src="../assets/idea.png" alt="#" /></i>
               <span>Create CSP</span>
               <p>
-                ipsum dolor sit amet, consectetur adipiscing elit, <br />
-                sed d veniam, adipiscing elit, sed d veniam
+                Want to start a project of your own? List your own CSP with an
+                integrated interview scheduling for others to apply for
               </p>
             </router-link>
           </div>

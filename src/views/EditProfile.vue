@@ -251,6 +251,7 @@ export default {
     });
     const changeProfilePic = (event) => {
       editedUser.value.profilePicture = event.target.files[0];
+      currPhoto.value = URL.createObjectURL(event.target.files[0]);
     };
     const handleEdit = async () => {
       if (editedUser.value.password !== editedUser.value.confirmPassword) {

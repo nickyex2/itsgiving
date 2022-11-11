@@ -121,6 +121,7 @@
                   type="date"
                   class="form-control"
                   id="startDate"
+                  :min="today"
                   v-model="createCsp.date_start"
                 />
               </div>
@@ -130,6 +131,7 @@
                   type="date"
                   class="form-control"
                   id="endDate"
+                  :min="createCsp.date_start"
                   v-model="createCsp.date_end"
                 />
               </div>
@@ -148,6 +150,7 @@
                   type="date"
                   class="form-control"
                   id="startDate"
+                  :min="today"
                   v-model="interviews.startDate"
                 />
               </div>
@@ -157,6 +160,7 @@
                   type="date"
                   class="form-control"
                   id="endDate"
+                  :min="interviews.startDate"
                   v-model="interviews.endDate"
                 />
               </div>
@@ -301,6 +305,7 @@ export default {
       startTime: "",
       endTime: "",
     });
+    const today = ref(new Date().toJSON().slice(0, 10));
     const interest_tags = ref([]);
     const dbRef = dbRefe(db, "interest-tags/");
     onValue(dbRef, (snapshot) => {
@@ -317,17 +322,16 @@ export default {
     };
     const handleCreate = async () => {
       // gets today's date and store in date_created
-      const today = new Date().toJSON().slice(0, 10);
       if (
         new Date(createCsp.value.date_start).getTime() <=
-          new Date(today).getTime() ||
+          new Date(today.value).getTime() ||
         new Date(createCsp.value.date_end).getTime() <=
-          new Date(today).getTime()
+          new Date(today.value).getTime()
       ) {
         err.value = "Error: Start/End date cannot be before today's date";
         errBool.value = true;
       } else {
-        createCsp.value.date_created = today;
+        createCsp.value.date_created = today.value;
         // create link with cid and store in link
         const dbRef = dbRefe(db, "csp/");
         await get(dbRef).then((snapshot) => {
@@ -374,7 +378,7 @@ export default {
           const start_hr = parseInt(interviews.value.startTime.slice(0, 2));
           const end_hr = parseInt(interviews.value.endTime.slice(0, 2));
           const start_end_min = interviews.value.startTime.slice(3, 5);
-          for (let i = start_hr; i < end_hr; i++) {
+          for (let i = start_hr; i <= end_hr; i++) {
             if (i < 10) {
               timing.push(`0${i}${start_end_min}hrs`);
             } else {
@@ -478,6 +482,7 @@ export default {
       createCsp,
       err,
       errBool,
+      today,
       handleCreate,
       handleCoverImg,
       handlePhotos,

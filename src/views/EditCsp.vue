@@ -104,6 +104,7 @@
             <input
               type="date"
               class="form-control"
+              :min="editedCsp.date_created"
               v-model="editedCsp.date_start"
             />
           </div>
@@ -113,6 +114,7 @@
             <input
               type="date"
               class="form-control"
+              :min="editedCsp.date_start"
               v-model="editedCsp.date_end"
             />
           </div>
@@ -161,6 +163,7 @@
             <input
               type="date"
               class="form-control"
+              :min="interviewTimings.startDate"
               v-model="interviewTimings.endDate"
             />
           </div>
@@ -260,6 +263,7 @@ export default {
     });
     // TODO the logic for the button pressed
     const handleEditCsp = async () => {
+      // need to check if start date is before end date and valid (WIP)
       console.log(editedCsp.value);
       // update cover image if got changes (delete current cover image first)
       if (updatedImg.value.cover_image != null) {
@@ -294,9 +298,14 @@ export default {
         const start_hr = parseInt(interviewTimings.value.startTime.slice(0, 2));
         const end_hr = parseInt(interviewTimings.value.endTime.slice(0, 2));
         const start_end_min = interviewTimings.value.startTime.slice(3, 5);
-        for (let i = start_hr; i < end_hr; i++) {
-          timing.push(`${i}${start_end_min}hrs`);
+        for (let i = start_hr; i <= end_hr; i++) {
+          if (i < 10) {
+            timing.push(`0${i}${start_end_min}hrs`);
+          } else {
+            timing.push(`${i}${start_end_min}hrs`);
+          }
         }
+        console.log(timing);
         date_avail[date_start.toJSON().slice(0, 10)] = timing;
         date_start.setDate(date_start.getDate() + 1);
       }

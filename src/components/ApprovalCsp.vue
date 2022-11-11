@@ -1,5 +1,7 @@
 <template>
-  <div class="d-flex justify-content-center approvalcsp container col-8 mb-5">
+  <div
+    class="d-flex justify-content-center approvalcsp container col-sm-12 col-11 mb-5"
+  >
     <table class="table table-responsive-md" v-if="applicants != null">
       <thead>
         <tr>
