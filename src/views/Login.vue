@@ -1,12 +1,5 @@
 <template>
-  <video
-    autoplay
-    muted
-    loop
-    controlslist="nofullscreen nodownload noremoteplayback noplaybackrate"
-    id="loginvid"
-    style="position: fixed"
-  >
+  <video autoplay muted loop id="loginvid" style="position: fixed">
     <source src="../assets/login.mp4" type="video/mp4" />
   </video>
   <div
