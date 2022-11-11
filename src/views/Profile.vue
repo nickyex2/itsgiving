@@ -1,6 +1,6 @@
 <template>
   <section class="py-4">
-    <div class="profile-container container">
+    <div class="profile-container container" v-if="user">
       <div class="row">
         <div class="col-lg-5 col-12">
           <img
@@ -299,6 +299,9 @@ export default {
     const user = computed(() => store.getters.user);
     const userAddInfo = computed(() => store.getters.userAddInfo);
     const interestImg = ref({});
+    if (!user.value) {
+      router.push("/login");
+    }
     const userVerifiedBool = computed(() => {
       if (user.value.emailVerified) {
         return true;
