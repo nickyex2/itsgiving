@@ -201,7 +201,7 @@
           <div class="page">
             <div class="title">Profile Pic:</div>
             <div class="field">
-              <div class="label">Upload Primary Image:</div>
+              <div class="label">Upload Cover Image:</div>
               <input
                 type="file"
                 class="form-control"
@@ -210,7 +210,7 @@
               />
             </div>
             <div class="field">
-              <div class="label">Upload Secondary Image:</div>
+              <div class="label">Upload Photos:</div>
               <input
                 type="file"
                 class="form-control"

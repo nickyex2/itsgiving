@@ -96,7 +96,7 @@
           ></button>
         </div>
         <div class="offcanvas-body pt-0">
-          <div v-if="!user" class="navgone">
+          <div v-if="!user" class="d-flex justify-content-end mt-1">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <router-link class="nav-link" :to="'/login'">Login</router-link>
