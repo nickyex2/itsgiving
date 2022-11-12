@@ -25,6 +25,6 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### User account details for testing purposes (or you can create an account to run all the other functionalities)
+### User account details for testing purposes (or you can create an account with an actual email to run all the other functionalities)
 email: nicky@gmail.com
 pass: test12345
