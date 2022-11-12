@@ -155,7 +155,7 @@
                   :key="interest"
                 >
                   <img :src="interestImg[interest]" alt="" />
-                  <p class="mb-0">{{ interest }}</p>
+                  <p class="mb-0 i-i-name">{{ interest }}</p>
                 </li>
               </ul>
             </div>

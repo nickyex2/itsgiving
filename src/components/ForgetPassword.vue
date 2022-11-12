@@ -10,7 +10,7 @@
     </div>
     <div class="row justify-content-center login-box">
       <form action="#">
-        <div class="row login-form-group">
+        <div class="row login-form-group mx-2">
           <input
             type="email"
             class="login-form-input"
@@ -24,7 +24,7 @@
         <div class="row" v-if="message != ''">
           <p :style="msgStyle">{{ message }}</p>
         </div>
-        <div class="row login-form-group mx-auto justify-content-between">
+        <div class="row login-form-group mx-2 justify-content-between">
           <button
             type="submit"
             class="col-5 login-form-button btn btn-primary px-4"

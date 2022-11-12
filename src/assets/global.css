@@ -885,7 +885,20 @@ a {
 .profilecsplink:hover {
     color: blue;
 }
+.i-i-name{
+    text-align: start !important;
+}
 /* change img size when screen small */
+@media screen and (max-width: 991px) {
+    .i-i img{
+        width: 60px;
+    }
+    .i-i-name{
+        font-size: 10px !important;
+        text-align: start !important;
+    }
+}
+
 @media (max-width: 767px) {
     .i-i img{
         width: 50px;
