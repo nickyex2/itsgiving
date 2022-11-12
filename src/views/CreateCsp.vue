@@ -405,7 +405,6 @@ export default {
               data.value.projectLead = [cid.value];
             }
             data.value.hours += parseInt(createCsp.value.csp_hours);
-            console.log(data.value);
             update(userRef, data.value);
           }
         });

@@ -424,11 +424,9 @@ export default {
         return false;
       }
     });
-    console.log(calendarButtonToggle.value);
     // applying for csp button
     const handleApply = async () => {
       const dateTimeSplit = appliedDateTime.value.split(" ");
-      console.log(dateTimeSplit);
       if (user.value == null) {
         // router.push("/login");
         alert("Please login to apply for this CSP");
@@ -455,7 +453,6 @@ export default {
         );
         var applicantsData = null;
         onValue(applicantsRef, (snapshot) => {
-          console.log(snapshot.val());
           if (snapshot.val() != null) {
             applicantsData = snapshot.val();
           }
@@ -594,7 +591,6 @@ export default {
             }
           }
         }
-        console.log(relatedCSP.value);
         // get 6 random csps from related csps
         for (let i = 0; i < 6; i++) {
           if (relatedCSP.value.length > 0) {
@@ -605,7 +601,6 @@ export default {
             relatedCSP.value.splice(randomIndex, 1);
           }
         }
-        console.log(randomRelatedCSP.value);
       });
     });
     return {

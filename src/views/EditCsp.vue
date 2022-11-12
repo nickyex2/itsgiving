@@ -249,11 +249,9 @@ export default {
     });
     const handleCoverImg = (e) => {
       updatedImg.value.cover_image = e.target.files[0];
-      console.log(updatedImg.value.cover_image);
     };
     const handlePhotos = (e) => {
       updatedImg.value.photos = e.target.files;
-      console.log(updatedImg.value.photos);
     };
     const interviewTimings = ref({
       startTime: "",
@@ -264,7 +262,6 @@ export default {
     // TODO the logic for the button pressed
     const handleEditCsp = async () => {
       // need to check if start date is before end date and valid (WIP)
-      console.log(editedCsp.value);
       // update cover image if got changes (delete current cover image first)
       if (updatedImg.value.cover_image != null) {
         const curr_cover_url = editedCsp.value.cover_image;
@@ -305,14 +302,13 @@ export default {
             timing.push(`${i}${start_end_min}hrs`);
           }
         }
-        console.log(timing);
         date_avail[date_start.toJSON().slice(0, 10)] = timing;
         date_start.setDate(date_start.getDate() + 1);
       }
       // store editedCSP into db (update)
       const cspRef = dbRefe(db, `csp/${route.params.id}`);
       await update(cspRef, editedCsp.value);
-      console.log("updated csp", editedCsp.value);
+      console.log("updated csp");
       // store availability into db (update)
       const availRef = dbRefe(
         db,

@@ -545,7 +545,7 @@ export default {
           } else {
             this.autocompleteaddress =
               response.data.results[0].formatted_address;
-            console.log(this.autocompleteaddress);
+            // console.log(this.autocompleteaddress);
           }
         })
         .catch((error) => {
@@ -587,7 +587,7 @@ export default {
       const infoWindow = new window.google.maps.InfoWindow({
         maxWidth: 350,
       });
-      console.log(this.places);
+      // console.log(this.places);
       for (let i = 0; i < this.places.length; i++) {
         const lat = this.places[i].location.lat;
         const lng = this.places[i].location.lng;
