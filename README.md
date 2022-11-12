@@ -29,7 +29,7 @@ npm run build && cp public/redirect.txt dist/_redirects
 npm run lint
 ```
 
-## User account details for testing purposes 
-### (or you can create an account with an actual email to run all the other functionalities)
+## User account details (Dummy account) for testing purposes 
+### or you can create an account with an actual email to run the verify and forget password
 email: nicky@gmail.com <br>
 pass: test12345
