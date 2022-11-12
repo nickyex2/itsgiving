@@ -19,11 +19,7 @@ npm run build
 ```
 npm run lint
 ```
-### Creating .env file for local development
-```
-get your api key for google maps and create a .env file in the root directory of the project
 
-```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
