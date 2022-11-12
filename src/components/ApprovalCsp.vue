@@ -57,7 +57,6 @@ export default {
     const db = getDatabase();
     const applicants = ref({}); //need to merge the nested objects into one big object
     const approve = async (id, status, datetime) => {
-      console.log("approve", id, status);
       const userRef = dbRefe(db, `users/${id}`);
       const data = ref({});
       const pending_csp = ref([]);
@@ -86,8 +85,6 @@ export default {
       csp[props.cspID] = props.cspHours;
       // add cspid to approved_csp
       approved_csp.value.push(csp);
-      console.log("pending_csp", pending_csp.value);
-      console.log("approved_csp", approved_csp.value);
       // update the user's data
       console.log("updating user's data");
       await update(userRef, {
@@ -108,7 +105,6 @@ export default {
       // change the applicant status to approved from the availability data
     };
     const reject = async (id, status, datetime) => {
-      console.log("reject", id, status);
       const userRef = dbRefe(db, `users/${id}`);
       const data = ref({});
       const pending_csp = ref([]);
@@ -133,8 +129,6 @@ export default {
       }
       // add cspid to rejected_csp
       rejected_csp.value.push(props.cspID);
-      console.log("pending_csp", pending_csp.value);
-      console.log("rejected_csp", rejected_csp.value);
       // update the user's data
       console.log("updating user's data");
       await update(userRef, {
@@ -168,7 +162,6 @@ export default {
               }
             }
           }
-          console.log(applicants.value);
         } else {
           applicants.value = null;
         }

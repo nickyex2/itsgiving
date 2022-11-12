@@ -103,7 +103,7 @@ button:hover{
     font-weight: bold;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     .home-2 span{
         font-size: 20px;
     }
@@ -387,13 +387,18 @@ a {
     padding-bottom: 3vw;
 }
 
-.card img, .card-body{
+.card-body{
     padding: 1.5vw;
+}
+.card img{
+    padding-top: 1.5vw;
+    padding-right: 1.5vw;
+    padding-left: 1.5vw;
+
 }
 
 .home .card img, .home .card-body, .cc .card img, .cc .card-body{
-    padding: 1.5vw;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     text-align: left;
 }
@@ -1507,7 +1512,7 @@ ul {
 /* DONT TOUCH  */
 /* CAROUSEL FOR HOMEPAGE */
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .home .carousel-inner .carousel-item > div {
         display: none;
     }
@@ -1523,7 +1528,7 @@ ul {
 }
 
 /* medium and up screens */
-@media (min-width: 768px) {
+@media (min-width: 991px) {
 
     .home .carousel-inner .carousel-item-end.active,
     .home .carousel-inner .carousel-item-next {
@@ -1544,7 +1549,7 @@ ul {
 
 /* CAROUSEL FOR CSPVIEW */
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
      .unique-inner .unique > div {
         display: none;
     }
@@ -1560,7 +1565,7 @@ ul {
 }
 
 /* medium and up screens */
-@media (min-width: 768px) {
+@media (min-width: 991px) {
 
      .unique-inner .carousel-item-end.active,
      .unique-inner .carousel-item-next {

@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-item active" v-if="id == 0">
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <div class="card">
         <img :src="csp.cover_image" class="card-img-top" alt="..." />
         <div class="card-body">
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="carousel-item" v-else>
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <div class="card">
         <img :src="csp.cover_image" class="card-img-top" alt="..." />
         <div class="card-body">
