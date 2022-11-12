@@ -1,6 +1,11 @@
 <template>
   <section class="py-4">
-    <div class="profile-container container" v-if="user">
+    <div
+      class="profile-container container"
+      v-if="user"
+      data-aos="fade-in"
+      data-aos-duration="1500"
+    >
       <div class="row">
         <div class="col-lg-5 col-12">
           <img

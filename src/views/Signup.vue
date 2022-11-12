@@ -5,6 +5,8 @@
   <div
     class="container col-md-6 col-lg-4 col-xl-3"
     style="overflow: hidden; position: relative; margin-top: 200px"
+    data-aos="fade-in"
+    data-aos-duration="1500"
   >
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">

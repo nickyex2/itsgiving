@@ -1,6 +1,8 @@
 <template>
   <div
     class="d-flex justify-content-center approvalcsp container col-sm-12 col-11 mb-5"
+    data-aos="fade-in"
+    data-aos-duration="1500"
   >
     <table class="table table-responsive-md" v-if="applicants != null">
       <thead>

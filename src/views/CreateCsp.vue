@@ -3,7 +3,11 @@
     <source src="../assets/login.mp4" type="video/mp4" />
   </video>
 
-  <div class="container-fluid d-flex justify-content-center createcsp">
+  <div
+    class="container-fluid d-flex justify-content-center createcsp"
+    data-aos="fade-in"
+    data-aos-duration="1500"
+  >
     <div class="container-prof">
       <header>Create CSP</header>
       <div class="progress-bar">

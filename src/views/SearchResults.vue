@@ -1,6 +1,6 @@
 <template>
   <div class="container search-container">
-    <div class="row overall">
+    <div class="row overall" data-aos="fade-in" data-aos-duration="1500">
       <div
         :class="
           showMap
@@ -8,7 +8,7 @@
             : 'container-fluid col-md-3 filter-nav py-2'
         "
       >
-        <div class="row">
+        <div class="row" data-aos="fade-in" data-aos-duration="1500">
           <div
             class="col-12 searchbar d-flex justify-content-left"
             :style="showMap ? 'width: 50%' : ''"
@@ -329,31 +329,38 @@
                   v-for="(csp, index) in filteredList"
                   :class="{ active: activeIndex === index }"
                   :key="csp.id"
+                  data-aos="fade-in"
+                  data-aos-duration="1500"
                 >
                   <div class="col" style="height: 100%">
                     <div
                       class="card-csp"
-                      style="border-radius: 12px; height: 100%"
+                      style="
+                        border-radius: 12px;
+                        height: 100%;
+                        background-color: white;
+                      "
                       @click="handleClickDetails(csp.id)"
                     >
                       <div class="img_align">
                         <img
-                          class="w-100 p-0"
+                          class="w-100 ps-2 pe-2 pt-2"
                           height="225"
                           :src="csp.cover_image"
                           style="
                             border-top-left-radius: 12px;
                             border-top-right-radius: 12px;
+                            object-fit: cover;
                           "
                         />
-                        <div class="text_align d-flex">
-                          <span class="badge bg-light text-dark"
+                        <div class="text_align d-flex ps-1">
+                          <span class="badge text-dark"
                             >Posted {{ monthsDiff(csp.date_created) }} Months
                             Ago</span
                           >
                         </div>
                       </div>
-                      <div class="card-body px-3">
+                      <div class="card-body px-3 py-2">
                         <h3 style="text-align: left">{{ csp.name }}</h3>
                         <div
                           v-if="autocompleteaddress != ''"
@@ -377,55 +384,70 @@
                           </span>
                         </div>
                         <br />
-                        <p style="text-align: left" class="mt-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-clock-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
-                            /></svg
-                          >&nbsp;&nbsp;Estimated: {{ csp.csp_hours }} Hours
-                        </p>
-                        <p style="text-align: left">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-pin-map-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"
-                            />
-                            <path
-                              fill-rule="evenodd"
-                              d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
-                            /></svg
-                          >&nbsp; {{ shortenAddress(csp.location.address) }}
-                        </p>
-                        <p style="text-align: left" class="card-text">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-file-earmark-text-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
-                            />
-                          </svg>
-                          &nbsp;{{ shortenAddress(csp.description) }}
-                        </p>
-                        <div class="d-flex justify-content-center">
+                        <div style="text-align: left" class="mt-2 row">
+                          <div class="col-1">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="bi bi-clock-fill"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
+                              />
+                            </svg>
+                          </div>
+                          <div class="col-10">
+                            <p>Estimated: {{ csp.csp_hours }} Hours</p>
+                          </div>
+                        </div>
+                        <div style="text-align: left" class="mt-2 row">
+                          <div class="col-1">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="bi bi-pin-map-fill"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"
+                              />
+                              <path
+                                fill-rule="evenodd"
+                                d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
+                              />
+                            </svg>
+                          </div>
+                          <div class="col-10">
+                            <p>{{ shortenAddress(csp.location.address) }}</p>
+                          </div>
+                        </div>
+                        <div style="text-align: left" class="mt-2 row">
+                          <div class="col-1">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="bi bi-file-earmark-text-fill"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
+                              />
+                            </svg>
+                          </div>
+                          <div class="col-10">
+                            <p>{{ shortenAddress(csp.description) }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="d-flex justify-content-center">
                           <div class="btn-group">
                             <button
                               type="button"
@@ -435,8 +457,7 @@
                               More Details
                             </button>
                           </div>
-                        </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -497,7 +518,11 @@ export default {
   },
   methods: {
     shortenAddress(address) {
-      return address.substring(0, 30) + "...";
+      if (address.length > 200) {
+        return address.substring(0, 200) + "...";
+      } else {
+        return address;
+      }
     },
     toggleMap() {
       if (this.checked) {

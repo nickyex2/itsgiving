@@ -1,7 +1,11 @@
 <template>
   <div class="container-fluid mt-5 justify-content-center">
     <div class="cspContent container py-3">
-      <div class="row justify-content-center my-5">
+      <div
+        class="row justify-content-center my-5"
+        data-aos="fade-in"
+        data-aos-duration="1500"
+      >
         <div class="col-md-7 col-12 order-md-first order-last">
           <!-- dummy carousel -->
           <div
@@ -255,7 +259,12 @@
     </div>
   </div>
   <!-- card carousel -->
-  <div class="cc container text-center" v-if="!editAccess">
+  <div
+    class="cc container text-center"
+    v-if="!editAccess"
+    data-aos="fade-in"
+    data-aos-duration="1500"
+  >
     <h1 class="explore-title">Related CSPs</h1>
     <div class="row mx-auto my-auto justify-content-center">
       <div

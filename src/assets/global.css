@@ -139,12 +139,13 @@ button:hover{
 }
 
 #counters h1{
-    font-size: 80px;
+    font-size: 45px;
     font-weight: bolder;
     margin-top: 1vw;
+    margin-bottom: 65px;
 }
 
-.counter-ani{
+.counter-ani, .counter-ani-slow{
     font-size: 80px;
     font-weight: bolder;
     margin-top: 1vw;
@@ -411,7 +412,11 @@ a {
 
 .card-body p{
     font-size: small;
+    margin-bottom: 10px;
+    margin-top: 4px;
 }
+
+
 .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
     height: 300px
 }
@@ -825,8 +830,9 @@ a {
 }
 
 .i-i img{
-    width:80px;
+    width: 60px;
     height: 100%;
+    padding: 10px;
 }
 
 .new-profile-card{
@@ -1195,6 +1201,7 @@ a {
     box-shadow: 0 0 20px rgba(33,33,33,.2); 
     background-color: white;
     transform: scale(1.02);
+    cursor: pointer;
 }
 
 .filter-nav{
@@ -1273,8 +1280,8 @@ input#flexSwitchCheckChecked {
 }
 
 .cspbadge{
-    background-color: whitesmoke;
-    color: dimgrey;
+    background-color: darkgrey;
+    color: white;
 }
 
   .showonmap:hover{
@@ -1756,4 +1763,40 @@ input{
     width: 5%;
     left: -3%;
     color: black;
+}
+
+.atcb-button{
+    box-shadow: 0 0 0 0 !important;
+    border: 0 !important;
+    background-color: whitesmoke !important;
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+.atcb-button:hover{
+    box-shadow: 0 0 0 0 !important;
+    border: 0 !important;
+    background-color: #FFE48C !important;
+    color: black !important;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+.atcb-icon svg{
+    margin-bottom: 5px;
 }

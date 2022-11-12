@@ -200,7 +200,7 @@ export default {
           const increment = target / 200;
           if (count < target) {
             counter.innerText = `${Math.ceil(count + increment)}`;
-            setTimeout(updateCounter, 10);
+            setTimeout(updateCounter, 90);
           } else counter.innerText = target;
         };
         updateCounter();

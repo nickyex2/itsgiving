@@ -1,5 +1,5 @@
 <template>
-  <div class="atcb">
+  <div class="atcb" data-aos="fade-in" data-aos-duration="1500">
     {{
       JSON.stringify({
         name: `${cspTitle} interview`,

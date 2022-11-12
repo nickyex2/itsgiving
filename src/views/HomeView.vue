@@ -76,13 +76,14 @@
       data-aos-duration="1500"
       v-if="user"
     >
+      <h1>You have completed...</h1>
       <div class="row">
         <div class="counter col-12 col-sm-6" id="csp">
           <img src="../assets/help.png" alt="csp" />
           <div class="counter-container">
-            <div class="counter-ani" :data-target="totalCsps"></div>
+            <div class="counter-ani-slow" :data-target="totalCsps"></div>
           </div>
-          <p>Community Service Projects</p>
+          <p>Projects</p>
         </div>
 
         <div class="counter col-12 col-sm-6" id="vol">
@@ -374,7 +375,21 @@ export default {
           const increment = target / 200;
           if (count < target) {
             counter.innerText = `${Math.ceil(count + increment)}`;
-            setTimeout(updateCounter, 50);
+            setTimeout(updateCounter, 70);
+          } else counter.innerText = target;
+        };
+        updateCounter();
+      });
+      const counters1 = document.querySelectorAll(".counter-ani-slow");
+      counters1.forEach((counter) => {
+        counter.innerText = "0";
+        const updateCounter = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const increment = target / 200;
+          if (count < target) {
+            counter.innerText = `${Math.ceil(count + increment)}`;
+            setTimeout(updateCounter, 700);
           } else counter.innerText = target;
         };
         updateCounter();

@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-basic">
+  <div class="footer-basic" data-aos="fade-in" data-aos-duration="1500">
     <footer>
       <div class="social">
         <a href="#"><i class="icon ion-social-instagram"></i></a
