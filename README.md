@@ -1,4 +1,6 @@
 # itsgiving
+## Netlify App Link
+You can view our hosted application [here](https://its-giving.netlify.app)
 
 ## Project setup
 Make sure to have nodejs installed on your computer [Node.js](https://nodejs.org/en/download/) <br><br>
