@@ -330,10 +330,10 @@
                   :class="{ active: activeIndex === index }"
                   :key="csp.id"
                 >
-                  <div class="col">
+                  <div class="col" style="height: 100%">
                     <div
                       class="card-csp"
-                      style="border-radius: 12px"
+                      style="border-radius: 12px; height: 100%"
                       @click="handleClickDetails(csp.id)"
                     >
                       <div class="img_align">
