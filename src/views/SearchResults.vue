@@ -164,6 +164,10 @@
                             >
                           </span>
                         </div>
+                        <span class="badge text-muted w-100 text-start"
+                            >Posted {{ daysDiff(csp.date_created) }} Days
+                            Ago</span
+                          >
                         <br />
                         <p style="text-align: left" class="mt-2 csp-deets">
                           <svg
