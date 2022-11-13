@@ -387,7 +387,9 @@ a {
     padding-top: 8vw;
     padding-bottom: 3vw;
 }
-
+.card-title {
+    font-weight: bolder;
+}
 .card-body{
     padding: 1.5vw;
 }
@@ -1412,6 +1414,12 @@ ul {
 
 .csp-deets p{
     margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.csp-deets h2{
+    font-weight: bolder;
+    font-size: 35px;
 }
 
 .csp-deets3, .csp-deets4{
@@ -1476,6 +1484,14 @@ ul {
     background-color: #FFE48C;
     border-radius: 10px;
     width: fit-content;
+}
+
+.applybtn{
+    background-color: blue;
+}
+
+.applybtn:hover {
+    color: black;
 }
 
 .csp-view-carousel{

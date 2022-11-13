@@ -80,7 +80,11 @@
             </div>
 
             <div class="d-flex justify-content-center mt-2">
-              <button v-show="applyButtonToggle" @click="handleApply">
+              <button
+                class="applybtn"
+                v-show="applyButtonToggle"
+                @click="handleApply"
+              >
                 Apply Now
               </button>
               <span class="fw-bold ps-2 my-auto" id="apply-text">
@@ -173,7 +177,7 @@
                 />
               </svg>
             </span>
-            <h5>by {{ csp.owner }}</h5>
+            <h5 class="text-muted">by {{ csp.owner }}</h5>
             <p>{{ csp.description }}</p>
           </div>
 

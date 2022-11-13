@@ -140,7 +140,9 @@
                           height: 100%;
                         "
                       >
-                        <h3 style="text-align: left">{{ csp.name }}</h3>
+                        <h3 style="text-align: left; font-weight: bolder">
+                          {{ csp.name }}
+                        </h3>
                         <div
                           v-if="autocompleteaddress != ''"
                           style="text-align: left"
@@ -361,7 +363,9 @@
                         </div>
                       </div>
                       <div class="card-body px-3 py-2">
-                        <h3 style="text-align: left">{{ csp.name }}</h3>
+                        <h3 style="text-align: left; font-weight: bolder">
+                          {{ csp.name }}
+                        </h3>
                         <div
                           v-if="autocompleteaddress != ''"
                           style="text-align: left"
