@@ -355,7 +355,7 @@
                         />
                         <div class="text_align d-flex ps-1">
                           <span class="badge text-dark"
-                            >Posted {{ dayssDiff(csp.date_created) }} Days
+                            >Posted {{ daysDiff(csp.date_created) }} Days
                             Ago</span
                           >
                         </div>
