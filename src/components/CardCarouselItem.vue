@@ -41,8 +41,8 @@ export default {
   setup(props) {
     const cspID = props.csp.link.slice(35);
     const description = ref(props.csp.description);
-    if (props.csp.description.length > 50) {
-      description.value = props.csp.description.slice(0, 50) + "...";
+    if (props.csp.description.length > 100) {
+      description.value = props.csp.description.slice(0, 100) + "...";
     }
     return { cspID, description };
   },
