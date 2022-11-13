@@ -355,7 +355,7 @@
                         />
                         <div class="text_align d-flex ps-1">
                           <span class="badge text-dark"
-                            >Posted {{ monthsDiff(csp.date_created) }} Months
+                            >Posted {{ dayssDiff(csp.date_created) }} Days
                             Ago</span
                           >
                         </div>
@@ -673,14 +673,12 @@ export default {
         lng: this.places[index].location.lng,
       });
     },
-    monthsDiff(date1) {
+    daysDiff(date1) {
       var d1 = new Date(date1);
       var d2 = new Date();
-      var months;
-      months = (d2.getFullYear() - d1.getFullYear()) * 12;
-      months -= d1.getMonth() + 1;
-      months += d2.getMonth();
-      return months <= 0 ? 0 : months;
+      let diff = Math.abs(d1.getTime() - d2.getTime());
+      let days = Math.floor(diff / (1000 * 3600 * 24));
+      return days;
     },
     toRad(Value) {
       return (Value * Math.PI) / 180;
