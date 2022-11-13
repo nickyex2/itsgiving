@@ -110,7 +110,7 @@ button:hover{
     .home-2 p{
         font-size: 15px;
     }
-    .counter .counter-ani{
+    .counter .counter-ani, .counter .counter-ani-slow{
         font-size: 40px;
     }
     .counter p{
