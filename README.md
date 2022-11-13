@@ -16,12 +16,14 @@ Make sure that you are in the root directory of the folder so that the dependenc
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development 
+#### use this command to preview it locally
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+#### this command is used for netlify hosting (need not do this if want to host locally)
 ```
 npm run build && cp public/redirect.txt dist/_redirects
 ```
