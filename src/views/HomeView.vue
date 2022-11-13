@@ -58,8 +58,8 @@
               <i><img src="../assets/idea.png" alt="#" /></i>
               <span>Create CSP</span>
               <p>
-                Want to start a project of your own? List your own CSP with an
-                integrated interview scheduling for others to apply for
+                List your own CSP with an integrated interview scheduling for
+                others to apply for
               </p>
             </router-link>
           </div>
