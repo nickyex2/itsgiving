@@ -506,7 +506,7 @@ export default {
       showImage: "w-25 p-0 img-fluid",
       lat: 1.296568,
       lng: 103.852119,
-      apiKey: "AIzaSyCeGr_zEGN2OeAL37s_UbfKVJUya3PExiY",
+      apiKey: "AIzaSyB46kyfMmDJBwzwp5MJgFuZd6kI58iosu4",
       displayMap: "col-6 py-2",
       places: [],
       markers: [],
