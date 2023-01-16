@@ -103,14 +103,14 @@ button:hover{
     font-weight: bold;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     .home-2 span{
         font-size: 20px;
     }
     .home-2 p{
         font-size: 15px;
     }
-    .counter .counter-ani{
+    .counter .counter-ani, .counter .counter-ani-slow{
         font-size: 40px;
     }
     .counter p{
@@ -139,12 +139,13 @@ button:hover{
 }
 
 #counters h1{
-    font-size: 80px;
+    font-size: 45px;
     font-weight: bolder;
     margin-top: 1vw;
+    margin-bottom: 65px;
 }
 
-.counter-ani{
+.counter-ani, .counter-ani-slow{
     font-size: 80px;
     font-weight: bolder;
     margin-top: 1vw;
@@ -386,14 +387,21 @@ a {
     padding-top: 8vw;
     padding-bottom: 3vw;
 }
-
-.card img, .card-body{
+.card-title {
+    font-weight: bolder;
+}
+.card-body{
     padding: 1.5vw;
+}
+.card img{
+    padding-top: 1.5vw;
+    padding-right: 1.5vw;
+    padding-left: 1.5vw;
+
 }
 
 .home .card img, .home .card-body, .cc .card img, .cc .card-body{
-    padding: 1.5vw;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     text-align: left;
 }
@@ -406,7 +414,11 @@ a {
 
 .card-body p{
     font-size: small;
+    margin-bottom: 10px;
+    margin-top: 4px;
 }
+
+
 .cspContent .carousel-inner, .cspContent .carousel-control-prev, .cspContent .carousel-control-next{
     height: 300px
 }
@@ -820,8 +832,9 @@ a {
 }
 
 .i-i img{
-    width:80px;
+    width: 60px;
     height: 100%;
+    padding: 10px;
 }
 
 .new-profile-card{
@@ -885,7 +898,20 @@ a {
 .profilecsplink:hover {
     color: blue;
 }
+.i-i-name{
+    text-align: start !important;
+}
 /* change img size when screen small */
+@media screen and (max-width: 991px) {
+    .i-i img{
+        width: 60px;
+    }
+    .i-i-name{
+        font-size: 10px !important;
+        text-align: start !important;
+    }
+}
+
 @media (max-width: 767px) {
     .i-i img{
         width: 50px;
@@ -1177,6 +1203,7 @@ a {
     box-shadow: 0 0 20px rgba(33,33,33,.2); 
     background-color: white;
     transform: scale(1.02);
+    cursor: pointer;
 }
 
 .filter-nav{
@@ -1255,8 +1282,8 @@ input#flexSwitchCheckChecked {
 }
 
 .cspbadge{
-    background-color: whitesmoke;
-    color: dimgrey;
+    background-color: darkgrey;
+    color: white;
 }
 
   .showonmap:hover{
@@ -1387,6 +1414,12 @@ ul {
 
 .csp-deets p{
     margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.csp-deets h2{
+    font-weight: bolder;
+    font-size: 35px;
 }
 
 .csp-deets3, .csp-deets4{
@@ -1453,6 +1486,14 @@ ul {
     width: fit-content;
 }
 
+.applybtn{
+    background-color: blue;
+}
+
+.applybtn:hover {
+    color: black;
+}
+
 .csp-view-carousel{
     width: 90%;
 }
@@ -1494,7 +1535,7 @@ ul {
 /* DONT TOUCH  */
 /* CAROUSEL FOR HOMEPAGE */
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .home .carousel-inner .carousel-item > div {
         display: none;
     }
@@ -1510,7 +1551,7 @@ ul {
 }
 
 /* medium and up screens */
-@media (min-width: 768px) {
+@media (min-width: 991px) {
 
     .home .carousel-inner .carousel-item-end.active,
     .home .carousel-inner .carousel-item-next {
@@ -1531,7 +1572,7 @@ ul {
 
 /* CAROUSEL FOR CSPVIEW */
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
      .unique-inner .unique > div {
         display: none;
     }
@@ -1547,7 +1588,7 @@ ul {
 }
 
 /* medium and up screens */
-@media (min-width: 768px) {
+@media (min-width: 991px) {
 
      .unique-inner .carousel-item-end.active,
      .unique-inner .carousel-item-next {
@@ -1738,4 +1779,40 @@ input{
     width: 5%;
     left: -3%;
     color: black;
+}
+
+.atcb-button{
+    box-shadow: 0 0 0 0 !important;
+    border: 0 !important;
+    background-color: whitesmoke !important;
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+.atcb-button:hover{
+    box-shadow: 0 0 0 0 !important;
+    border: 0 !important;
+    background-color: #FFE48C !important;
+    color: black !important;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+.atcb-icon svg{
+    margin-bottom: 5px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="atcb">
+  <div class="atcb" data-aos="fade-in" data-aos-duration="1500">
     {{
       JSON.stringify({
         name: `${cspTitle} interview`,
@@ -26,7 +26,6 @@ export default {
     const date = date_time_arr[0];
     const time = ref(date_time_arr[1].slice(0, 5));
     const starting = time.value.slice(0, 2) + ":" + time.value.slice(2, 4);
-    console.log(starting);
     const endinghrs = parseInt(time.value.slice(0, 2)) + 1;
     const endinghrsString = ref("");
     if (endinghrs < 10) {
@@ -35,7 +34,6 @@ export default {
       endinghrsString.value = endinghrs;
     }
     const ending = endinghrsString.value + ":" + time.value.slice(2, 4);
-    console.log(ending);
     onMounted(() => {
       atcb_init();
     });

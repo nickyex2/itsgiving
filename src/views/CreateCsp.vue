@@ -3,7 +3,12 @@
     <source src="../assets/login.mp4" type="video/mp4" />
   </video>
 
-  <div class="container-fluid d-flex justify-content-center createcsp">
+  <div
+    class="container-fluid d-flex justify-content-center createcsp"
+    data-aos="fade-in"
+    data-aos-duration="1500"
+    style="margin-top: 40px"
+  >
     <div class="container-prof">
       <header>Create CSP</header>
       <div class="progress-bar">
@@ -405,7 +410,6 @@ export default {
               data.value.projectLead = [cid.value];
             }
             data.value.hours += parseInt(createCsp.value.csp_hours);
-            console.log(data.value);
             update(userRef, data.value);
           }
         });

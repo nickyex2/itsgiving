@@ -1,7 +1,14 @@
 <template>
   <div
     class="container col-md-6 col-lg-4 col-xl-3"
-    style="overflow: hidden; position: relative; margin-top: 200px"
+    style="
+      overflow: hidden;
+      position: relative;
+      margin-top: 200px;
+      z-index: 1500;
+    "
+    data-aos="fade-in"
+    data-aos-duration="1500"
   >
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
@@ -10,7 +17,7 @@
     </div>
     <div class="row justify-content-center login-box">
       <form action="#">
-        <div class="row login-form-group">
+        <div class="row login-form-group mx-2">
           <input
             type="email"
             class="login-form-input"
@@ -24,7 +31,7 @@
         <div class="row" v-if="message != ''">
           <p :style="msgStyle">{{ message }}</p>
         </div>
-        <div class="row login-form-group mx-auto justify-content-between">
+        <div class="row login-form-group mx-2 justify-content-between">
           <button
             type="submit"
             class="col-5 login-form-button btn btn-primary px-4"

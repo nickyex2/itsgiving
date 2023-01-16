@@ -171,7 +171,8 @@ if (cookieEnabled) {
           payload.displayName != user.displayName
         ) {
           const storage = getStorage();
-          const defaultProfilePic = stRefe(storage, "defaultProfilePic.png");
+          const defaultProfilePicRef = stRefe(storage, "defaultProfilePic.png");
+          const defaultProfilePic = await getDownloadURL(defaultProfilePicRef);
           if (payload.profilePicture != user.photoURL) {
             if (user.photoURL != defaultProfilePic) {
               const deleteRef = stRefe(storage, user.photoURL);

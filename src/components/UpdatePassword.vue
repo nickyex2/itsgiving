@@ -85,7 +85,6 @@ export default {
     const message = ref("");
     const messageStyle = ref("");
     const updatePassword = async () => {
-      console.log("update password", currPassword.value, newPassword.value);
       try {
         const credential = EmailAuthProvider.credential(
           user.value.email,
@@ -97,7 +96,6 @@ export default {
         message.value = "Password updated!";
         messageStyle.value = "color: green; font-weight: bold";
       } catch (error) {
-        console.log(error);
         if (error.message === "Firebase: Error (auth/wrong-password).") {
           message.value = "Wrong current password!";
         } else if (

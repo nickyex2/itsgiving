@@ -92,7 +92,7 @@
           <br />and when inspiration strikes, <br />we’re the platform to kick
           off your giving dreams and projects!
         </p>
-        <button @click="handleSignUpNow">Sign Up Now</button>
+        <button @click="handleSignUpNow">Apply Now</button>
       </div>
     </div>
 
@@ -200,7 +200,7 @@ export default {
           const increment = target / 200;
           if (count < target) {
             counter.innerText = `${Math.ceil(count + increment)}`;
-            setTimeout(updateCounter, 10);
+            setTimeout(updateCounter, 90);
           } else counter.innerText = target;
         };
         updateCounter();

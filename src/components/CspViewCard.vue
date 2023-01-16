@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-item unique active" v-if="id == 0">
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <div class="card">
         <img :src="csp.cover_image" class="card-img-top" alt="..." />
         <div class="card-body">
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="carousel-item unique" v-else>
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <div class="card">
         <img :src="csp.cover_image" class="card-img-top" alt="..." />
         <div class="card-body">
@@ -41,8 +41,8 @@ export default {
   setup(props) {
     const cspID = props.csp.link.slice(35);
     const description = ref(props.csp.description);
-    if (props.csp.description.length > 75) {
-      description.value = props.csp.description.slice(0, 75) + "...";
+    if (props.csp.description.length > 100) {
+      description.value = props.csp.description.slice(0, 100) + "...";
     }
     return { cspID, description };
   },
